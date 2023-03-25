@@ -4,7 +4,7 @@ import HomeComp from "./component/User/HomeComp/HomeComp";
 
 import LoginComp from "./component/LoginComp/LoginComp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AdminHome from "./component/Admin/AdminHome";
+import AdminHome from "./component/Admin/AdminHome/AdminHome";
 
 function App() {
   return (
