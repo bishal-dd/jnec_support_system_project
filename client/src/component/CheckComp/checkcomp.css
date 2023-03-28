@@ -1,0 +1,16 @@
+#check-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+#ticket-number{
+    padding: 4px 30px;
+    width: 330px;
+}
+.check-form{
+    align-items:center;
+    justify-content: center;
+    width: 330px;
+}
