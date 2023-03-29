@@ -2,9 +2,12 @@ import React from "react";
 
 export default function HomeComp() {
   return (
-    <div className="container mt-5">
+    <div
+      className="container border border-2 rounded-4 p-4 mt-5"
+      style={{ maxWidth: "600px" }}
+    >
       <h1 className="mb-4">Submit an Issue</h1>
-      <form action="submit.php" method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data">
         <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name" className="form-control" />
@@ -45,7 +48,7 @@ export default function HomeComp() {
             className="form-control"
           ></textarea>
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="issue-image">Issue Image:</label>
           <input
             type="file"
@@ -55,7 +58,7 @@ export default function HomeComp() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-3">
           Submit Issue
         </button>
       </form>

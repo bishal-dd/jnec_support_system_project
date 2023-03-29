@@ -15,6 +15,7 @@ export default function AdminHome() {
         </div>
       </div>
       <div className="row">
+        
         <table class="table text-center mt-5 table-bordered border-dark">
           <thead>
             <tr>
