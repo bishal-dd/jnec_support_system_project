@@ -51,21 +51,6 @@ export default function WorkerComp() {
             <td>Issue 7</td>
           <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
-          <tr>
-            <td>8</td>
-            <td>Issue 8</td>
-          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>Issue 9</td>
-          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>Issue 10</td>
-          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
-          </tr>
         </tbody>
       </table>
     </div>

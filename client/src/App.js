@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminHome from "./component/Admin/AdminHome/AdminHome";
 import CheckComp from "./component/CheckComp/CheckComp";
 import WorkerComp from "./component/WorkerComp/WorkerComp";
+import EditComp from "./component/EditComp/EditComp";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/check" element={<CheckComp />}  /> 
           <Route path="/worker"  element={<WorkerComp />} />
+          <Route path="/edit" element={<EditComp />} />
         </Routes>
       </BrowserRouter>
     </>
