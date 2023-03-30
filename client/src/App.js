@@ -9,6 +9,7 @@ import WorkerComp from "./component/WorkerComp/WorkerComp";
 import EditComp from "./component/Admin/EditComp/EditComp";
 import AddWorker from "./component/Admin/AddWorker/AddWorker";
 import DeleteWorkerComp from "./component/Admin/DeleteWorkerComp/DeleteWorkerComp";
+import ViewerHome from "./component/Viewer/ViewerHome";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/edit" element={<EditComp />} />
           <Route path="/add" element={<AddWorker />} />
           <Route path="/delete" element={<DeleteWorkerComp />} />
+          <Route path="/view" element={<ViewerHome />} />
         </Routes>
       </BrowserRouter>
     </>
