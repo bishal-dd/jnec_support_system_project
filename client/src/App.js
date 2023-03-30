@@ -8,6 +8,7 @@ import CheckComp from "./component/CheckComp/CheckComp";
 import WorkerComp from "./component/WorkerComp/WorkerComp";
 import EditComp from "./component/Admin/EditComp/EditComp";
 import AddWorker from "./component/Admin/AddWorker/AddWorker";
+import DeleteWorkerComp from "./component/Admin/DeleteWorkerComp/DeleteWorkerComp";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/worker" element={<WorkerComp />} />
           <Route path="/edit" element={<EditComp />} />
           <Route path="/add" element={<AddWorker />} />
+          <Route path="/delete" element={<DeleteWorkerComp />} />
         </Routes>
       </BrowserRouter>
     </>

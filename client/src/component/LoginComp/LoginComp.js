@@ -40,7 +40,11 @@ export default function LoginComp() {
     return errors;
   };
   return (
-    <Container id="main-container" className="d-grid bg-light rounded-4 p-4">
+    <Container
+      id="main-container"
+      className="d-grid bg-light rounded-4 p-4"
+      style={{ maxWidth: "600px" }}
+    >
       <Form id="sign-in-form" className="text-center w-100 mt-2 ">
         <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
         <Form.Group controlId="sign-in-email-address">
@@ -73,9 +77,6 @@ export default function LoginComp() {
         </div>
         <br />
       </Form>
-      <a className="text-left p-2" href="/register">
-        Register
-      </a>
     </Container>
   );
 }

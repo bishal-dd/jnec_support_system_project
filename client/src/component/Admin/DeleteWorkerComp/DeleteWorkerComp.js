@@ -18,31 +18,31 @@ export default function DeleteWorkerComp() {
           <tr>
             <td>1</td>
             <td>Technician 1</td>
-            <button className="btn btn-primary mb-2 mt-2">Add</button>
+
             <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
           </tr>
           <tr>
             <td>2</td>
             <td>Technician 2</td>
-            <button className="btn btn-primary mb-2 mt-2">Add</button>
+
             <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
           </tr>
           <tr>
             <td>3</td>
             <td>Technician 3</td>
-            <button className="btn btn-primary mb-2 mt-2">Add</button>
+
             <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
           </tr>
           <tr>
             <td>4</td>
             <td>Technician 4</td>
-            <button className="btn btn-primary mb-2 mt-2">Add</button>
+
             <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
           </tr>
           <tr>
             <td>5</td>
             <td>Technician 5</td>
-            <button className="btn btn-primary mb-2 mt-2">Add</button>
+
             <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
           </tr>
           <tr></tr>
