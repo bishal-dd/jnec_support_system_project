@@ -18,62 +18,53 @@ export default function WorkerComp() {
           <tr>
             <td>1</td>
             <td>Issue 1</td>
-          <input type="checkbox" id="" value="" className=''/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" value="" className='btn btn-primary mb-2 mt-2'>Solved</button>
           </tr>
           <tr>
             <td>2</td>
             <td>Issue 2</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>3</td>
             <td>Issue 3</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>4</td>
             <td>Issue 4</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
+          
           </tr>
           <tr>
             <td>5</td>
             <td>Issue 5</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>6</td>
             <td>Issue 6</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>7</td>
             <td>Issue 7</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>8</td>
             <td>Issue 8</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>9</td>
             <td>Issue 9</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
           <tr>
             <td>10</td>
             <td>Issue 10</td>
-          <input type="checkbox" id="" value=""/>Solve
-          <input type="checkbox" id="" value=""/> Not solve
+          <button type="checkbox" id="" className='btn btn-primary mb-2' value="">Solved</button>
           </tr>
         </tbody>
       </table>
