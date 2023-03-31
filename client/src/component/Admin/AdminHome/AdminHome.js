@@ -5,17 +5,22 @@ export default function AdminHome() {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col text-center">
-          <button>Addworker</button>
+          <Link to="/add" className="btn btn-primary">
+            Addworker
+          </Link>
         </div>
         <div className="col">
-          <button>Editworker</button>
+          <Link to="/edit" className="btn btn-primary">
+            Editworker
+          </Link>
         </div>
         <div className="col">
-          <button>Deleteworker</button>
+          <Link to="/delete" className="btn btn-primary">
+            Deleteworker
+          </Link>
         </div>
       </div>
       <div className="row">
-        
         <table class="table text-center mt-5 table-bordered border-dark">
           <thead>
             <tr>
@@ -39,7 +44,7 @@ export default function AdminHome() {
                 </select>
               </td>
               <td>
-                <button>Assign</button>
+                <button className="btn btn-primary">Assign</button>
               </td>
             </tr>
           </tbody>
