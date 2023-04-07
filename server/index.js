@@ -8,6 +8,13 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "wweisbest1234@",
+  database: "ProjectDB",
+});
+
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });
