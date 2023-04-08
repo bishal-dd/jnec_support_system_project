@@ -1,8 +1,18 @@
 import React from "react";
 import "./navbarcomp.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NavbarComp() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Remove the JWT token from local storage
+    localStorage.removeItem("token");
+
+    // Navigate back to the login page
+    navigate("/");
+  };
+
   return (
     <nav className="nav fixed-top navbar-expand-sm text-right bg-light">
       <button
@@ -30,9 +40,18 @@ export default function NavbarComp() {
               </Link>
             </li>
             <li className="nav-item px-2">
-              <Link to="/login" className="nav-link active text-right">
-                Login
-              </Link>
+              {localStorage.getItem("token") ? (
+                <button
+                  onClick={handleLogout}
+                  className="nav-link active text-right"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login" className="nav-link active text-right">
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
         </div>

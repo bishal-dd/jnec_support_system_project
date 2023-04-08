@@ -4,7 +4,9 @@ const app = express();
 const cors = require("cors");
 const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
+const generateRandomCode = require("./src/random_code");
+
+const randomCode = generateRandomCode();
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
@@ -50,10 +52,7 @@ function authenticate(req, res, next) {
 
 app.post("/api/login", authenticate, (req, res) => {
   const { username, role } = req.user;
-  const token = jwt.sign(
-    { username, role },
-    "7b2f21569c45a170cad5957133c899a4ab91eba975a4a30ee5834437c85e421adbc322464a3d8b4cf0ba83b4f0d28b1a162ae43a61073f48ea1e031c719b15bd"
-  );
+  const token = jwt.sign({ username, role }, randomCode);
   console.log(token);
   res.json({ token });
 });

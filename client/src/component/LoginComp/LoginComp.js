@@ -24,7 +24,6 @@ export default function LoginComp() {
         password,
       });
       const { token } = response.data;
-      console.log(token);
 
       // Set the JWT token in local storage
       localStorage.setItem("token", token);
