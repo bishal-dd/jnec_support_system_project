@@ -10,8 +10,12 @@ import EditComp from "./component/Admin/EditComp/EditComp";
 import AddWorker from "./component/Admin/AddWorker/AddWorker";
 import DeleteWorkerComp from "./component/Admin/DeleteWorkerComp/DeleteWorkerComp";
 import ViewerHome from "./component/Viewer/ViewerHome";
+import { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   return (
     <>
       <BrowserRouter>
