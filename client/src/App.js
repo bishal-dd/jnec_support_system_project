@@ -14,6 +14,7 @@ import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ProtectedWorkerRoute from "./routes/ProtectedWorkerRoute";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -29,12 +30,12 @@ function App() {
             <Route path="/add" element={<AddWorker />} />
             <Route path="/delete" element={<DeleteWorkerComp />} />
           </Route>
+          <Route element={<ProtectedWorkerRoute user={currentUser} />}>
+            <Route path="/worker" element={<WorkerComp />} />
+          </Route>
           <Route path="/" element={<HomeComp />} />
           <Route path="/login" element={<LoginComp />} />
-
           <Route path="/check" element={<CheckComp />} />
-          <Route path="/worker" element={<WorkerComp />} />
-
           <Route path="/view" element={<ViewerHome />} />
         </Routes>
       </BrowserRouter>

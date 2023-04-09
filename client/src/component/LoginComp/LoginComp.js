@@ -34,6 +34,7 @@ export default function LoginComp() {
         window.location.reload();
       } else if (decodeToken(token).role === "worker") {
         navigate("/worker");
+        window.location.reload();
       }
     } catch (error) {
       setError("Invalid credentials");
