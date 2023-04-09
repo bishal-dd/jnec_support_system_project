@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Loading from "../utilities/Loading";
 
 export const AuthContext = React.createContext();
 
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   if (pending) {
-    return <>Loading...</>;
+    return <Loading />;
   }
 
   return (
