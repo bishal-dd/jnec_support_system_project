@@ -33,10 +33,11 @@ export default function HomeComp() {
         <div className="form-group">
           <label htmlFor="issue-type">Issue Type:</label>
           <select id="issue-type" name="issue-type" className="form-control">
-            <option value="bug">Bug</option>
-            <option value="feature">Feature Request</option>
-            <option value="support">Support Request</option>
-            <option value="other">Other</option>
+            <option value="">Select a department...</option>
+            <option value="ICT">ICT</option>
+            <option value="estate">Estate</option>
+            <option value="eletrical">Electrical</option>
+            <option value="plumbing">Plumbing</option>
           </select>
         </div>
         <div className="form-group">

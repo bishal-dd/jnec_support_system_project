@@ -11,6 +11,7 @@ export default function NavbarComp() {
 
     // Navigate back to the login page
     navigate("/");
+    window.location.reload();
   };
 
   return (

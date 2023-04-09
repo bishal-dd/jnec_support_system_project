@@ -13,22 +13,28 @@ import ViewerHome from "./component/Viewer/ViewerHome";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 function App() {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
+
   return (
     <>
       <BrowserRouter>
         <NavbarComp />
         <Routes>
+          <Route element={<ProtectedRoute user={currentUser} />}>
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/edit" element={<EditComp />} />
+            <Route path="/add" element={<AddWorker />} />
+            <Route path="/delete" element={<DeleteWorkerComp />} />
+          </Route>
           <Route path="/" element={<HomeComp />} />
           <Route path="/login" element={<LoginComp />} />
-          <Route path="/admin" element={<AdminHome />} />
+
           <Route path="/check" element={<CheckComp />} />
           <Route path="/worker" element={<WorkerComp />} />
-          <Route path="/edit" element={<EditComp />} />
-          <Route path="/add" element={<AddWorker />} />
-          <Route path="/delete" element={<DeleteWorkerComp />} />
+
           <Route path="/view" element={<ViewerHome />} />
         </Routes>
       </BrowserRouter>

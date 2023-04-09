@@ -31,6 +31,7 @@ export default function LoginComp() {
       // Navigate to the appropriate page based on the user's role
       if (decodeToken(token).role === "admin") {
         navigate("/admin");
+        window.location.reload();
       } else if (decodeToken(token).role === "worker") {
         navigate("/worker");
       }
