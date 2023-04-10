@@ -71,6 +71,33 @@ app.get("/api/user", (req, res) => {
   }
 });
 
+app.post("/api/issue", (req, res) => {
+  console.log(req.body);
+  const { name, email, phone, issue_summary } = req.body;
+  console.log(name);
+
+  sqlInsert =
+    "INSERT INTO issue (name,email,phone,issue_summary) VALUES (?,?,?,?);";
+
+  db.query(sqlInsert, [name, email, phone, issue_summary], (error, result) => {
+    if (error) {
+      console.log(error);
+    } else {
+    }
+  });
+});
+
+app.get("/api/get_issue", (req, res) => {
+  sqlGet = "SELECT * FROM issue;";
+
+  db.query(sqlGet, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });
