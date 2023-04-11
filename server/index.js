@@ -21,29 +21,42 @@ const db = mysql.createConnection({
 
 function authenticate(req, res, next) {
   const { username, password } = req.body;
-  const query =
+  const adminQuery =
     "SELECT * FROM admin WHERE username = ? AND password = SHA2(?, 256)";
-  db.query(query, [username, password], (err, results) => {
+  const workerQuery =
+    "SELECT * FROM worker WHERE username = ? AND password = SHA2(?, 256)";
+  const viewerQuery =
+    "SELECT * FROM viewer WHERE username = ? AND password = SHA2(?, 256)";
+
+  db.query(adminQuery, [username, password], (err, adminResults) => {
     if (err) {
-      console.log(results);
+      console.log(adminResults);
       return res.status(500).json({ error: "Internal Server Error" });
     }
 
-    if (results.length === 1) {
+    if (adminResults.length === 1) {
       req.user = { username, role: "admin" };
       return next();
     } else {
-      const query =
-        "SELECT * FROM worker WHERE username = ? AND password = SHA2(?, 256)";
-      db.query(query, [username, password], (err, results) => {
+      db.query(workerQuery, [username, password], (err, workerResults) => {
         if (err) {
           return res.status(500).json({ error: "Internal Server Error" });
         }
-        if (results.length === 1) {
+        if (workerResults.length === 1) {
           req.user = { username, role: "worker" };
           return next();
         } else {
-          return res.status(401).json({ error: "Invalid Credentials" });
+          db.query(viewerQuery, [username, password], (err, viewerResults) => {
+            if (err) {
+              return res.status(500).json({ error: "Internal Server Error" });
+            }
+            if (viewerResults.length === 1) {
+              req.user = { username, role: "viewer" };
+              return next();
+            } else {
+              return res.status(401).json({ error: "Invalid Credentials" });
+            }
+          });
         }
       });
     }

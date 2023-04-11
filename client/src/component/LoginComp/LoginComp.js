@@ -27,6 +27,7 @@ export default function LoginComp() {
 
       // Set the JWT token in local storage
       localStorage.setItem("token", token);
+      console.log(decodeToken(token).role);
 
       // Navigate to the appropriate page based on the user's role
       if (decodeToken(token).role === "admin") {
@@ -34,6 +35,9 @@ export default function LoginComp() {
         window.location.reload();
       } else if (decodeToken(token).role === "worker") {
         navigate("/worker");
+        window.location.reload();
+      } else {
+        navigate("/view");
         window.location.reload();
       }
     } catch (error) {
