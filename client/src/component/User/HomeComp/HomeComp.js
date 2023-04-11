@@ -19,7 +19,7 @@ export default function HomeComp() {
     console.log(state.phone);
 
     try {
-      await axios.post("http://localhost:3001/api/issue", state);
+      await axios.post("http://localhost:3001/api/post_addworker", state);
       setState(initialState);
     } catch (err) {
       console.log(err.response.data);

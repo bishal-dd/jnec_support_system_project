@@ -6,7 +6,7 @@ export default function AdminHome() {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
+      const response = await axios.get("http://localhost:3001/api/get_addworker");
 
       setevent(response.data);
       console.log(event);

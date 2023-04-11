@@ -1,17 +1,43 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button} from "react-bootstrap";
+import { toast}  from "react-toastify";
+
+const initialState = {
+  name: "",
+  department: "",
+  phone: "",
+  email: "",
+
+};
 
 export default function AddWorker() {
-  const [name, setName] = useState("");
-  const [department, setDepartment] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [state, setState] = useState(initialState);
+
+  const {name, department, phone, email } = state;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Send the form data to the backend for processing
-    console.log({ name, department, phone, email });
+    if(setState(initialState)){
+      toast.error("please enter correct values");
+    }else{
+      axios.post("http://localhost:3001/api/addworker", {
+        name,
+        department,
+        phone,
+        email,
+      }).then(() => {
+        setState({name: "", department: "", phone: "", email: ""});
+      })
+      .catch((error) =>  toast.error(error.response.data))
+    };
   };
+  
+  const handleInputChange = (event) => {
+    const {name, value} = event.target;
+    setState({...state, [name]:value});
+  };
+
 
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
@@ -23,7 +49,7 @@ export default function AddWorker() {
             name="name"
             required
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={handleInputChange}
           />
         </Form.Group>
 
@@ -34,7 +60,7 @@ export default function AddWorker() {
             name="department"
             required
             value={department}
-            onChange={(event) => setDepartment(event.target.value)}
+            onChange={handleInputChange}
           >
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
@@ -49,10 +75,9 @@ export default function AddWorker() {
           <Form.Control
             type="tel"
             name="phone"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             required
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={handleInputChange}
           />
         </Form.Group>
 
@@ -63,11 +88,12 @@ export default function AddWorker() {
             name="email"
             required
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={handleInputChange}
           />
         </Form.Group>
 
         <Button type="submit">Add Worker</Button>
+        
       </Form>
     </div>
   );
