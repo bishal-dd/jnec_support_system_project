@@ -5,7 +5,15 @@ const cors = require("cors");
 const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const generateRandomCode = require("./src/random_code");
-
+const multer = require("multer");
+const sharp = require("sharp");
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: {
+    fieldSize: 1024 * 1024 * 10, // 10MB
+  },
+});
 const randomCode = generateRandomCode();
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
@@ -84,20 +92,34 @@ app.get("/api/user", (req, res) => {
   }
 });
 
-app.post("/api/issue", (req, res) => {
+const MAX_IMAGE_SIZE = 10000000;
+
+app.post("/api/issue", upload.single("issue_image"), (req, res) => {
   console.log(req.body);
-  const { name, email, phone, issue_summary } = req.body;
+  const { name, email, phone, issue_type, issue_summary } = req.body;
   console.log(name);
+  let image = req.file ? req.file.buffer : null;
+  const imageSize = image ? image.length : 0;
 
+  if (imageSize > MAX_IMAGE_SIZE) {
+    console.log("Image size exceeds the limit of 10 MB");
+    res.status(400).send("Image size exceeds the limit of 10 MB");
+    return;
+  }
   sqlInsert =
-    "INSERT INTO issue (name,email,phone,issue_summary) VALUES (?,?,?,?);";
+    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
 
-  db.query(sqlInsert, [name, email, phone, issue_summary], (error, result) => {
-    if (error) {
-      console.log(error);
-    } else {
+  db.query(
+    sqlInsert,
+    [name, email, phone, image, issue_type, issue_summary],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
 
 app.get("/api/get_issue", (req, res) => {

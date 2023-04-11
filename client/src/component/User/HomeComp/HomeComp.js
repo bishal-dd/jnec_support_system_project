@@ -6,6 +6,8 @@ export default function HomeComp() {
     name: "",
     email: "",
     phone: "",
+    issue_image: null,
+    issue_type: "",
     issue_summary: "",
   };
 
@@ -17,9 +19,17 @@ export default function HomeComp() {
     console.log(state.name);
     console.log(state.email);
     console.log(state.phone);
+    console.log(state.issue_type);
+    const formData = new FormData();
+    formData.append("name", state.name);
+    formData.append("email", state.email);
+    formData.append("phone", state.phone);
+    formData.append("issue_type", state.issue_type);
+    formData.append("issue_summary", state.issue_summary);
+    formData.append("issue_image", state.issue_image);
 
     try {
-      await axios.post("http://localhost:3001/api/issue", state);
+      await axios.post("http://localhost:3001/api/issue", formData);
       setState(initialState);
     } catch (err) {
       console.log(err.response.data);
@@ -27,12 +37,15 @@ export default function HomeComp() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setState({ ...state, [name]: value });
+    const { name, value, files } = e.target;
+    if (name === "issue_image") {
+      setState({ ...state, [name]: files[0] });
+    } else {
+      setState({ ...state, [name]: value });
+    }
   };
 
-  const { name, email, phone, issue_summary } = state;
+  const { name, email, phone, issue_type, issue_summary } = state;
   return (
     <div
       className="container border border-2 rounded-4 p-4 mt-5"
@@ -74,8 +87,14 @@ export default function HomeComp() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="issue-type">Issue Type:</label>
-          <select id="issue-type" name="issue-type" className="form-control">
+          <label htmlFor="issue_type">Issue Type:</label>
+          <select
+            id="issue_type"
+            name="issue_type"
+            className="form-control"
+            value={issue_type}
+            onChange={handleChange}
+          >
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
             <option value="estate">Estate</option>
@@ -98,9 +117,10 @@ export default function HomeComp() {
           <label htmlFor="issue-image">Issue Image:</label>
           <input
             type="file"
-            id="issue-image"
-            name="issue-image"
+            id="issue_image"
+            name="issue_image"
             className="form-control-file"
+            onChange={handleChange}
           />
         </div>
 
