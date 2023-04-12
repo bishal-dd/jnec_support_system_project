@@ -123,16 +123,37 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
 });
 
 app.get("/api/get_issue", (req, res) => {
-  sqlGet = "SELECT * FROM issue;";
-
+  const sqlGet = "SELECT * FROM issue";
   db.query(sqlGet, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send("Error retrieving events from database");
     } else {
-      res.send(result);
+      const eventsWithImages = result.map(async (issue) => {
+        const imageBuffer = issue.issue_image;
+        const image = sharp(imageBuffer);
+        const metadata = await image.metadata();
+        if (metadata.format === undefined) {
+          console.log("Invalid image format");
+        } else {
+          const imageData = Buffer.from(imageBuffer).toString("base64");
+          issue.issue_image = `data:image/${metadata.format};base64,${imageData}`;
+        }
+        return issue;
+      });
+
+      Promise.all(eventsWithImages)
+        .then((results) => {
+          res.send(results);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send("Error processing images");
+        });
     }
   });
 });
+
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });
