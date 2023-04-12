@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 export default function AdminHome() {
   const [event, setevent] = useState([]);
+  const [worker, setWorker] = useState([]);
 
   const loadEvent = async () => {
     try {
@@ -15,8 +16,22 @@ export default function AdminHome() {
     }
   };
 
+  const loadWorker = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/api/get_addworker"
+      );
+
+      setWorker(response.data);
+      console.log(event);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     loadEvent();
+    loadWorker();
   }, []);
 
   return (
