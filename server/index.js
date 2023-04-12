@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "student@2021",
+  password: "wweisbest1234@",
   database: "ProjectDB",
 });
 
@@ -154,25 +154,27 @@ app.get("/api/get_issue", (req, res) => {
   });
 });
 
-app.post("/api/addworker", (req, res) => {
-  console.log(req.body);
+app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
-  console.log(name);
 
   sqlInsert =
-    "INSERT INTO addworker (name,department,phone,email) VALUES (?,?,?,?);";
-
-  db.query(sqlInsert, [name, department, phone, email], (error, result) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(result);
+    "INSERT INTO worker (username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+  console.log(randomCode);
+  db.query(
+    sqlInsert,
+    [name, randomCode, department, phone, email],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
 
 app.get("/api/get_addworker", (req, res) => {
-  sqlGet = "SELECT * FROM addworker;";
+  sqlGet = "SELECT * FROM worker;";
 
   db.query(sqlGet, (err, result) => {
     if (err) {

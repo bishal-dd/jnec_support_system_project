@@ -7,7 +7,7 @@ export default function AdminHome() {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_addworker");
+      const response = await axios.get("http://localhost:3001/api/get_issue");
 
       setevent(response.data);
       console.log(event);
@@ -23,7 +23,7 @@ export default function AdminHome() {
       );
 
       setWorker(response.data);
-      console.log(event);
+      console.log(worker);
     } catch (error) {
       console.error(error);
     }
@@ -80,7 +80,9 @@ export default function AdminHome() {
                   <td>{item.issue_summary}</td>
                   <th>
                     <select>
-                      <option>worker1</option>
+                      {worker.map((item, index) => {
+                        return <option value={item.name}>{item.name}</option>;
+                      })}
                     </select>
                     <button className="btn btn-primary">Assign</button>
                   </th>

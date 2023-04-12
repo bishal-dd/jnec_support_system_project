@@ -1,43 +1,43 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Form, Button} from "react-bootstrap";
-import { toast}  from "react-toastify";
+import { Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
   department: "",
   phone: "",
   email: "",
-
 };
 
 export default function AddWorker() {
   const [state, setState] = useState(initialState);
 
-  const {name, department, phone, email } = state;
+  const { name, department, phone, email } = state;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(setState(initialState)){
+    if (setState(initialState)) {
       toast.error("please enter correct values");
-    }else{
-      axios.post("http://localhost:3001/api/addworker", {
-        name,
-        department,
-        phone,
-        email,
-      }).then(() => {
-        setState({name: "", department: "", phone: "", email: ""});
-      })
-      .catch((error) =>  toast.error(error.response.data))
-    };
-  };
-  
-  const handleInputChange = (event) => {
-    const {name, value} = event.target;
-    setState({...state, [name]:value});
+    } else {
+      axios
+        .post("http://localhost:3001/api/worker", {
+          name,
+          department,
+          phone,
+          email,
+        })
+        .then(() => {
+          setState(initialState);
+        })
+        .catch((error) => toast.error(error.response.data));
+    }
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState({ ...state, [name]: value });
+  };
 
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
@@ -73,7 +73,7 @@ export default function AddWorker() {
         <Form.Group controlId="phone">
           <Form.Label>Phone Number:</Form.Label>
           <Form.Control
-            type="tel"
+            type="number"
             name="phone"
             required
             value={phone}
@@ -93,7 +93,6 @@ export default function AddWorker() {
         </Form.Group>
 
         <Button type="submit">Add Worker</Button>
-        
       </Form>
     </div>
   );
