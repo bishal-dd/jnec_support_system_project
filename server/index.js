@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "wweisbest1234@",
+  password: "student@2021",
   database: "ProjectDB",
 });
 
@@ -94,7 +94,7 @@ app.get("/api/user", (req, res) => {
 
 const MAX_IMAGE_SIZE = 10000000;
 
-app.post("/api/issue", upload.single("issue_image"), (req, res) => {
+app.post("/api/issue_table", upload.single("issue_image"), (req, res) => {
   console.log(req.body);
   const { name, email, phone, issue_type, issue_summary } = req.body;
   console.log(name);
@@ -107,7 +107,7 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
     return;
   }
   sqlInsert =
-    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
+    "INSERT INTO issue_table (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
 
   db.query(
     sqlInsert,
@@ -150,6 +150,35 @@ app.get("/api/get_issue", (req, res) => {
           console.log(err);
           res.status(500).send("Error processing images");
         });
+    }
+  });
+});
+
+app.post("/api/addworker", (req, res) => {
+  console.log(req.body);
+  const { name, department, phone, email } = req.body;
+  console.log(name);
+
+  sqlInsert =
+    "INSERT INTO addworker (name,department,phone,email) VALUES (?,?,?,?);";
+
+  db.query(sqlInsert, [name, department, phone, email], (error, result) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(result);
+    }
+  });
+});
+
+app.get("/api/get_addworker", (req, res) => {
+  sqlGet = "SELECT * FROM addworker;";
+
+  db.query(sqlGet, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
     }
   });
 });
