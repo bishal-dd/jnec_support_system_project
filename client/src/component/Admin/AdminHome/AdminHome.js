@@ -7,6 +7,7 @@ export default function AdminHome() {
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
 
   const assignWorker = async (workerId, issueId) => {
+    console.log(workerId);
     try {
       const response = await axios.put(
         `http://localhost:3001/api/assign_issue/${issueId}`,

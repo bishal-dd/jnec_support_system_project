@@ -1,59 +1,56 @@
-import React from 'react';
-import './workercomp.css';
+import React, { useContext, useState, useEffect } from "react";
+import "./workercomp.css";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 export default function WorkerComp() {
+  const { currentUser } = useContext(AuthContext);
+  const [event, setevent] = useState([]);
+
+  const { id } = currentUser;
+
+  const loadEvent = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/get_issue");
+      console.log(response.data);
+      setevent(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    loadEvent();
+  }, []);
+
   return (
-    <div id="container" className=''>
-      <table className='table-container text-center
-       bg-light'>
-        <thead className='table-items p-2 text-center'>
-        <tr>
-          <th>SL No:</th>
-          <th>Issues</th>
-          <th>Status</th>
-          <th>Date</th>
-        </tr>
+    <div id="container" className="">
+      <table
+        className="table-container text-center
+       bg-light"
+      >
+        <thead className="table-items p-2 text-center">
+          <tr>
+            <th>SL No:</th>
+            <th>Issues</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
         </thead>
-        <tbody> 
-          <tr>
-            <td>1</td>
-            <td>Issue 1</td>
-          <button className='btn btn-primary mb-2 mt-2'>Solved</button>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Issue 2</td>
-          <button className='btn btn-primary mb-2'>Solved</button>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Issue 3</td>
-          <button className='btn btn-primary mb-2'>Solved</button>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Issue 4</td>
-          <button  className='btn btn-primary mb-2'>Solved</button>
-          
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Issue 5</td>
-          <button  className='btn btn-primary mb-2'>Solved</button>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Issue 6</td>
-          <button className='btn btn-primary mb-2'>Solved</button>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Issue 7</td>
-          <button className='btn btn-primary mb-2'>Solved</button>
-          </tr>
+        <tbody>
+          {event
+            .filter((item) => item.worker_id === id)
+            .map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <button className="btn btn-primary mb-2 mt-2">Solved</button>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
-
