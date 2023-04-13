@@ -4,13 +4,27 @@ import axios from "axios";
 export default function AdminHome() {
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
+  const [selectedWorkerId, setSelectedWorkerId] = useState(null);
+
+  const assignWorker = async (workerId, issueId) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/api/assign_issue/${issueId}`,
+        { id: issueId, worker_id: workerId }
+      );
+      console.log(response.data);
+      // Refresh the event list to show the updated worker assignment
+      loadEvent();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadEvent = async () => {
     try {
       const response = await axios.get("http://localhost:3001/api/get_issue");
 
       setevent(response.data);
-      console.log(event);
     } catch (error) {
       console.error(error);
     }
@@ -21,9 +35,8 @@ export default function AdminHome() {
       const response = await axios.get(
         "http://localhost:3001/api/get_addworker"
       );
-
+      console.log(response.data);
       setWorker(response.data);
-      console.log(worker);
     } catch (error) {
       console.error(error);
     }
@@ -79,12 +92,23 @@ export default function AdminHome() {
                   </td>
                   <td>{item.issue_summary}</td>
                   <th>
-                    <select>
+                    <select
+                      onChange={(e) => setSelectedWorkerId(e.target.value)}
+                    >
                       {worker.map((item, index) => {
-                        return <option value={item.name}>{item.name}</option>;
+                        return (
+                          <option key={index} value={item.id}>
+                            {item.username}
+                          </option>
+                        );
                       })}
                     </select>
-                    <button className="btn btn-primary">Assign</button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => assignWorker(selectedWorkerId, item.id)}
+                    >
+                      Assign
+                    </button>
                   </th>
                 </tr>
               );
