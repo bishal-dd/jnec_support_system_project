@@ -91,11 +91,13 @@ export default function AdminHome() {
                       height="200px"
                     />
                   </td>
+
                   <td>{item.issue_summary}</td>
                   <th>
                     <select
                       onChange={(e) => setSelectedWorkerId(e.target.value)}
                     >
+                      <option>Select Worker</option>
                       {worker.map((item, index) => {
                         return (
                           <option key={index} value={item.id}>
