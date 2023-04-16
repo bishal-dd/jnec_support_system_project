@@ -4,8 +4,8 @@ export default function DeleteWorkerComp() {
   return (
     <div id="editcontainer" className="">
       <table
-        className="edit-container text-center rounded-4
-   bg-light"
+        className="edit-container text-center 
+        rounded-4 bg-light shadow"
       >
         <thead className="edit-items p-2 ">
           <tr>

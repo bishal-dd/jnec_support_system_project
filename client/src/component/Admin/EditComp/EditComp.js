@@ -7,13 +7,14 @@ export default function EditComp() {
 
 
   return (
-    <div className="container" style={{ maxWidth: "600px" }}>
-      <Form>
+    <div className="container mt-5 bg-light rounded-4 shadow" style={{ maxWidth: "600px" }}>
+      <Form className="mt-4">
+        <h3 className="text-center">Update Worker Details</h3>
         <Form.Group controlId="name">
           <Form.Label>Name:</Form.Label>
           <Form.Control
             type="text"
-            name="name"
+            name="name"  
             required
           />
         </Form.Group>
@@ -44,14 +45,17 @@ export default function EditComp() {
 
         <Form.Group controlId="email">
           <Form.Label>Email:</Form.Label>
-          <Form.Control
+          <Form.Control 
             type="email"
             name="email"
             required
           />
         </Form.Group>
-
-        <Button type="submit">Edit Worker</Button>
+        <div className="row justify-content-center text-center gap-5 mt-3">
+        <Button className="btn btn-success col-4  text-center  rounded-4 " type="submit">Update</Button>
+        <a href="/admin" className="btn btn-success col-4  text-center  rounded-4">Cancel</a>
+        
+        </div><br></br>
       </Form>
     </div>
   );

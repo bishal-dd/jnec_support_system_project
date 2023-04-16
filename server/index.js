@@ -124,7 +124,7 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
   );
 });
 
-app.get("/api/get_issue_table", (req, res) => {
+app.get("/api/get_issue", (req, res) => {
   const sqlGet = "SELECT * FROM issue";
   db.query(sqlGet, (err, result) => {
     if (err) {
@@ -174,7 +174,7 @@ app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
   sqlInsert =
-    "INSERT INTO add_worker (username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+    "INSERT INTO worker (name,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
   console.log(randomCode);
   db.query(
     sqlInsert,
@@ -189,8 +189,8 @@ app.post("/api/worker", (req, res) => {
   );
 });
 
-app.get("/api/get _add_worker", (req, res) => {
-  sqlGet = "SELECT * FROM add_worker;";
+app.get("/api/get_worker", (req, res) => {
+  sqlGet = "SELECT * FROM worker;";
 
   db.query(sqlGet, (err, result) => {
     if (err) {

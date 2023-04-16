@@ -42,12 +42,12 @@ export default function NavbarComp() {
             </li>
             <li className="nav-item px-2">
               {localStorage.getItem("token") ? (
-                <button
+                <li
                   onClick={handleLogout}
-                  className="nav-link active text-right"
+                  className="nav-link active text-white text-right"
                 >
                   Logout
-                </button>
+                </li>
               ) : (
                 <Link to="/login" className="nav-link active text-white">
                   Login

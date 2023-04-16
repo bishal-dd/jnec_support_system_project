@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -21,7 +22,7 @@ export default function AddWorker() {
       toast.error("please enter correct values");
     } else {
       axios
-        .post("http://localhost:3001/api/add_worker", {
+        .post("http://localhost:3001/api/worker", {
           name,
           department,
           phone,
@@ -32,6 +33,7 @@ export default function AddWorker() {
         )
         .catch((error) => toast.error(error.response.data));
     }
+    console.log(state,name)
   }
 
   const handleInputChange = (event) => {
@@ -40,8 +42,9 @@ export default function AddWorker() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: "600px" }}>
-      <Form onSubmit={handleSubmit}>
+    <div className="container mt-5 bg-light rounded-4 shadow" style={{ maxWidth: "540px" }}>
+      <Form className="mb-4" onSubmit={handleSubmit}>
+        <h3 className="text-center" >Add Worker</h3>
         <Form.Group controlId="name">
           <Form.Label>Name:</Form.Label>
           <Form.Control
@@ -81,7 +84,7 @@ export default function AddWorker() {
           />
         </Form.Group>
 
-        <Form.Group controlId="email">
+        <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email:</Form.Label>
           <Form.Control
             type="email"
@@ -91,8 +94,11 @@ export default function AddWorker() {
             onChange={handleInputChange}
           />
         </Form.Group>
-
-        <Button type="submit">Add Worker</Button>
+        <div className="row justify-content-center text-center gap-5">
+        <Button className="btn btn-success col-4  text-center  rounded-4 " type="submit">Add Worker</Button>
+        <a href="/admin" className="btn btn-success col-4  text-center  rounded-4">Cancel</a>
+        
+        </div><br></br>
       </Form>
     </div>
   );

@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
-            <Route path="/edit" element={<EditComp />} />
+            <Route path="/edit:id" element={<EditComp />} />
             <Route path="/add" element={<AddWorker />} />
             <Route path="/delete" element={<DeleteWorkerComp />} />
           </Route>

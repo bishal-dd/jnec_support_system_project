@@ -23,7 +23,7 @@ export default function AdminHome() {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/add_worker");
+      const response = await axios.get("http://localhost:3001/api/worker");
 
       setevent(response.data);
     } catch (error) {
@@ -34,7 +34,7 @@ export default function AdminHome() {
   const loadWorker = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/api/get_add_worker"
+        "http://localhost:3001/api/get_worker"
       );
       console.log(response.data);
       setWorker(response.data);
@@ -50,25 +50,25 @@ export default function AdminHome() {
 
   return (
     <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col text-center">
-          <Link to="/add" className="btn btn-primary">
-            Addworker
+      <div className="row justify-content-center text-center ">
+        <div className="col d-grid ">
+          <Link to="/add" className="btn btn-info rounded-5 shadow">
+            Add_Worker
           </Link>
         </div>
-        <div className="col">
-          <Link to="/edit" className="btn btn-primary">
-            Editworker
+        <div className="col d-grid ">
+          <Link to="/edit:id" className="btn btn-info rounded-5 shadow">
+            Edit_Worker
           </Link>
         </div>
-        <div className="col">
-          <Link to="/delete" className="btn btn-primary">
-            Deleteworker
+        <div className="col d-grid ">
+          <Link to="/delete" className="btn btn-info rounded-5 shadow">
+            Delete_Worker
           </Link>
         </div>
       </div>
       <div className="row">
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered mt-3 shadow">
           <thead>
             <tr>
               <th scope="col">#</th>
