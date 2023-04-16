@@ -16,10 +16,6 @@ export default function HomeComp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(state.name);
-    console.log(state.email);
-    console.log(state.phone);
-    console.log(state.issue_type);
     const formData = new FormData();
     formData.append("name", state.name);
     formData.append("email", state.email);

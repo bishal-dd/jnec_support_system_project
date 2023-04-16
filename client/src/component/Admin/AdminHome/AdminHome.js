@@ -57,7 +57,7 @@ export default function AdminHome() {
           </Link>
         </div>
         <div className="col">
-          <Link to="/edit" className="btn btn-primary">
+          <Link to="/editworker" className="btn btn-primary">
             Editworker
           </Link>
         </div>

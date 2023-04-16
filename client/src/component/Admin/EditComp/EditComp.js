@@ -1,30 +1,50 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./editcomp.css";
 import { Form, Button } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function EditComp() {
-  const [name, setName] = useState("");
-  const [department, setDepartment] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const nameRef = useRef("");
+  const departmentRef = useRef("");
+  const phoneRef = useRef("");
+  const emailRef = useRef("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Send the form data to the backend for processing
-    console.log({ name, department, phone, email });
+  const locate = useLocation();
+  const worker = locate.state;
+
+  const handleSubmit = (id, e) => {
+    e.preventDefault();
+
+    axios
+      .put(`http://localhost:3001/api/editworker/${id}`, {
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+        phone: phoneRef.current.value,
+        department: departmentRef.current.value,
+      })
+      .then((result) => {
+        if (result.data) {
+          alert("edit success");
+        }
+      });
   };
 
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
-      <Form onSubmit={handleSubmit}>
+      <Form
+        onSubmit={(e) => {
+          handleSubmit(worker.id, e);
+        }}
+      >
         <Form.Group controlId="name">
           <Form.Label>Name:</Form.Label>
           <Form.Control
             type="text"
-            name="name"
+            name="username"
+            defaultValue={worker.username}
             required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            ref={nameRef}
           />
         </Form.Group>
 
@@ -34,8 +54,8 @@ export default function EditComp() {
             as="select"
             name="department"
             required
-            value={department}
-            onChange={(event) => setDepartment(event.target.value)}
+            defaultValue={worker.department}
+            ref={departmentRef}
           >
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
@@ -50,10 +70,9 @@ export default function EditComp() {
           <Form.Control
             type="tel"
             name="phone"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            defaultValue={worker.phone}
             required
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            ref={phoneRef}
           />
         </Form.Group>
 
@@ -62,9 +81,9 @@ export default function EditComp() {
           <Form.Control
             type="email"
             name="email"
+            defaultValue={worker.email}
             required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            ref={emailRef}
           />
         </Form.Group>
 
