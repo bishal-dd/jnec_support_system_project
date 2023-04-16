@@ -21,18 +21,18 @@ export default function AddWorker() {
       toast.error("please enter correct values");
     } else {
       axios
-        .post("http://localhost:3001/api/worker", {
+        .post("http://localhost:3001/api/add_worker", {
           name,
           department,
           phone,
           email,
         })
-        .then(() => {
-          setState(initialState);
-        })
+        .then((response) =>
+          toast.response(response.data)
+        )
         .catch((error) => toast.error(error.response.data));
     }
-  };
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

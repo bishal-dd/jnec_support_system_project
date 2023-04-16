@@ -46,17 +46,18 @@ export default function LoginComp() {
 
   return (
     <Container
-      id="main-container"
-      className="d-grid bg-light rounded-4 p-4"
-      style={{ maxWidth: "600px" }}
+      className="d-grid w-80 bg-light rounded-4 p-4
+       border shadow mt-5"
+      style={{ maxWidth: "540px" }}
     >
-      <Form id="sign-in-form" className="text-center w-100 mt-2 ">
+      <Form id="sign-in-form" className="text-center w-100 align-item-center justify-content-center ">
         <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
         <Form.Group className="mb-3" controlId="name">
           <Form.Control
+           className="position-relative"
             class="form.control"
             type="name"
-            placeholder="Email address"
+            placeholder="Email"
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
@@ -64,7 +65,7 @@ export default function LoginComp() {
           />
         </Form.Group>
         <br />
-        <Form.Group className="mb-3" controlId="sign-in-password">
+        <Form.Group className="mb-3" controlId="password">
           <Form.Control
             type="password"
             placeholder="Password"

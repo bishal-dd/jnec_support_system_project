@@ -1,42 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import "./editcomp.css";
 import { Form, Button } from "react-bootstrap";
 
-export default function EditComp() {
-  const [name, setName] = useState("");
-  const [department, setDepartment] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Send the form data to the backend for processing
-    console.log({ name, department, phone, email });
-  };
+export default function EditComp() {
+
 
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group controlId="name">
           <Form.Label>Name:</Form.Label>
           <Form.Control
             type="text"
             name="name"
             required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
           />
         </Form.Group>
 
         <Form.Group controlId="department">
           <Form.Label>Department:</Form.Label>
-          <Form.Control
+          <Form.Control  
             as="select"
             name="department"
-            required
-            value={department}
-            onChange={(event) => setDepartment(event.target.value)}
-          >
+            required>
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
             <option value="estate">Estate</option>
@@ -51,9 +38,7 @@ export default function EditComp() {
             type="tel"
             name="phone"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            required
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            required 
           />
         </Form.Group>
 
@@ -63,8 +48,6 @@ export default function EditComp() {
             type="email"
             name="email"
             required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
           />
         </Form.Group>
 

@@ -15,28 +15,28 @@ export default function NavbarComp() {
   };
 
   return (
-    <nav className="nav fixed-top navbar-expand-sm text-right bg-light">
+    <nav className="navbar fixed-top navbar-light navbar-expand-lg bg-dark p-1 mb-8 " >
+      <div className="container-fluid" >
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarcollapse"
-      >
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarcollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
       <img
         src="https://res.cloudinary.com/dnmtsuwhc/image/upload/v1678645849/u5ffbzghsirppkrzughq.png"
-        width="50"
+        width="60"
         class="rounded-2"
-        height="40"
+        height="50"
         alt="logo"
         id="logo_image"
-      />
-      <div>
-        <div className="collapse navbar-collapse" id="navbarcollapse">
-          <ul className="navbar-nav">
+      /> 
+      <div className="mb-6">
+        <div className="collapse navbar-collapse " id="navbarSupportedContent" >
+          <ul className="navbar-nav p-2 me-auto mb-2 mb-lg-0">
             <li className="nav-item px-2 ">
-              <Link to="/" className="nav-link active text-right">
+              <Link to="/" className="nav-link active text-white">
                 Home
               </Link>
             </li>
@@ -49,13 +49,14 @@ export default function NavbarComp() {
                   Logout
                 </button>
               ) : (
-                <Link to="/login" className="nav-link active text-right">
+                <Link to="/login" className="nav-link active text-white">
                   Login
                 </Link>
               )}
             </li>
           </ul>
         </div>
+      </div>
       </div>
     </nav>
   );

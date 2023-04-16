@@ -7,7 +7,7 @@ export default function AdminHome() {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
+      const response = await axios.get("http://localhost:3001/api/add_worker");
 
       setevent(response.data);
       console.log(event);
@@ -19,7 +19,7 @@ export default function AdminHome() {
   const loadWorker = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/api/get_addworker"
+        "http://localhost:3001/api/get_add_worker"
       );
 
       setWorker(response.data);
@@ -35,7 +35,7 @@ export default function AdminHome() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col text-center">
           <Link to="/add" className="btn btn-primary">

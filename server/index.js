@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "wweisbest1234@",
+  password: "student@2021",
   database: "ProjectDB",
 });
 
@@ -92,9 +92,7 @@ app.get("/api/user", (req, res) => {
   }
 });
 
-const MAX_IMAGE_SIZE = 10000000;
-
-app.post("/api/issue_table", upload.single("issue_image"), (req, res) => {
+const MAX_IMAGE_SIZE = 10000000;app.post("/api/issue_table", upload.single("issue_image"), (req, res) => {
   console.log(req.body);
   const { name, email, phone, issue_type, issue_summary } = req.body;
   console.log(name);
@@ -122,7 +120,7 @@ app.post("/api/issue_table", upload.single("issue_image"), (req, res) => {
   );
 });
 
-app.get("/api/get_issue", (req, res) => {
+app.get("/api/get_issue_table", (req, res) => {
   const sqlGet = "SELECT * FROM issue";
   db.query(sqlGet, (err, result) => {
     if (err) {
@@ -154,11 +152,11 @@ app.get("/api/get_issue", (req, res) => {
   });
 });
 
-app.post("/api/worker", (req, res) => {
+app.post("/api/add_worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
   sqlInsert =
-    "INSERT INTO worker (username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+    "INSERT INTO add_worker (username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
   console.log(randomCode);
   db.query(
     sqlInsert,
@@ -173,8 +171,8 @@ app.post("/api/worker", (req, res) => {
   );
 });
 
-app.get("/api/get_addworker", (req, res) => {
-  sqlGet = "SELECT * FROM worker;";
+app.get("/api/get _add_worker", (req, res) => {
+  sqlGet = "SELECT * FROM add_worker;";
 
   db.query(sqlGet, (err, result) => {
     if (err) {
