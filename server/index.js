@@ -43,7 +43,8 @@ function authenticate(req, res, next) {
     }
 
     if (adminResults.length === 1) {
-      req.user = { username, role: "admin" };
+      const { id, username } = adminResults[0];
+      req.user = { id, username, role: "admin" };
       return next();
     } else {
       db.query(workerQuery, [username, password], (err, workerResults) => {
@@ -51,7 +52,8 @@ function authenticate(req, res, next) {
           return res.status(500).json({ error: "Internal Server Error" });
         }
         if (workerResults.length === 1) {
-          req.user = { username, role: "worker" };
+          const { id, username } = workerResults[0];
+          req.user = { id, username, role: "worker" };
           return next();
         } else {
           db.query(viewerQuery, [username, password], (err, viewerResults) => {
@@ -59,7 +61,8 @@ function authenticate(req, res, next) {
               return res.status(500).json({ error: "Internal Server Error" });
             }
             if (viewerResults.length === 1) {
-              req.user = { username, role: "viewer" };
+              const { id, username } = viewerResults[0];
+              req.user = { id, username, role: "viewer" };
               return next();
             } else {
               return res.status(401).json({ error: "Invalid Credentials" });
@@ -72,9 +75,9 @@ function authenticate(req, res, next) {
 }
 
 app.post("/api/login", authenticate, (req, res) => {
-  const { username, role } = req.user;
-  const token = jwt.sign({ username, role }, randomCode);
-  console.log(token);
+  const { id, username, role } = req.user;
+  const token = jwt.sign({ id, username, role }, randomCode);
+
   res.json({ token });
 });
 
@@ -85,17 +88,18 @@ app.get("/api/user", (req, res) => {
   }
   try {
     const decoded = jwt.verify(token, randomCode);
-    const { username, role } = decoded;
-    res.json({ username, role });
+    const { id, username, role } = decoded;
+    res.json({ id, username, role });
   } catch (err) {
     res.status(401).json({ error: "Unauthorized" });
   }
 });
 
-const MAX_IMAGE_SIZE = 10000000;app.post("/api/issue_table", upload.single("issue_image"), (req, res) => {
-  console.log(req.body);
+const MAX_IMAGE_SIZE = 10000000;
+
+app.post("/api/issue", upload.single("issue_image"), (req, res) => {
   const { name, email, phone, issue_type, issue_summary } = req.body;
-  console.log(name);
+
   let image = req.file ? req.file.buffer : null;
   const imageSize = image ? image.length : 0;
 
@@ -105,7 +109,7 @@ const MAX_IMAGE_SIZE = 10000000;app.post("/api/issue_table", upload.single("issu
     return;
   }
   sqlInsert =
-    "INSERT INTO issue_table (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
+    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
 
   db.query(
     sqlInsert,
@@ -152,7 +156,21 @@ app.get("/api/get_issue_table", (req, res) => {
   });
 });
 
-app.post("/api/add_worker", (req, res) => {
+app.put("/api/assign_issue/:id", (req, res) => {
+  const { id, worker_id } = req.body;
+  const sqlUpdate =
+    "UPDATE issue SET status = 'assigned', worker_id = ? WHERE id = ?";
+  db.query(sqlUpdate, [worker_id, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating issue");
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
   sqlInsert =
@@ -178,6 +196,7 @@ app.get("/api/get _add_worker", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log(result);
       res.send(result);
     }
   });
