@@ -1,6 +1,35 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function DeleteWorkerComp() {
+
+  const [worker, setWorker] = useState([]);
+
+  const loadWorker = async () => {
+    const response = await axios.get("http://localhost:3001/api/get_worker");
+    console.log(response.data);
+    setWorker(response.data);
+  };
+
+  useEffect(() => {
+    loadWorker();
+  }, []);
+
+  const handleDelete = async (id) => {
+    console.log(id);
+    await axios
+      .get(`http://localhost:3001/api/delete/${id}`)
+      .then((result) => {
+        console.log(result.data)
+        if (result.data === "Worker Deleted") {
+          toast.success("Worker Deleted");
+        }
+      });
+      window.location.reload();
+    }
+
   return (
     <div id="editcontainer" className="">
       <table
@@ -15,37 +44,18 @@ export default function DeleteWorkerComp() {
           </tr>
         </thead>
         <tbody>
+        {worker.map((item, index) => {
+              return (
+                <>
           <tr>
-            <td>1</td>
-            <td>Technician 1</td>
+            <td>{index + 1}</td>
+            <td>{item.name}</td>
 
-            <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
+            <button className="btn btn-success mb-2 mt-2 "  onClick={() => handleDelete(item.id)}>Remove</button>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Technician 2</td>
-
-            <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Technician 3</td>
-
-            <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Technician 4</td>
-
-            <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Technician 5</td>
-
-            <button className="btn btn-primary mb-2 mt-2 ">Remove</button>
-          </tr>
-          <tr></tr>
+          </>);
+          })}
+         
         </tbody>
       </table>
     </div>

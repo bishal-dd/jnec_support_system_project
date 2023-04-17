@@ -1,21 +1,50 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./editcomp.css";
 import { Form, Button } from "react-bootstrap";
-
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function EditComp() {
+  const nameRef = useRef("");
+  const departmentRef = useRef("");
+  const phoneRef = useRef("");
+  const emailRef = useRef("");
 
+  const locate = useLocation();
+  const worker = locate.state;
+
+  const handleSubmit = (id, e) => {
+    e.preventDefault();
+
+    axios
+      .put(`http://localhost:3001/api/editworker/${id}`, {
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+        phone: phoneRef.current.value,
+        department: departmentRef.current.value,
+      })
+      .then((result) => {
+        if (result.data) {
+          alert("edit success");
+        }
+      });
+  };
 
   return (
     <div className="container mt-5 bg-light rounded-4 shadow" style={{ maxWidth: "600px" }}>
-      <Form className="mt-4">
-        <h3 className="text-center">Update Worker Details</h3>
+      <Form 
+        onSubmit={(e) => {
+          handleSubmit(worker.id, e);
+        }}
+      >
         <Form.Group controlId="name">
           <Form.Label>Name:</Form.Label>
           <Form.Control
             type="text"
-            name="name"  
+            name="name"
+            defaultValue={worker.name}
             required
+            ref={nameRef}
           />
         </Form.Group>
 
@@ -24,7 +53,10 @@ export default function EditComp() {
           <Form.Control  
             as="select"
             name="department"
-            required>
+            required
+            defaultValue={worker.department}
+            ref={departmentRef}
+          >
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
             <option value="estate">Estate</option>
@@ -38,8 +70,9 @@ export default function EditComp() {
           <Form.Control
             type="tel"
             name="phone"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            required 
+            defaultValue={worker.phone}
+            required
+            ref={phoneRef}
           />
         </Form.Group>
 
@@ -48,12 +81,14 @@ export default function EditComp() {
           <Form.Control 
             type="email"
             name="email"
+            defaultValue={worker.email}
             required
+            ref={emailRef}
           />
         </Form.Group>
         <div className="row justify-content-center text-center gap-5 mt-3">
         <Button className="btn btn-success col-4  text-center  rounded-4 " type="submit">Update</Button>
-        <a href="/admin" className="btn btn-success col-4  text-center  rounded-4">Cancel</a>
+        <a href="/editworker" className="btn btn-success col-4  text-center  rounded-4">Cancel</a>
         
         </div><br></br>
       </Form>

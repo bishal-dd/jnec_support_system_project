@@ -56,8 +56,8 @@ export default function AdminHome() {
             Add_Worker
           </Link>
         </div>
-        <div className="col d-grid ">
-          <Link to="/edit:id" className="btn btn-info rounded-5 shadow">
+        <div className="col d-grid">
+          <Link to="/editworker" className="btn btn-info rounded-5 shadow">
             Edit_Worker
           </Link>
         </div>

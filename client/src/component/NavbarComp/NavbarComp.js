@@ -2,6 +2,7 @@ import React from "react";
 import "./navbarcomp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { BiHomeAlt } from "react-icons/bi";
 
 export default function NavbarComp() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function NavbarComp() {
   };
 
   return (
-    <nav className="navbar fixed-top navbar-light navbar-expand-lg bg-dark p-1 mb-8 " >
+    <nav className="navbar fixed-top navbar-light navbar-expand-xl bg-dark mb-8 "  id="navbar" >
       <div className="container-fluid" >
       <button
         className="navbar-toggler"
@@ -23,7 +24,7 @@ export default function NavbarComp() {
         data-bs-toggle="collapse"
         data-bs-target="#navbarToggleExternalContent"
         aria-controls="navbarToggleExternalContent"
-        aria-expanded="false" aria-label="Toggle navigation">
+         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <img
@@ -36,8 +37,9 @@ export default function NavbarComp() {
       /> 
       <div className="mb-6">
         <div className="collapse navbar-collapse " id="navbarSupportedContent" >
-          <ul className="navbar-nav p-2 me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav p-2 max-auto mb-2">
             <li className="nav-item px-2 ">
+            
               <Link to="/" className="nav-link active text-white">
                 Home
               </Link>

@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 import "./logincomp.css";
 
@@ -52,6 +53,7 @@ export default function LoginComp() {
     >
       <Form id="sign-in-form" className="text-center w-100 align-item-center justify-content-center ">
         <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
+        <IoPersonCircleSharp  size={100}/>
         <Form.Group className="mb-3" controlId="name">
           <Form.Control
            className="position-relative"

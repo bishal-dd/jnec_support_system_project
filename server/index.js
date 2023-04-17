@@ -202,6 +202,37 @@ app.get("/api/get_worker", (req, res) => {
   });
 });
 
+app.put("/api/editworker/:id", (req, res) => {
+  const { name, department, phone, email } = req.body;
+
+  const id = req.params.id;
+
+  console.log(name);
+
+  sqlInsert =
+    "UPDATE worker SET username = ?, department = ? ,phone = ?, email= ? WHERE id = ?";
+
+  db.query(
+    sqlInsert,
+    [name, department, phone, email, Number(id)],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send("edit sucess");
+      }
+    }
+  );
+});
+
+app.get("/api/delete/:id", (req, res) => {
+  const sqlDelete = "DELETE FROM worker WHERE id = ?;";
+
+  db.query(sqlDelete, [req.params.id], (err, result) => {
+    res.send("Worker Deleted");
+  });
+});
+
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });
