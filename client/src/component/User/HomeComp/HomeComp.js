@@ -94,7 +94,7 @@ export default function HomeComp() {
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
             <option value="estate">Estate</option>
-            <option value="eletrical">Electrical</option>
+            <option value="electrical">Electrical</option>
             <option value="plumbing">Plumbing</option>
           </select>
         </div>
