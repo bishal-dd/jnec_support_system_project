@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 export default function AdminHome() {
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
@@ -13,7 +14,9 @@ export default function AdminHome() {
         `http://localhost:3001/api/assign_issue/${issueId}`,
         { id: issueId, worker_id: workerId }
       );
-      console.log(response.data);
+      if (response.data === "Assigned") {
+        toast.success("Assigned");
+      }
       // Refresh the event list to show the updated worker assignment
       loadEvent();
     } catch (error) {
@@ -33,9 +36,7 @@ export default function AdminHome() {
 
   const loadWorker = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/api/get_worker"
-      );
+      const response = await axios.get("http://localhost:3001/api/get_worker");
       console.log(response.data);
       setWorker(response.data);
     } catch (error) {
