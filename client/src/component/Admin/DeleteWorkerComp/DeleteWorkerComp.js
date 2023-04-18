@@ -4,7 +4,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function DeleteWorkerComp() {
-
   const [worker, setWorker] = useState([]);
 
   const loadWorker = async () => {
@@ -19,16 +18,14 @@ export default function DeleteWorkerComp() {
 
   const handleDelete = async (id) => {
     console.log(id);
-    await axios
-      .get(`http://localhost:3001/api/delete/${id}`)
-      .then((result) => {
-        console.log(result.data)
-        if (result.data === "Worker Deleted") {
-          toast.success("Worker Deleted");
-        }
-      });
-      window.location.reload();
-    }
+    await axios.get(`http://localhost:3001/api/delete/${id}`).then((result) => {
+      console.log(result.data);
+      if (result.data === "Worker Deleted") {
+        toast.success("Worker Deleted");
+      }
+    });
+    window.location.reload();
+  };
 
   return (
     <div id="editcontainer" className="">
@@ -44,18 +41,23 @@ export default function DeleteWorkerComp() {
           </tr>
         </thead>
         <tbody>
-        {worker.map((item, index) => {
-              return (
-                <>
-          <tr>
-            <td>{index + 1}</td>
-            <td>{item.name}</td>
+          {worker.map((item, index) => {
+            return (
+              <>
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.username}</td>
 
-            <button className="btn btn-success mb-2 mt-2 "  onClick={() => handleDelete(item.id)}>Remove</button>
-          </tr>
-          </>);
+                  <button
+                    className="btn btn-success mb-2 mt-2 "
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    Remove
+                  </button>
+                </tr>
+              </>
+            );
           })}
-         
         </tbody>
       </table>
     </div>

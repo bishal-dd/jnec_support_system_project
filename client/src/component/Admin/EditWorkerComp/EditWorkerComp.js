@@ -16,7 +16,7 @@ export default function EditWorkerComp() {
   }, []);
 
   return (
-    <div  className="text-center justify-content-center">
+    <div className="text-center justify-content-center">
       <div id="container" className="">
         <table
           className="table-container text-center
@@ -33,9 +33,9 @@ export default function EditWorkerComp() {
             {worker.map((item, index) => {
               return (
                 <>
-                  <tr>
+                  <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{item.name}</td>
+                    <td>{item.username}</td>
                     <td>
                       <Link
                         to="/edit"

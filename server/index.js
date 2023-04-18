@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "student@2021",
+  password: "wweisbest1234@",
   database: "ProjectDB",
 });
 
@@ -174,7 +174,7 @@ app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
   sqlInsert =
-    "INSERT INTO worker (name,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+    "INSERT INTO worker (username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
   console.log(randomCode);
   db.query(
     sqlInsert,
@@ -196,7 +196,6 @@ app.get("/api/get_worker", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
       res.send(result);
     }
   });

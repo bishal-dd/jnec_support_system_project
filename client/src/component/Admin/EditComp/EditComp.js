@@ -3,6 +3,7 @@ import "./editcomp.css";
 import { Form, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function EditComp() {
   const nameRef = useRef("");
@@ -25,14 +26,17 @@ export default function EditComp() {
       })
       .then((result) => {
         if (result.data) {
-          alert("edit success");
+          toast.success("edit success");
         }
       });
   };
 
   return (
-    <div className="container mt-5 bg-light rounded-4 shadow" style={{ maxWidth: "600px" }}>
-      <Form 
+    <div
+      className="container mt-5 bg-light rounded-4 shadow"
+      style={{ maxWidth: "600px" }}
+    >
+      <Form
         onSubmit={(e) => {
           handleSubmit(worker.id, e);
         }}
@@ -42,7 +46,7 @@ export default function EditComp() {
           <Form.Control
             type="text"
             name="name"
-            defaultValue={worker.name}
+            defaultValue={worker.username}
             required
             ref={nameRef}
           />
@@ -50,7 +54,7 @@ export default function EditComp() {
 
         <Form.Group controlId="department">
           <Form.Label>Department:</Form.Label>
-          <Form.Control  
+          <Form.Control
             as="select"
             name="department"
             required
@@ -78,7 +82,7 @@ export default function EditComp() {
 
         <Form.Group controlId="email">
           <Form.Label>Email:</Form.Label>
-          <Form.Control 
+          <Form.Control
             type="email"
             name="email"
             defaultValue={worker.email}
@@ -87,10 +91,20 @@ export default function EditComp() {
           />
         </Form.Group>
         <div className="row justify-content-center text-center gap-5 mt-3">
-        <Button className="btn btn-success col-4  text-center  rounded-4 " type="submit">Update</Button>
-        <a href="/editworker" className="btn btn-success col-4  text-center  rounded-4">Cancel</a>
-        
-        </div><br></br>
+          <Button
+            className="btn btn-success col-4  text-center  rounded-4 "
+            type="submit"
+          >
+            Update
+          </Button>
+          <a
+            href="/editworker"
+            className="btn btn-success col-4  text-center  rounded-4"
+          >
+            Cancel
+          </a>
+        </div>
+        <br></br>
       </Form>
     </div>
   );
