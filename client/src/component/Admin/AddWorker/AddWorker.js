@@ -76,8 +76,9 @@ export default function AddWorker() {
         <Form.Group controlId="phone">
           <Form.Label>Phone Number:</Form.Label>
           <Form.Control
-            type="number"
+            type="tel"
             name="phone"
+            pattern="[0-9]{8}"
             required
             value={phone}
             onChange={handleInputChange}

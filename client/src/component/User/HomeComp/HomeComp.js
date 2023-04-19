@@ -65,6 +65,7 @@ export default function HomeComp() {
             className="form-control"
             value={name}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -76,17 +77,20 @@ export default function HomeComp() {
             className="form-control"
             value={email}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone:</label>
           <input
-            type="number"
+            type="tel"
             id="phone"
             name="phone"
             className="form-control"
+            pattern="[0-9]{8}"
             value={phone}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -97,6 +101,7 @@ export default function HomeComp() {
             className="form-control"
             value={issue_type}
             onChange={handleChange}
+            required
           >
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
@@ -114,6 +119,7 @@ export default function HomeComp() {
             className="form-control"
             onChange={handleChange}
             value={issue_summary}
+            required
           ></textarea>
         </div>
         <div className="form-group mt-3">

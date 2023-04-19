@@ -16,10 +16,11 @@ const upload = multer({
     fieldSize: 1024 * 1024 * 10, // 10MB
   },
 });
+const adminMail = "05210218.jnec@rub.edu.bt";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "05210218.jnec@rub.edu.bt",
+    user: adminMail,
     pass: "wweisbest1234@",
   },
 });
@@ -127,12 +128,11 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
         console.log(error);
       } else {
         transporter.sendMail({
-          from: "05210218.jnec@rub.edu.bt",
-          to: "05210218.jnec@rub.edu.bt",
+          from: adminMail,
+          to: adminMail,
           subject: "New Issue",
           text: "New Issue was submited",
         });
-
         res.send("issue submited");
       }
     }
@@ -188,11 +188,14 @@ app.put("/api/assign_issue/:id", (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          transporter.sendMail({
-            from: "05210218.jnec@rub.edu.bt",
-            to: `${response[0].email}`,
-            subject: "Work assignment",
-            text: " you have been assigned work new work",
+          const get_issue = "SELECT * FROM issue WHERE id = ?;";
+          db.query(get_issue, [id], (err, issue_res) => {
+            transporter.sendMail({
+              from: "05210218.jnec@rub.edu.bt",
+              to: `${response[0].email}`,
+              subject: "Work assignment",
+              text: `you have been assigned work new work which is ${issue_res[0].name}`,
+            });
           });
         }
       });
@@ -215,6 +218,13 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
+        transporter.sendMail({
+          from: adminMail,
+          to: email,
+          subject: "You have been added",
+          text: " you have been added to the jnec support system",
+          text: `username: ${name}, password: ${randomCode}`,
+        });
         res.send("Worker Added");
       }
     }
