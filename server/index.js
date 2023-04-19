@@ -126,6 +126,13 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
       if (error) {
         console.log(error);
       } else {
+        transporter.sendMail({
+          from: "05210218.jnec@rub.edu.bt",
+          to: "05210218.jnec@rub.edu.bt",
+          subject: "New Issue",
+          text: "New Issue was submited",
+        });
+
         res.send("issue submited");
       }
     }
@@ -140,15 +147,18 @@ app.get("/api/get_issue", (req, res) => {
       res.status(500).send("Error retrieving events from database");
     } else {
       const eventsWithImages = result.map(async (issue) => {
-        const imageBuffer = issue.issue_image;
-        const image = sharp(imageBuffer);
-        const metadata = await image.metadata();
-        if (metadata.format === undefined) {
-          console.log("Invalid image format");
-        } else {
-          const imageData = Buffer.from(imageBuffer).toString("base64");
-          issue.issue_image = `data:image/${metadata.format};base64,${imageData}`;
+        if (issue.issue_image) {
+          const imageBuffer = issue.issue_image;
+          const image = sharp(imageBuffer);
+          const metadata = await image.metadata();
+          if (metadata.format === undefined) {
+            console.log("Invalid image format");
+          } else {
+            const imageData = Buffer.from(imageBuffer).toString("base64");
+            issue.issue_image = `data:image/${metadata.format};base64,${imageData}`;
+          }
         }
+
         return issue;
       });
 
@@ -205,7 +215,7 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        res.send(result);
+        res.send("Worker Added");
       }
     }
   );
