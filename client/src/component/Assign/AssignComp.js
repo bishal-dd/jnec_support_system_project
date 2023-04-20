@@ -1,54 +1,56 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import AdminNav from '../AdminNavigationComp/AdminNav';
 import axios from "axios";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
 import { toast } from "react-toastify";
-export default function AdminHome() {
-  const [event, setevent] = useState([]);
-  const [worker, setWorker] = useState([]);
-  const [selectedWorkerId, setSelectedWorkerId] = useState(null);
+import { useState, useEffect } from "react";
 
-  const assignWorker = async (workerId, issueId) => {
-    console.log(workerId);
-    try {
-      const response = await axios.put(
-        `http://localhost:3001/api/assign_issue/${issueId}`,
-        { id: issueId, worker_id: workerId }
-      );
-      if (response.data === "Assigned") {
-        toast.success("Assigned");
+export default function AssignComp() {
+
+    const [event, setevent] = useState([]);
+    const [worker, setWorker] = useState([]);
+    const [selectedWorkerId, setSelectedWorkerId] = useState(null);
+  
+    const assignWorker = async (workerId, issueId) => {
+      console.log(workerId);
+      try {
+        const response = await axios.put(
+          `http://localhost:3001/api/assign_issue/${issueId}`,
+          { id: issueId, worker_id: workerId }
+        );
+        if (response.data === "Assigned") {
+          toast.success("Assigned");
+        }
+        // Refresh the event list to show the updated worker assignment
+        loadEvent();
+      } catch (error) {
+        console.error(error);
       }
-      // Refresh the event list to show the updated worker assignment
+    };
+  
+    const loadEvent = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/get_issue");
+  
+        setevent(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const loadWorker = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/get_worker");
+        console.log(response.data);
+        setWorker(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    useEffect(() => {
       loadEvent();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const loadEvent = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
-
-      setevent(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const loadWorker = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/api/get_worker");
-      console.log(response.data);
-      setWorker(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    loadEvent();
-    loadWorker();
-  }, []);
+      loadWorker();
+    }, []);
 
   return (
     <div className="container-md mt-5">
@@ -106,5 +108,5 @@ export default function AdminHome() {
         </table>
       </div>
     </div>
-  );
+  )
 }

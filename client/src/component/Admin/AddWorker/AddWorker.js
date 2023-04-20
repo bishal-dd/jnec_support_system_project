@@ -29,11 +29,11 @@ export default function AddWorker() {
           phone,
           email,
         })
-        .then((response) => toast.response(response.data))
+        .then((response) => toast.success(response.data))
         .catch((error) => toast.error(error.response.data));
     }
-    console.log(state,name)
-  }
+    console.log(state, name);
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -41,11 +41,10 @@ export default function AddWorker() {
   };
 
   return (
-    <div className="container"><AdminNav />
+    <div><AdminNav />
     <div className="container mt-5 bg-light rounded-4 shadow" style={{ maxWidth: "540px" }}>
-      
       <Form className="mb-4" onSubmit={handleSubmit}>
-        <h3 className="text-center" >Add Worker</h3>
+        <h3 className="text-center">Add Worker</h3>
         <Form.Group controlId="name">
           <Form.Label>Name:</Form.Label>
           <Form.Control
@@ -77,8 +76,9 @@ export default function AddWorker() {
         <Form.Group controlId="phone">
           <Form.Label>Phone Number:</Form.Label>
           <Form.Control
-            type="number"
+            type="tel"
             name="phone"
+            pattern="[0-9]{8}"
             required
             value={phone}
             onChange={handleInputChange}
@@ -96,10 +96,8 @@ export default function AddWorker() {
           />
         </Form.Group>
         <div className="row justify-content-center text-center gap-5">
-        <Button className="btn btn-success col-4 
-         text-center  rounded-4 " type="submit">Add Worker</Button>
-        <a href="/admin" className="btn btn-success col-4 
-         text-center  rounded-4">Cancel</a>
+        <Button className="btn btn-success col-4  text-center  rounded-4 " type="submit">Add Worker</Button>
+        <a href="/admin" className="btn btn-success col-4  text-center  rounded-4">Cancel</a>
         
         </div><br></br>
       </Form>

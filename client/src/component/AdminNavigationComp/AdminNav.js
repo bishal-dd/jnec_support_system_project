@@ -20,6 +20,16 @@ export default function AdminNav() {
             Delete_Worker
           </Link>
         </div>
+        <div className="col d-grid ">
+          <Link to="/solve" className="btn btn-info rounded-5 shadow">
+            Solve
+          </Link>
+        </div>
+        <div className="col d-grid ">
+          <Link to="/assign" className="btn btn-info rounded-5 shadow">
+          Assign
+          </Link>
+        </div>
       </div>
     </div>
   )

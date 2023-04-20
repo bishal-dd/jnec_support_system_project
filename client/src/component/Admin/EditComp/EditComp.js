@@ -77,6 +77,7 @@ export default function EditComp() {
             type="tel"
             name="phone"
             defaultValue={worker.phone}
+            pattern="[0-9]{8}"
             required
             ref={phoneRef}
           />
