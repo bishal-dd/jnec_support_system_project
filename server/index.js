@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "student@2021",
+  password: "wweisbest1234@",
   database: "ProjectDB",
 });
 
@@ -231,7 +231,7 @@ app.put("/api/assign_solved/:id", (req, res) => {
 });
 
 app.post("/api/worker", (req, res) => {
-  const { name, department, phone, email, } = req.body;
+  const { name, department, phone, email } = req.body;
 
   sqlInsert =
     "INSERT INTO worker ( name,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
@@ -243,7 +243,6 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-
         transporter.sendMail({
           from: adminMail,
           to: email,
@@ -303,14 +302,14 @@ app.get("/api/delete/:id", (req, res) => {
   });
 });
 
-app.post('/api/check-status', (req, res) => { 
+app.post("/api/check-status", (req, res) => {
   const ticketNumber = req.body.ticketNumber;
-  const statuses = ['Pending', 'Solved'];
+  const statuses = ["Pending", "Solved"];
   const randomIndex = Math.floor(Math.random() * statuses.length);
-  const status = statuses[randomIndex]
+  const status = statuses[randomIndex];
 
-    res.send({ status });
-  });
+  res.send({ status });
+});
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });
