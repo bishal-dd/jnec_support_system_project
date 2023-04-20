@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import AdminNav from "../../AdminNavigationComp/AdminNav";
 
 export default function EditComp() {
   const nameRef = useRef("");
@@ -32,6 +33,7 @@ export default function EditComp() {
   };
 
   return (
+    <div className="container"><AdminNav />
     <div
       className="container mt-5 bg-light rounded-4 shadow"
       style={{ maxWidth: "600px" }}
@@ -106,6 +108,7 @@ export default function EditComp() {
         </div>
         <br></br>
       </Form>
+    </div>
     </div>
   );
 }

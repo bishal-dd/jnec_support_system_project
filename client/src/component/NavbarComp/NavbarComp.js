@@ -16,7 +16,7 @@ export default function NavbarComp() {
   };
 
   return (
-    <nav className="navbar fixed-top navbar-light navbar-expand-xl bg-dark mb-8 "  id="navbar" >
+    <nav className="navbar fixed-top navbar-light navbar-expand-xl bg-dark mb-8 py-1" id="navbar" >
       <div className="container-fluid" >
       <button
         className="navbar-toggler"

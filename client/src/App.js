@@ -25,8 +25,10 @@ function App() {
     <>
       <BrowserRouter>
         <NavbarComp />
+        
         <Routes>
           <Route element={<ProtectedRoute user={currentUser} />}>
+            
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/edit" element={<EditComp />} />
             <Route path="/add" element={<AddWorker />} />
