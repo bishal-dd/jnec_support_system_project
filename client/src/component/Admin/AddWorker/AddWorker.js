@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import AdminNav from "../../AdminNavigationComp/AdminNav";
 
 const initialState = {
   name: "",
@@ -20,6 +21,7 @@ export default function AddWorker() {
     if (setState(initialState)) {
       toast.error("please enter correct values");
     } else {
+      console.log(name)
       axios
         .post("http://localhost:3001/api/worker", {
           name,
@@ -27,7 +29,9 @@ export default function AddWorker() {
           phone,
           email,
         })
+
         .then((response) => toast.success(response.data))
+
         .catch((error) => toast.error(error.response.data));
     }
     console.log(state, name);
@@ -39,10 +43,12 @@ export default function AddWorker() {
   };
 
   return (
-    <div
-      className="container mt-5 bg-light rounded-4 shadow"
-      style={{ maxWidth: "540px" }}
-    >
+
+    <div className="container"><AdminNav />
+    <div className="container mt-5 bg-light rounded-4 shadow" style={{ maxWidth: "540px" }}>
+      
+
+ 
       <Form className="mb-4" onSubmit={handleSubmit}>
         <h3 className="text-center">Add Worker</h3>
         <Form.Group controlId="name">
@@ -96,6 +102,7 @@ export default function AddWorker() {
           />
         </Form.Group>
         <div className="row justify-content-center text-center gap-5">
+
           <Button
             className="btn btn-success col-4  text-center  rounded-4 "
             type="submit"
@@ -111,6 +118,7 @@ export default function AddWorker() {
         </div>
         <br></br>
       </Form>
+    </div>
     </div>
   );
 }

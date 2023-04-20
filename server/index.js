@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "wweisbest1234@",
+  password: "student@2021",
   database: "ProjectDB",
 });
 
@@ -177,7 +177,7 @@ app.get("/api/get_issue", (req, res) => {
 app.put("/api/assign_issue/:id", (req, res) => {
   const { id, worker_id } = req.body;
   const sqlUpdate =
-    "UPDATE issue SET status = 'assigned', worker_id = ? WHERE id = ?";
+    "UPDATE issue  worker_SET status = 'assigned',id = ? WHERE id = ?";
   db.query(sqlUpdate, [worker_id, id], (err, result) => {
     if (err) {
       console.log(err);
@@ -231,10 +231,10 @@ app.put("/api/assign_solved/:id", (req, res) => {
 });
 
 app.post("/api/worker", (req, res) => {
-  const { name, department, phone, email } = req.body;
+  const { name, department, phone, email, } = req.body;
 
   sqlInsert =
-    "INSERT INTO worker (username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+    "INSERT INTO worker ( name,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
   console.log(randomCode);
   db.query(
     sqlInsert,
@@ -243,6 +243,7 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
+
         transporter.sendMail({
           from: adminMail,
           to: email,
@@ -250,6 +251,7 @@ app.post("/api/worker", (req, res) => {
           text: " you have been added to the jnec support system",
           text: `username: ${name}, password: ${randomCode}`,
         });
+
         res.send("Worker Added");
       }
     }
@@ -301,6 +303,14 @@ app.get("/api/delete/:id", (req, res) => {
   });
 });
 
+app.post('/api/check-status', (req, res) => { 
+  const ticketNumber = req.body.ticketNumber;
+  const statuses = ['Pending', 'Solved'];
+  const randomIndex = Math.floor(Math.random() * statuses.length);
+  const status = statuses[randomIndex]
+
+    res.send({ status });
+  });
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });

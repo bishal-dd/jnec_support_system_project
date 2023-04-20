@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import AdminNav from "../../AdminNavigationComp/AdminNav";
 
 export default function DeleteWorkerComp() {
   const [worker, setWorker] = useState([]);
@@ -28,7 +29,9 @@ export default function DeleteWorkerComp() {
   };
 
   return (
+    <div className="container"> <AdminNav/>
     <div id="editcontainer" className="">
+      
       <table
         className="edit-container text-center 
         rounded-4 bg-light shadow"
@@ -60,6 +63,7 @@ export default function DeleteWorkerComp() {
           })}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }

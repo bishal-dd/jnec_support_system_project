@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AdminNav from "../../AdminNavigationComp/AdminNav";
 
 export default function EditWorkerComp() {
   const [worker, setWorker] = useState([]);
@@ -16,6 +17,7 @@ export default function EditWorkerComp() {
   }, []);
 
   return (
+    <div><AdminNav />
     <div className="text-center justify-content-center">
       <div id="container" className="">
         <table
@@ -52,6 +54,7 @@ export default function EditWorkerComp() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }
