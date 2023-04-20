@@ -205,6 +205,31 @@ app.put("/api/assign_issue/:id", (req, res) => {
   });
 });
 
+app.put("/api/assign_solved/:id", (req, res) => {
+  const { id, worker_id } = req.body;
+  const sqlUpdate =
+    "UPDATE issue SET status = 'solved', worker_id = ? WHERE id = ?";
+  db.query(sqlUpdate, [worker_id, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating issue");
+    } else {
+      const get_issue = "SELECT * FROM issue WHERE id = ?;";
+      db.query(get_issue, [id], (err, issue_res) => {
+        transporter.sendMail({
+          from: "05210218.jnec@rub.edu.bt",
+          to: `${issue_res[0].email}, ${adminMail}`,
+
+          subject: "Work assignment",
+          text: `This issue has been solved`,
+        });
+      });
+
+      res.send("Solved");
+    }
+  });
+});
+
 app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
