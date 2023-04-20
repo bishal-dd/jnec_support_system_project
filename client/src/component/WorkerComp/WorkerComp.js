@@ -2,12 +2,29 @@ import React, { useContext, useState, useEffect } from "react";
 import "./workercomp.css";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 export default function WorkerComp() {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
 
   const { id } = currentUser;
+
+  const assignSolved = async (workerId, issueId) => {
+    console.log(workerId);
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/api/assign_solved/${issueId}`,
+        { id: issueId, worker_id: workerId }
+      );
+
+      toast.success(response.data);
+
+      // Refresh the event list to show the updated worker assignment
+      loadEvent();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadEvent = async () => {
     try {
@@ -45,7 +62,12 @@ export default function WorkerComp() {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
-                  <button className="btn btn-primary mb-2 mt-2">Solved</button>
+                  <button
+                    className="btn btn-primary mb-2 mt-2"
+                    onClick={() => assignSolved(item.workerId, item.id)}
+                  >
+                    Solved
+                  </button>
                 </tr>
               );
             })}

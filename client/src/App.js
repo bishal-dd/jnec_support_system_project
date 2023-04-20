@@ -12,6 +12,8 @@ import DeleteWorkerComp from "./component/Admin/DeleteWorkerComp/DeleteWorkerCom
 import ViewerHome from "./component/Viewer/ViewerHome";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProtectedWorkerRoute from "./routes/ProtectedWorkerRoute";
@@ -24,6 +26,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ToastContainer position="top-right" />
         <NavbarComp />
         
         <Routes>
@@ -35,7 +38,7 @@ function App() {
             <Route path="/delete" element={<DeleteWorkerComp />} />
             <Route path="/editworker" element={<EditWorkerComp />} />
           </Route>
-            <Route element={<ProtectedWorkerRoute user={currentUser} />}>
+          <Route element={<ProtectedWorkerRoute user={currentUser} />}>
             <Route path="/worker" element={<WorkerComp />} />
           </Route>
           <Route element={<ProtectedViewerRoute user={currentUser} />}>

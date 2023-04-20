@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function HomeComp() {
   const initialState = {
@@ -25,7 +26,13 @@ export default function HomeComp() {
     formData.append("issue_image", state.issue_image);
 
     try {
-      await axios.post("http://localhost:3001/api/issue", formData);
+      await axios
+        .post("http://localhost:3001/api/issue", formData)
+        .then((result) => {
+          if (result.data === "issue submited") {
+            toast.success("Issue Submited");
+          }
+        });
       setState(initialState);
     } catch (err) {
       console.log(err.response.data);
@@ -58,6 +65,7 @@ export default function HomeComp() {
             className="form-control"
             value={name}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -69,17 +77,20 @@ export default function HomeComp() {
             className="form-control"
             value={email}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone:</label>
           <input
-            type="number"
+            type="tel"
             id="phone"
             name="phone"
             className="form-control"
+            pattern="[0-9]{8}"
             value={phone}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -90,11 +101,12 @@ export default function HomeComp() {
             className="form-control"
             value={issue_type}
             onChange={handleChange}
+            required
           >
             <option value="">Select a department...</option>
             <option value="ICT">ICT</option>
             <option value="estate">Estate</option>
-            <option value="eletrical">Electrical</option>
+            <option value="electrical">Electrical</option>
             <option value="plumbing">Plumbing</option>
           </select>
         </div>
@@ -107,6 +119,7 @@ export default function HomeComp() {
             className="form-control"
             onChange={handleChange}
             value={issue_summary}
+            required
           ></textarea>
         </div>
         <div className="form-group mt-3">

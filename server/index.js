@@ -7,14 +7,23 @@ const jwt = require("jsonwebtoken");
 const generateRandomCode = require("./src/random_code");
 const multer = require("multer");
 const sharp = require("sharp");
+const nodemailer = require("nodemailer");
 const storage = multer.memoryStorage();
+const randomCode = generateRandomCode();
 const upload = multer({
   storage: storage,
   limits: {
     fieldSize: 1024 * 1024 * 10, // 10MB
   },
 });
-const randomCode = generateRandomCode();
+const adminMail = "05210218.jnec@rub.edu.bt";
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: adminMail,
+    pass: "wweisbest1234@",
+  },
+});
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
@@ -118,7 +127,13 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        res.send(result);
+        transporter.sendMail({
+          from: adminMail,
+          to: adminMail,
+          subject: "New Issue",
+          text: "New Issue was submited",
+        });
+        res.send("issue submited");
       }
     }
   );
@@ -132,15 +147,18 @@ app.get("/api/get_issue", (req, res) => {
       res.status(500).send("Error retrieving events from database");
     } else {
       const eventsWithImages = result.map(async (issue) => {
-        const imageBuffer = issue.issue_image;
-        const image = sharp(imageBuffer);
-        const metadata = await image.metadata();
-        if (metadata.format === undefined) {
-          console.log("Invalid image format");
-        } else {
-          const imageData = Buffer.from(imageBuffer).toString("base64");
-          issue.issue_image = `data:image/${metadata.format};base64,${imageData}`;
+        if (issue.issue_image) {
+          const imageBuffer = issue.issue_image;
+          const image = sharp(imageBuffer);
+          const metadata = await image.metadata();
+          if (metadata.format === undefined) {
+            console.log("Invalid image format");
+          } else {
+            const imageData = Buffer.from(imageBuffer).toString("base64");
+            issue.issue_image = `data:image/${metadata.format};base64,${imageData}`;
+          }
         }
+
         return issue;
       });
 
@@ -165,7 +183,49 @@ app.put("/api/assign_issue/:id", (req, res) => {
       console.log(err);
       res.status(500).send("Error updating issue");
     } else {
-      res.send(result);
+      const sqlGet = "SELECT email FROM worker WHERE id = ?;";
+      db.query(sqlGet, [worker_id], (err, response) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const get_issue = "SELECT * FROM issue WHERE id = ?;";
+          db.query(get_issue, [id], (err, issue_res) => {
+            transporter.sendMail({
+              from: "05210218.jnec@rub.edu.bt",
+              to: `${response[0].email}`,
+              subject: "Work assignment",
+              text: `you have been assigned work new work which is ${issue_res[0].name}`,
+            });
+          });
+        }
+      });
+
+      res.send("Assigned");
+    }
+  });
+});
+
+app.put("/api/assign_solved/:id", (req, res) => {
+  const { id, worker_id } = req.body;
+  const sqlUpdate =
+    "UPDATE issue SET status = 'solved', worker_id = ? WHERE id = ?";
+  db.query(sqlUpdate, [worker_id, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating issue");
+    } else {
+      const get_issue = "SELECT * FROM issue WHERE id = ?;";
+      db.query(get_issue, [id], (err, issue_res) => {
+        transporter.sendMail({
+          from: "05210218.jnec@rub.edu.bt",
+          to: `${issue_res[0].email}, ${adminMail}`,
+
+          subject: "Work assignment",
+          text: `This issue has been solved`,
+        });
+      });
+
+      res.send("Solved");
     }
   });
 });
@@ -183,7 +243,15 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        
+
+        transporter.sendMail({
+          from: adminMail,
+          to: email,
+          subject: "You have been added",
+          text: " you have been added to the jnec support system",
+          text: `username: ${name}, password: ${randomCode}`,
+        });
+
         res.send("Worker Added");
       }
     }
@@ -227,8 +295,10 @@ app.put("/api/editworker/:id", (req, res) => {
 
 app.get("/api/delete/:id", (req, res) => {
   const sqlDelete = "DELETE FROM worker WHERE id = ?;";
+  console.log(req.params.id);
 
   db.query(sqlDelete, [req.params.id], (err, result) => {
+    console.log(result);
     res.send("Worker Deleted");
   });
 });
