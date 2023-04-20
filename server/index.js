@@ -243,6 +243,7 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
+
         transporter.sendMail({
           from: adminMail,
           to: email,
@@ -250,6 +251,7 @@ app.post("/api/worker", (req, res) => {
           text: " you have been added to the jnec support system",
           text: `username: ${name}, password: ${randomCode}`,
         });
+
         res.send("Worker Added");
       }
     }
