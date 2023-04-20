@@ -111,24 +111,7 @@ export default function AddWorker() {
          text-center  rounded-4 " type="submit">Add Worker</Button>
         <a href="/admin" className="btn btn-success col-4 
          text-center  rounded-4">Cancel</a>
-        
-        </div>
-        <div>
-
-          <Button
-            className="btn btn-success col-4  text-center  rounded-4 "
-            type="submit"
-          >
-            Add Worker
-          </Button>
-          <a
-            href="/admin"
-            className="btn btn-success col-4  text-center  rounded-4"
-          >
-            Cancel
-          </a>
-        </div>
-        
+        </div><br />
       </Form>
     </div>
     </div>
