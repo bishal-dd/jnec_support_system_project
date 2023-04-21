@@ -93,7 +93,7 @@ app.post("/api/login", authenticate, (req, res) => {
 app.get("/api/user", (req, res) => {
   const token = req.headers.authorization?.split(" ")[1]; // Extract token from Authorization header
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json("Unauthorized");
   }
   try {
     const decoded = jwt.verify(token, randomCode);

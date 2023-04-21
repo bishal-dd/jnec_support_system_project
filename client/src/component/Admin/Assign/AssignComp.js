@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
+import AdminNav from "../AdminNavigationComp/AdminNav";
 
 export default function AssignComp() {
   const [event, setevent] = useState([]);
@@ -39,7 +39,7 @@ export default function AssignComp() {
   const loadWorker = async () => {
     try {
       const response = await axios.get("http://localhost:3001/api/get_worker");
-      console.log(response.data);
+
       setWorker(response.data);
     } catch (error) {
       console.error(error);
@@ -86,7 +86,12 @@ export default function AssignComp() {
                       <select className="mb-2 p-2 rounded-2  bg-light"
                         onChange={(e) => setSelectedWorkerId(e.target.value)}
                       >
-                        <option>Select Worker</option>
+                        {worker
+                          .filter((ite) => ite.id === item.worker_id)
+                          .map((item, index) => {
+                            return <option key={index}>{item.username}</option>;
+                          })}
+
                         {worker.map((item, index) => {
                           return (
                             <option key={index} value={item.id}>

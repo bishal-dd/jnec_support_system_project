@@ -9,11 +9,11 @@ import axios from "axios";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
 import "./logincomp.css";
+import { toast } from "react-toastify";
 
 export default function LoginComp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -41,7 +41,7 @@ export default function LoginComp() {
         window.location.reload();
       }
     } catch (error) {
-      setError("Invalid credentials");
+      toast.error("Invalid credentials");
     }
   };
 
@@ -51,12 +51,15 @@ export default function LoginComp() {
        border shadow mt-5"
       style={{ maxWidth: "540px" }}
     >
-      <Form id="sign-in-form" className="text-center w-100 align-item-center justify-content-center ">
+      <Form
+        id="sign-in-form"
+        className="text-center w-100 align-item-center justify-content-center "
+      >
         <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
-        <IoPersonCircleSharp  size={100}/>
+        <IoPersonCircleSharp size={100} />
         <Form.Group className="mb-3" controlId="name">
           <Form.Control
-           className="position-relative"
+            className="position-relative"
             class="form.control"
             type="name"
             placeholder="Email"

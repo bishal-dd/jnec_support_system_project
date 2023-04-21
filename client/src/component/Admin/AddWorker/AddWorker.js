@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
+import AdminNav from "../AdminNavigationComp/AdminNav";
 
 const initialState = {
   name: "",
