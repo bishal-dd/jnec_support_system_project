@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
+import AdminNav from "../AdminNavigationComp/AdminNav";
 
 export default function SolveComp() {
   const [event, setevent] = useState([]);

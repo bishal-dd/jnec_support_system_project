@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
+import AdminNav from "../AdminNavigationComp/AdminNav";
 
 export default function DeleteWorkerComp() {
   const [worker, setWorker] = useState([]);
@@ -29,41 +29,42 @@ export default function DeleteWorkerComp() {
   };
 
   return (
-    <div className="container"> <AdminNav/>
-    <div id="editcontainer" className="">
-      
-      <table
-        className="edit-container text-center 
+    <div className="container">
+      {" "}
+      <AdminNav />
+      <div id="editcontainer" className="">
+        <table
+          className="edit-container text-center 
         rounded-4 bg-light shadow"
-      >
-        <thead className="edit-items p-2 ">
-          <tr>
-            <th>SL No:</th>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {worker.map((item, index) => {
-            return (
-              <>
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.username}</td>
+        >
+          <thead className="edit-items p-2 ">
+            <tr>
+              <th>SL No:</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {worker.map((item, index) => {
+              return (
+                <>
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.username}</td>
 
-                  <button
-                    className="btn btn-success mb-2 mt-2 "
-                    onClick={() => handleDelete(item.id)}
-                  >
-                    Remove
-                  </button>
-                </tr>
-              </>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                    <button
+                      className="btn btn-success mb-2 mt-2 "
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      Remove
+                    </button>
+                  </tr>
+                </>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

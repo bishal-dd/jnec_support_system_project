@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
+import AdminNav from "../AdminNavigationComp/AdminNav";
 import { toast } from "react-toastify";
 
 export default function AdminHome() {
