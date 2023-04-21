@@ -177,7 +177,7 @@ app.get("/api/get_issue", (req, res) => {
 app.put("/api/assign_issue/:id", (req, res) => {
   const { id, worker_id } = req.body;
   const sqlUpdate =
-    "UPDATE issue  worker_SET status = 'assigned',id = ? WHERE id = ?";
+    "UPDATE issue SET status = 'assigned',worker_id = ? WHERE id = ?;";
   db.query(sqlUpdate, [worker_id, id], (err, result) => {
     if (err) {
       console.log(err);
@@ -234,7 +234,7 @@ app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
   sqlInsert =
-    "INSERT INTO worker ( name,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+    "INSERT INTO worker ( username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
   console.log(randomCode);
   db.query(
     sqlInsert,

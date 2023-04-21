@@ -1,30 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import axios from "axios";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
 import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import AdminNav from "../../AdminNavigationComp/AdminNav";
 
-export default function AdminHome() {
+export default function SolveComp() {
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
-  const [selectedWorkerId, setSelectedWorkerId] = useState(null);
-
-  const assignWorker = async (workerId, issueId) => {
-    console.log(workerId);
-    try {
-      const response = await axios.put(
-        `http://localhost:3001/api/assign_issue/${issueId}`,
-        { id: issueId, worker_id: workerId }
-      );
-      if (response.data === "Assigned") {
-        toast.success("Assigned");
-      }
-      // Refresh the event list to show the updated worker assignment
-      loadEvent();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const loadEvent = async () => {
     try {
@@ -67,9 +49,7 @@ export default function AdminHome() {
           </thead>
           <tbody>
             {event
-              .filter(
-                (item) => item.status !== "solved" && item.status !== "assigned"
-              )
+              .filter((item) => item.status === "solved")
               .map((item, index) => {
                 return (
                   <tr key={index}>
@@ -85,9 +65,7 @@ export default function AdminHome() {
 
                     <td>{item.issue_summary}</td>
                     <th>
-                      <select
-                        onChange={(e) => setSelectedWorkerId(e.target.value)}
-                      >
+                      <select>
                         <option>Select Worker</option>
                         {worker.map((item, index) => {
                           return (
@@ -97,12 +75,6 @@ export default function AdminHome() {
                           );
                         })}
                       </select>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => assignWorker(selectedWorkerId, item.id)}
-                      >
-                        Assign
-                      </button>
                     </th>
                   </tr>
                 );
