@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import AdminNav from "../../AdminNavigationComp/AdminNav";
 
