@@ -20,7 +20,6 @@ export default function SolveComp() {
   const loadWorker = async () => {
     try {
       const response = await axios.get("http://localhost:3001/api/get_worker");
-      console.log(response.data);
       setWorker(response.data);
     } catch (error) {
       console.error(error);
@@ -64,16 +63,11 @@ export default function SolveComp() {
 
                     <td>{item.issue_summary}</td>
                     <th>
-                      <select>
-                        <option>Select Worker</option>
-                        {worker.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.username}
-                            </option>
-                          );
+                      {worker
+                        .filter((ite) => ite.id === item.worker_id)
+                        .map((item, index) => {
+                          return <p key={index}>{item.username}</p>;
                         })}
-                      </select>
                     </th>
                   </tr>
                 );
