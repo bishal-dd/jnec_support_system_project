@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import axios from "axios";
-import AdminNav from "../../AdminNavigationComp/AdminNav";
 import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import AdminNav from "../../AdminNavigationComp/AdminNav";
 
-export default function AdminHome() {
+export default function AssignComp() {
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
@@ -67,9 +67,7 @@ export default function AdminHome() {
           </thead>
           <tbody>
             {event
-              .filter(
-                (item) => item.status !== "solved" && item.status !== "assigned"
-              )
+              .filter((item) => item.status === "assigned")
               .map((item, index) => {
                 return (
                   <tr key={index}>

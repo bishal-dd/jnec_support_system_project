@@ -2,7 +2,7 @@ import React from "react";
 import "./navbarcomp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { BiHomeAlt } from "react-icons/bi";
+
 
 export default function NavbarComp() {
   const navigate = useNavigate();

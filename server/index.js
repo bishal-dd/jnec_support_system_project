@@ -177,7 +177,7 @@ app.get("/api/get_issue", (req, res) => {
 app.put("/api/assign_issue/:id", (req, res) => {
   const { id, worker_id } = req.body;
   const sqlUpdate =
-    "UPDATE issue  worker_SET status = 'assigned',id = ? WHERE id = ?";
+    "UPDATE issue SET status = 'assigned',worker_id = ? WHERE id = ?;";
   db.query(sqlUpdate, [worker_id, id], (err, result) => {
     if (err) {
       console.log(err);
@@ -231,10 +231,10 @@ app.put("/api/assign_solved/:id", (req, res) => {
 });
 
 app.post("/api/worker", (req, res) => {
-  const { name, department, phone, email, } = req.body;
+  const { name, department, phone, email } = req.body;
 
   sqlInsert =
-    "INSERT INTO worker ( name,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
+    "INSERT INTO worker ( username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
   console.log(randomCode);
   db.query(
     sqlInsert,
@@ -243,7 +243,6 @@ app.post("/api/worker", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-
         transporter.sendMail({
           from: adminMail,
           to: email,
@@ -303,14 +302,14 @@ app.get("/api/delete/:id", (req, res) => {
   });
 });
 
-app.post('/api/check-status', (req, res) => { 
+app.post("/api/check-status", (req, res) => {
   const ticketNumber = req.body.ticketNumber;
-  const statuses = ['Pending', 'Solved'];
+  const statuses = ["Pending", "Solved"];
   const randomIndex = Math.floor(Math.random() * statuses.length);
-  const status = statuses[randomIndex]
+  const status = statuses[randomIndex];
 
-    res.send({ status });
-  });
+  res.send({ status });
+});
 app.get("/api/get", (req, res) => {
   res.send("hello");
 });
