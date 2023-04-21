@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import AdminNav from "../../AdminNavigationComp/AdminNav";
 import { toast } from "react-toastify";
@@ -55,9 +54,9 @@ export default function AdminHome() {
     <div className="container-md mt-5">
       <AdminNav />
       <div className="row">
-        <table class="table table-bordered mt-3 shadow">
+        <table class="table table-bordered mt-3 shadow mb-2">
           <thead>
-            <tr>
+            <tr className="text-center">
               <th scope="col">#</th>
               <th scope="col">Issue</th>
               <th scope="col">Issue_image</th>
@@ -85,7 +84,7 @@ export default function AdminHome() {
 
                     <td>{item.issue_summary}</td>
                     <th>
-                      <select
+                      <select className="mb-2 p-2 rounded-2 bg-light"
                         onChange={(e) => setSelectedWorkerId(e.target.value)}
                       >
                         <option>Select Worker</option>
@@ -96,13 +95,14 @@ export default function AdminHome() {
                             </option>
                           );
                         })}
-                      </select>
+                      </select><br />
+                      <div className="text-center align-items-center justify-center">
                       <button
-                        className="btn btn-primary"
-                        onClick={() => assignWorker(selectedWorkerId, item.id)}
-                      >
+                        className="btn btn-info rounded-5 shadow mt-2"
+                        onClick={() => assignWorker(selectedWorkerId, item.id)}>
                         Assign
                       </button>
+                      </div>
                     </th>
                   </tr>
                 );

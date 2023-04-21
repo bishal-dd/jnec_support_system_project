@@ -57,7 +57,7 @@ export default function AssignComp() {
       <div className="row">
         <table class="table table-bordered mt-3 shadow">
           <thead>
-            <tr>
+            <tr className="text-center">
               <th scope="col">#</th>
               <th scope="col">Issue</th>
               <th scope="col">Issue_image</th>
@@ -83,7 +83,7 @@ export default function AssignComp() {
 
                     <td>{item.issue_summary}</td>
                     <th>
-                      <select
+                      <select className="mb-2 p-2 rounded-2  bg-light"
                         onChange={(e) => setSelectedWorkerId(e.target.value)}
                       >
                         <option>Select Worker</option>
@@ -94,13 +94,15 @@ export default function AssignComp() {
                             </option>
                           );
                         })}
-                      </select>
+                      </select><br />
+                      <div className="text-center align-items-center justify-center">
                       <button
-                        className="btn btn-primary"
+                        className="btn btn-info rounded-5 text-center"
                         onClick={() => assignWorker(selectedWorkerId, item.id)}
                       >
                         Assign
                       </button>
+                      </div>
                     </th>
                   </tr>
                 );
