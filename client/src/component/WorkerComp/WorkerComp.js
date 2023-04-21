@@ -16,11 +16,10 @@ export default function WorkerComp() {
         `http://localhost:3001/api/assign_solved/${issueId}`,
         { id: issueId, worker_id: workerId }
       );
-
+      loadEvent();
       toast.success(response.data);
 
       // Refresh the event list to show the updated worker assignment
-      loadEvent();
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +55,9 @@ export default function WorkerComp() {
         </thead>
         <tbody>
           {event
-            .filter((item) => item.worker_id === id)
+            .filter(
+              (item) => item.worker_id === id && item.status === "assigned"
+            )
             .map((item, index) => {
               return (
                 <tr key={index}>

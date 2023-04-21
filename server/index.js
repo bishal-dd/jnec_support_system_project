@@ -207,9 +207,9 @@ app.put("/api/assign_issue/:id", (req, res) => {
 
 app.put("/api/assign_solved/:id", (req, res) => {
   const { id, worker_id } = req.body;
-  const sqlUpdate =
-    "UPDATE issue SET status = 'solved', worker_id = ? WHERE id = ?";
-  db.query(sqlUpdate, [worker_id, id], (err, result) => {
+
+  const sqlUpdate = "UPDATE issue SET status = 'solved' WHERE id = ?";
+  db.query(sqlUpdate, [id], (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send("Error updating issue");
@@ -219,7 +219,6 @@ app.put("/api/assign_solved/:id", (req, res) => {
         transporter.sendMail({
           from: "05210218.jnec@rub.edu.bt",
           to: `${issue_res[0].email}, ${adminMail}`,
-
           subject: "Work assignment",
           text: `This issue has been solved`,
         });

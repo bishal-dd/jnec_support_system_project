@@ -7,6 +7,11 @@ export default function AdminNav() {
       <div className="container-md mt-5">
         <div className="row justify-content-center text-center gap-2 ">
           <div className="col d-grid ">
+            <Link to="/admin" className="btn btn-info rounded-5 shadow">
+              Home
+            </Link>
+          </div>
+          <div className="col d-grid ">
             <Link to="/add" className="btn btn-info rounded-5 shadow">
               Add_Worker
             </Link>
