@@ -52,8 +52,8 @@ function authenticate(req, res, next) {
     }
 
     if (adminResults.length === 1) {
-      const { id, username } = adminResults[0];
-      req.user = { id, username, role: "admin" };
+      const { id, username, department } = adminResults[0];
+      req.user = { id, username, department, role: "admin" };
       return next();
     } else {
       db.query(workerQuery, [username, password], (err, workerResults) => {
@@ -61,8 +61,8 @@ function authenticate(req, res, next) {
           return res.status(500).json({ error: "Internal Server Error" });
         }
         if (workerResults.length === 1) {
-          const { id, username } = workerResults[0];
-          req.user = { id, username, role: "worker" };
+          const { id, username, department } = workerResults[0];
+          req.user = { id, username, department, role: "worker" };
           return next();
         } else {
           db.query(viewerQuery, [username, password], (err, viewerResults) => {
@@ -84,8 +84,8 @@ function authenticate(req, res, next) {
 }
 
 app.post("/api/login", authenticate, (req, res) => {
-  const { id, username, role } = req.user;
-  const token = jwt.sign({ id, username, role }, randomCode);
+  const { id, username, department, role } = req.user;
+  const token = jwt.sign({ id, username, department, role }, randomCode);
 
   res.json({ token });
 });
@@ -97,8 +97,8 @@ app.get("/api/user", (req, res) => {
   }
   try {
     const decoded = jwt.verify(token, randomCode);
-    const { id, username, role } = decoded;
-    res.json({ id, username, role });
+    const { id, username, department, role } = decoded;
+    res.json({ id, username, department, role });
   } catch (err) {
     res.status(401).json({ error: "Unauthorized" });
   }

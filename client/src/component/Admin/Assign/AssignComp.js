@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function AssignComp() {
+  const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
@@ -67,7 +69,11 @@ export default function AssignComp() {
           </thead>
           <tbody>
             {event
-              .filter((item) => item.status === "assigned")
+              .filter(
+                (item) =>
+                  item.status === "assigned" &&
+                  item.issue_type === currentUser.department
+              )
               .map((item, index) => {
                 return (
                   <tr key={index}>
@@ -92,13 +98,17 @@ export default function AssignComp() {
                             return <option key={index}>{item.username}</option>;
                           })}
 
-                        {worker.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.username}
-                            </option>
-                          );
-                        })}
+                        {worker
+                          .filter(
+                            (item) => item.department === currentUser.department
+                          )
+                          .map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.username}
+                              </option>
+                            );
+                          })}
                       </select>
                       <button
                         className="btn btn-primary"

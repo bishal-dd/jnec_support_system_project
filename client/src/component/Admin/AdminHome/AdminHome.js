@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function AdminHome() {
+  const { currentUser } = useContext(AuthContext);
+
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
@@ -28,7 +31,7 @@ export default function AdminHome() {
   const loadEvent = async () => {
     try {
       const response = await axios.get("http://localhost:3001/api/get_issue");
-
+      console.log(response.data);
       setevent(response.data);
     } catch (error) {
       console.error(error);
@@ -67,7 +70,10 @@ export default function AdminHome() {
           <tbody>
             {event
               .filter(
-                (item) => item.status !== "solved" && item.status !== "assigned"
+                (item) =>
+                  item.status !== "solved" &&
+                  item.status !== "assigned" &&
+                  item.issue_type === currentUser.department
               )
               .map((item, index) => {
                 return (
@@ -88,13 +94,17 @@ export default function AdminHome() {
                         onChange={(e) => setSelectedWorkerId(e.target.value)}
                       >
                         <option>Select Worker</option>
-                        {worker.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.username}
-                            </option>
-                          );
-                        })}
+                        {worker
+                          .filter(
+                            (item) => item.department === currentUser.department
+                          )
+                          .map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.username}
+                              </option>
+                            );
+                          })}
                       </select>
                       <button
                         className="btn btn-primary"

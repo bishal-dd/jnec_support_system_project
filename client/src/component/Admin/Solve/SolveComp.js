@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function SolveComp() {
+  const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
 
@@ -47,7 +49,11 @@ export default function SolveComp() {
           </thead>
           <tbody>
             {event
-              .filter((item) => item.status === "solved")
+              .filter(
+                (item) =>
+                  item.status === "solved" &&
+                  item.issue_type === currentUser.department
+              )
               .map((item, index) => {
                 return (
                   <tr key={index}>

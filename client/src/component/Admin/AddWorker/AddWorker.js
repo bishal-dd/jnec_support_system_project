@@ -75,8 +75,7 @@ export default function AddWorker() {
               <option value="">Select a department...</option>
               <option value="ICT">ICT</option>
               <option value="estate">Estate</option>
-              <option value="eletrical">Electrical</option>
-              <option value="plumbing">Plumbing</option>
+              <option value="academic">Academic</option>
             </Form.Control>
           </Form.Group>
 

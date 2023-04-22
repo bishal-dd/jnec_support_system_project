@@ -103,11 +103,10 @@ export default function HomeComp() {
             onChange={handleChange}
             required
           >
-            <option value="">Select a department...</option>
+            <option value="">Select a type...</option>
             <option value="ICT">ICT</option>
             <option value="estate">Estate</option>
-            <option value="electrical">Electrical</option>
-            <option value="plumbing">Plumbing</option>
+            <option value="academic">Academic</option>
           </select>
         </div>
         <div className="form-group">
