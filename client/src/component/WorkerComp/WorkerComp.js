@@ -3,6 +3,7 @@ import "./workercomp.css";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ImageModal from "../Admin/AdminHome/ImageModule/ImageModal";
 export default function WorkerComp() {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
@@ -48,9 +49,9 @@ export default function WorkerComp() {
         <thead className="table-items p-2 text-center">
           <tr>
             <th>SL No:</th>
-            <th>Issues</th>
-            <th>Status</th>
-            <th>Date</th>
+            <th scope="col">Issue Image</th>
+            <th scope="col">Issue Summary</th>
+            <th scope="col">Date</th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +63,11 @@ export default function WorkerComp() {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{item.name}</td>
+                  <td className="col-md-3 p-3 text-center">
+                    <ImageModal image={item.issue_image} />
+                  </td>
+                  <td>{item.issue_summary}</td>
+                  <td>{item.issue_date}</td>
                   <button
                     className="btn btn-primary mb-2 mt-2"
                     onClick={() => assignSolved(item.workerId, item.id)}
