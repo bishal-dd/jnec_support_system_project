@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "../AdminHome/ImageModule/ImageModal";
+import './assign.css';
 
 export default function AssignComp() {
   const { currentUser } = useContext(AuthContext);
@@ -63,7 +64,8 @@ export default function AssignComp() {
     <div className="container-fluid">
       <div className="col">
         <div><AdminNav /></div>
-        <table class="table table-bordered mt-3 shadow">
+        <div className="col table-wrapper d-flex">
+        <table class="fl-table table-bordered mt-3 shadow">
           <thead>
             <tr className="text-center">
               <th scope="col">#</th>
@@ -134,6 +136,7 @@ export default function AssignComp() {
               })}
           </tbody>
         </table>
+        </div>
    </div>
    </div>
   );

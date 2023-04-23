@@ -60,8 +60,8 @@ export default function AdminHome() {
     <div className="container-fluid ">
       <div className="col flex-nowrap ">
        <div><AdminNav /> </div>
-       <div className="col d-flex">
-        <table className="table table-bordered mt-3 shadow mb-2">
+       <div className="col table-wrapper d-flex">
+        <table className="fl-table table-bordered mt-3 shadow mb-2">
           <thead>
             <tr className="text-center">
               <th scope="col">#</th>
@@ -112,13 +112,11 @@ export default function AdminHome() {
                             );
                           })}
                       </select>
-                      <div>
                       <button
                         className="btn btn-info rounded-5 shadow mt-2"
                         onClick={() => assignWorker(selectedWorkerId, item.id)}>
                         Assign
                       </button>
-                      </div>
                     </th>
                   </tr>
                 );

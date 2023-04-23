@@ -39,7 +39,8 @@ export default function SolveComp() {
     <div className="container-fluid">
       <div className="col">
       <div> <AdminNav /> </div>
-        <table class="container table table-bordered mt-3 shadow">
+      <div className="col table-wrapper d-flex">
+        <table class="container fl-table table-bordered mt-3 shadow">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -84,6 +85,7 @@ export default function SolveComp() {
               })}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

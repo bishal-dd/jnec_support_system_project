@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import './editworkercomp.css';
 
 export default function EditWorkerComp() {
   const [worker, setWorker] = useState([]);
@@ -20,9 +21,9 @@ export default function EditWorkerComp() {
     <div className="container-fluid">
       <div className="col flex-nowrap">
         <div><AdminNav /></div> 
-      <div className="container text-center justify-content-center">
+      <div className="col table-wrapper d-flex">
           <table
-            className="table-container text-center bg-light shadow"
+            className="fl-table table-bordered mt-3 shadow mb-2"
           >
             <thead className="table-items p-2 text-center">
               <tr>
