@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import './custom-toast.css';
 
 export default function AssignComp() {
   const [event, setevent] = useState([]);
@@ -17,7 +18,12 @@ export default function AssignComp() {
         { id: issueId, worker_id: workerId }
       );
       if (response.data === "Assigned") {
-        toast.success("Assigned");
+        toast.success("Assigned",{
+          className: 'custom-toast',
+          position: toast.POSITION.TOP_CENTER,  
+         
+        });
+        
       }
       // Refresh the event list to show the updated worker assignment
       loadEvent();
@@ -52,9 +58,12 @@ export default function AssignComp() {
   }, []);
 
   return (
-    <div className="container-md mt-5">
-      <AdminNav />
-      <div className="row">
+    
+      
+    <div className="container-fluid">
+      
+      <div className="col">
+        <div><AdminNav /></div>
         <table class="table table-bordered mt-3 shadow">
           <thead>
             <tr className="text-center">

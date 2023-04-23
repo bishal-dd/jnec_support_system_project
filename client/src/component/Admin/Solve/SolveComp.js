@@ -32,10 +32,11 @@ export default function SolveComp() {
   }, []);
 
   return (
-    <div className="container-md mt-5">
-      <AdminNav />
-      <div className="row">
-        <table class="table table-bordered mt-3 shadow">
+   
+    <div className="container-fluid">
+      <div className="col">
+      <div> <AdminNav /> </div>
+        <table class="container table table-bordered mt-3 shadow">
           <thead>
             <tr>
               <th scope="col">#</th>

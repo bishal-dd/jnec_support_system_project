@@ -29,9 +29,10 @@ export default function DeleteWorkerComp() {
   };
 
   return (
+   <div> <AdminNav />
     <div className="container">
       {" "}
-      <AdminNav />
+      
       <div id="editcontainer" className="">
         <table
           className="edit-container text-center 
@@ -54,7 +55,7 @@ export default function DeleteWorkerComp() {
 
                     <button
                       className="btn btn-success mb-2 mt-2 "
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() => handleDelete(item.id)} 
                     >
                       Remove
                     </button>
@@ -65,6 +66,7 @@ export default function DeleteWorkerComp() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }

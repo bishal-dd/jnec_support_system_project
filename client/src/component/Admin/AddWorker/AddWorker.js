@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 
+
 const initialState = {
   name: "",
   department: "",
@@ -43,13 +44,14 @@ export default function AddWorker() {
   };
 
   return (
-    <div className="container">
-      <AdminNav />
+    <div className="container-fluid">
+      <div class="row flex">
+      <div><AdminNav /></div>
       <div
-        className="container mt-5 bg-light rounded-4 shadow"
+        className="container bg-light rounded-4 shadow mt-5"
         style={{ maxWidth: "540px" }}
       >
-        <Form className="mb-4" onSubmit={handleSubmit}>
+        <Form className="" onSubmit={handleSubmit}>
           <h3 className="text-center">Add Worker</h3>
           <Form.Group controlId="name">
             <Form.Label>Name:</Form.Label>
@@ -119,6 +121,7 @@ export default function AddWorker() {
           </div>
         </Form>
       </div> 
+    </div>
     </div>
   );
 }

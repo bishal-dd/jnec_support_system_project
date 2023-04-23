@@ -16,16 +16,16 @@ export default function NavbarComp() {
   };
 
   return (
-    <nav className="navbar fixed-top navbar-light navbar-expand-xl bg-dark mb-8" id="navbar" >
+    <nav className="navbar fixed-top navbar-dark navbar-expand-xl bg-dark" id="navbar" >
       <div className="container-fluid" >
       <button
-        className="navbar-toggler"
+        className="navbar-toggler text-white"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarToggleExternalContent"
         aria-controls="navbarToggleExternalContent"
          aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon "></span>
       </button>
       <img
         src="https://res.cloudinary.com/dnmtsuwhc/image/upload/v1678645849/u5ffbzghsirppkrzughq.png"

@@ -51,10 +51,12 @@ export default function AdminHome() {
   }, []);
 
   return (
-    <div className="container-md mt-5">
-      <AdminNav />
-      <div className="row">
-        <table class="table table-bordered mt-3 shadow mb-2">
+    
+    <div className="container-fluid ">
+      <div className="col flex-nowrap ">
+       <div><AdminNav /> </div>
+       <div className="col d-flex">
+        <table className="table table-bordered mt-3 shadow mb-2">
           <thead>
             <tr className="text-center">
               <th scope="col">#</th>
@@ -109,7 +111,8 @@ export default function AdminHome() {
               })}
           </tbody>
         </table>
+        </div>
       </div>
-    </div>
+      </div>
   );
 }
