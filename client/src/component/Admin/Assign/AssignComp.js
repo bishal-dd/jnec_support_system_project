@@ -20,12 +20,10 @@ export default function AssignComp() {
         { id: issueId, worker_id: workerId }
       );
       if (response.data === "Assigned") {
-        toast.success("Assigned",{
-          className: 'custom-toast',
-          position: toast.POSITION.TOP_CENTER,  
-         
+        toast.success("Assigned", {
+          className: "custom-toast",
+          position: toast.POSITION.TOP_CENTER,
         });
-        
       }
       // Refresh the event list to show the updated worker assignment
       loadEvent();
@@ -60,81 +58,98 @@ export default function AssignComp() {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <div className="col">
-        <div><AdminNav /></div>
-        <table class="table table-bordered mt-3 shadow">
-          <thead>
-            <tr className="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Issue Image</th>
-              <th scope="col">Issue Summary</th>
-              <th scope="col">Issue Provider</th>
-              <th scope="col">Date</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {event
-              .filter(
-                (item) =>
-                  item.status === "assigned" &&
-                  item.issue_type === currentUser.department
-              )
-              .map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td className="col-md-3 p-3 text-center">
-                      <ImageModal image={item.issue_image} />
-                    </td>
+    <div id="admin_container">
+      <div className="row">
+        <div className="col-md-2 border border-dark">
+          <AdminNav />
+        </div>
 
-                    <td>{item.issue_summary}</td>
-                    <td>
-                      <p>Name:{item.name}</p>
-                      <p>Email:{item.email}</p>
-                      <p>Phone No:{item.phone}</p>
-                    </td>
-                    <td>{item.issue_date}</td>
-                    <th>
-                      <select className="mb-2 p-2 rounded-2  bg-light"
-                        onChange={(e) => setSelectedWorkerId(e.target.value)}
-                      >
-                        {worker
-                          .filter((ite) => ite.id === item.worker_id)
-                          .map((item, index) => {
-                            return <option key={index}>{item.username}</option>;
-                          })}
-
-                        {worker
-                          .filter(
-                            (ite) =>
-                              ite.department === currentUser.department &&
-                              ite.id !== item.worker_id
-                          )
-                          .map((item, index) => {
-                            return (
-                              <option key={index} value={item.id}>
-                                {item.username}
-                              </option>
-                            );
-                          })}
-                      </select>
-                     <div>
-                      <button
-                        className="btn btn-info rounded-5 text-center"
-                        onClick={() => assignWorker(selectedWorkerId, item.id)}
-                      >
-                        Assign
-                      </button>
-                      </div>
-                    </th>
+        <div className="col">
+          {" "}
+          <div className="container-fluid">
+            <div className="col">
+              <table class="table table-bordered mt-3 shadow">
+                <thead>
+                  <tr className="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Issue Image</th>
+                    <th scope="col">Issue Summary</th>
+                    <th scope="col">Issue Provider</th>
+                    <th scope="col">Date</th>
+                    <th></th>
                   </tr>
-                );
-              })}
-          </tbody>
-        </table>
-   </div>
-   </div>
+                </thead>
+                <tbody>
+                  {event
+                    .filter(
+                      (item) =>
+                        item.status === "assigned" &&
+                        item.issue_type === currentUser.department
+                    )
+                    .map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <th scope="row">{index + 1}</th>
+                          <td className="col-md-3 p-3 text-center">
+                            <ImageModal image={item.issue_image} />
+                          </td>
+
+                          <td>{item.issue_summary}</td>
+                          <td>
+                            <p>Name:{item.name}</p>
+                            <p>Email:{item.email}</p>
+                            <p>Phone No:{item.phone}</p>
+                          </td>
+                          <td>{item.issue_date}</td>
+                          <th>
+                            <select
+                              className="mb-2 p-2 rounded-2  bg-light"
+                              onChange={(e) =>
+                                setSelectedWorkerId(e.target.value)
+                              }
+                            >
+                              {worker
+                                .filter((ite) => ite.id === item.worker_id)
+                                .map((item, index) => {
+                                  return (
+                                    <option key={index}>{item.username}</option>
+                                  );
+                                })}
+
+                              {worker
+                                .filter(
+                                  (ite) =>
+                                    ite.department === currentUser.department &&
+                                    ite.id !== item.worker_id
+                                )
+                                .map((item, index) => {
+                                  return (
+                                    <option key={index} value={item.id}>
+                                      {item.username}
+                                    </option>
+                                  );
+                                })}
+                            </select>
+                            <div>
+                              <button
+                                className="btn btn-info rounded-5 text-center"
+                                onClick={() =>
+                                  assignWorker(selectedWorkerId, item.id)
+                                }
+                              >
+                                Assign
+                              </button>
+                            </div>
+                          </th>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

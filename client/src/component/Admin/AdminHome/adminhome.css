@@ -1,3 +1,7 @@
 #issue_image_in_table:hover {
   cursor: zoom-in;
 }
+#admin_container {
+  display: flex;
+  flex-direction: row;
+}

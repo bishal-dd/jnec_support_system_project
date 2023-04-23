@@ -4,7 +4,6 @@ import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 
-
 const initialState = {
   name: "",
   department: "",
@@ -44,83 +43,89 @@ export default function AddWorker() {
   };
 
   return (
-    <div className="container-fluid">
-      <div class="row flex">
-      <div><AdminNav /></div>
-      <div
-        className="container bg-light rounded-4 shadow mt-5"
-        style={{ maxWidth: "540px" }}
-      >
-        <Form className="" onSubmit={handleSubmit}>
-          <h3 className="text-center">Add Worker</h3>
-          <Form.Group controlId="name">
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              required
-              value={name}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
+    <div id="admin_container">
+      <div className="row">
+        <div className="col-md-6">
+          <AdminNav />
+        </div>
 
-          <Form.Group controlId="department">
-            <Form.Label>Department:</Form.Label>
-            <Form.Control
-              as="select"
-              name="department"
-              required
-              value={department}
-              onChange={handleInputChange}
-            >
-              <option value="">Select a department...</option>
-              <option value="ICT">ICT</option>
-              <option value="estate">Estate</option>
-              <option value="academic">Academic</option>
-            </Form.Control>
-          </Form.Group>
+        <div className="col">
+          <div className="container-fluid">
+            <div class="col">
+              <div className="container bg-light rounded-4 shadow mt-5">
+                <Form className="" onSubmit={handleSubmit}>
+                  <h3 className="text-center">Add Worker</h3>
+                  <Form.Group controlId="name">
+                    <Form.Label>Name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      required
+                      value={name}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
 
-          <Form.Group controlId="phone">
-            <Form.Label>Phone Number:</Form.Label>
-            <Form.Control
-              type="tel"
-              name="phone"
-              pattern="[0-9]{8}"
-              required
-              value={phone}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-        
-          <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Email:</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              required
-              value={email}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-          <div className="row justify-content-center text-center gap-5">
-            <Button
-              className="btn btn-success col-4 
+                  <Form.Group controlId="department">
+                    <Form.Label>Department:</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="department"
+                      required
+                      value={department}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select a department...</option>
+                      <option value="ICT">ICT</option>
+                      <option value="estate">Estate</option>
+                      <option value="academic">Academic</option>
+                    </Form.Control>
+                  </Form.Group>
+
+                  <Form.Group controlId="phone">
+                    <Form.Label>Phone Number:</Form.Label>
+                    <Form.Control
+                      type="tel"
+                      name="phone"
+                      pattern="[0-9]{8}"
+                      required
+                      value={phone}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="email">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      required
+                      value={email}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                  <div className="row justify-content-center text-center gap-5">
+                    <Button
+                      className="btn btn-success col-4 
          text-center  rounded-4 "
-              type="submit"
-            >
-              Add Worker
-            </Button>
-            <a
-              href="/admin"
-              className="btn btn-success col-4 
+                      type="submit"
+                    >
+                      Add Worker
+                    </Button>
+                    <a
+                      href="/admin"
+                      className="btn btn-success col-4 
          text-center  rounded-4"
-            >
-              Cancel
-            </a>
+                    >
+                      Cancel
+                    </a>
+                  </div>
+                </Form>
+              </div>
+            </div>
           </div>
-        </Form>
-      </div> 
-    </div>
+        </div>
+      </div>
     </div>
   );
 }

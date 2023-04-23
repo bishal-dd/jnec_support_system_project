@@ -34,12 +34,12 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
-            <Route path="/edit" element={<EditComp />} />
-            <Route path="/add" element={<AddWorker />} />
-            <Route path="/delete" element={<DeleteWorkerComp />} />
-            <Route path="/editworker" element={<EditWorkerComp />} />
-            <Route path="/solve" element={<SolveComp />} />
-            <Route path="/assign" element={<AssignComp />} />
+            <Route path="/admin/edit" element={<EditComp />} />
+            <Route path="/admin/add" element={<AddWorker />} />
+            <Route path="/admin/delete" element={<DeleteWorkerComp />} />
+            <Route path="/admin/editworker" element={<EditWorkerComp />} />
+            <Route path="/admin/solve" element={<SolveComp />} />
+            <Route path="/admin/assign" element={<AssignComp />} />
           </Route>
           <Route element={<ProtectedWorkerRoute user={currentUser} />}>
             <Route path="/worker" element={<WorkerComp />} />

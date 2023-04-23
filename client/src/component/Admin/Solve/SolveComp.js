@@ -35,55 +35,63 @@ export default function SolveComp() {
   }, []);
 
   return (
-   
-    <div className="container-fluid">
-      <div className="col">
-      <div> <AdminNav /> </div>
-        <table class="container table table-bordered mt-3 shadow">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Issue Image</th>
-              <th scope="col">Issue Summary</th>
-              <th scope="col">Issue Provider</th>
-              <th scope="col">Date</th>
-              <th scope="col">Worker</th>
-            </tr>
-          </thead>
-          <tbody>
-            {event
-              .filter(
-                (item) =>
-                  item.status === "solved" &&
-                  item.issue_type === currentUser.department
-              )
-              .map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td className="col-md-3 p-3 text-center">
-                      <ImageModal image={item.issue_image} />
-                    </td>
+    <div id="admin_container">
+      <div className="row">
+        <div className="col-md-2 border border-dark">
+          <AdminNav />
+        </div>
 
-                    <td>{item.issue_summary}</td>
-                    <td>
-                      <p>Name:{item.name}</p>
-                      <p>Email:{item.email}</p>
-                      <p>Phone No:{item.phone}</p>
-                    </td>
-                    <td>{item.issue_date}</td>
-                    <th>
-                      {worker
-                        .filter((ite) => ite.id === item.worker_id)
-                        .map((item, index) => {
-                          return <p key={index}>{item.username}</p>;
-                        })}
-                    </th>
+        <div className="col">
+          <div className="container-fluid">
+            <div className="col">
+              <table class="container table table-bordered mt-3 shadow">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Issue Image</th>
+                    <th scope="col">Issue Summary</th>
+                    <th scope="col">Issue Provider</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Worker</th>
                   </tr>
-                );
-              })}
-          </tbody>
-        </table>
+                </thead>
+                <tbody>
+                  {event
+                    .filter(
+                      (item) =>
+                        item.status === "solved" &&
+                        item.issue_type === currentUser.department
+                    )
+                    .map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <th scope="row">{index + 1}</th>
+                          <td className="col-md-3 p-3 text-center">
+                            <ImageModal image={item.issue_image} />
+                          </td>
+
+                          <td>{item.issue_summary}</td>
+                          <td>
+                            <p>Name:{item.name}</p>
+                            <p>Email:{item.email}</p>
+                            <p>Phone No:{item.phone}</p>
+                          </td>
+                          <td>{item.issue_date}</td>
+                          <th>
+                            {worker
+                              .filter((ite) => ite.id === item.worker_id)
+                              .map((item, index) => {
+                                return <p key={index}>{item.username}</p>;
+                              })}
+                          </th>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
