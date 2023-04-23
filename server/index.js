@@ -112,17 +112,23 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
   let image = req.file ? req.file.buffer : null;
   const imageSize = image ? image.length : 0;
 
+  const currentDate = new Date();
+  let year = currentDate.getFullYear();
+  let month = currentDate.getMonth() + 1; // 0-11, where 0 is January
+  let day = currentDate.getDate();
+  const date = `${year}-${month}-${day}`;
+
   if (imageSize > MAX_IMAGE_SIZE) {
     console.log("Image size exceeds the limit of 10 MB");
     res.status(400).send("Image size exceeds the limit of 10 MB");
     return;
   }
   sqlInsert =
-    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
+    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary, issue_date) VALUES (?,?,?,?,?,?,?);";
 
   db.query(
     sqlInsert,
-    [name, email, phone, image, issue_type, issue_summary],
+    [name, email, phone, image, issue_type, issue_summary, date],
     (error, result) => {
       if (error) {
         console.log(error);
