@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import { AuthContext } from "../../../context/AuthContext";
+import ImageModal from "../AdminHome/ImageModule/ImageModal";
 
 export default function SolveComp() {
+  const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
 
@@ -40,29 +43,35 @@ export default function SolveComp() {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Issue_image</th>
-              <th scope="col">Issue_summary</th>
-              <th></th>
+              <th scope="col">Issue Image</th>
+              <th scope="col">Issue Summary</th>
+              <th scope="col">Issue Provider</th>
+              <th scope="col">Date</th>
+              <th scope="col">Worker</th>
             </tr>
           </thead>
           <tbody>
             {event
-              .filter((item) => item.status === "solved")
+              .filter(
+                (item) =>
+                  item.status === "solved" &&
+                  item.issue_type === currentUser.department
+              )
               .map((item, index) => {
                 return (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{item.name}</td>
-                    <td className="col w-50 p-3 text-center">
-                      <img
-                        src={item.issue_image}
-                        alt="issue_image"
-                        height="200px"
-                      />
+                    <td className="col-md-3 p-3 text-center">
+                      <ImageModal image={item.issue_image} />
                     </td>
 
                     <td>{item.issue_summary}</td>
+                    <td>
+                      <p>Name:{item.name}</p>
+                      <p>Email:{item.email}</p>
+                      <p>Phone No:{item.phone}</p>
+                    </td>
+                    <td>{item.issue_date}</td>
                     <th>
                       {worker
                         .filter((ite) => ite.id === item.worker_id)

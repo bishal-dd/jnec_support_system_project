@@ -33,10 +33,10 @@ export default function EditComp() {
   };
 
   return (
-    <div className="container">
-      <AdminNav />
-      <div
-        className="container mt-5 bg-light rounded-4 shadow"
+    <div className="container-fluid">
+      <div className="col flex-nowrap">
+      <div><AdminNav /></div>
+      <div className="container mt-5 bg-light rounded-4 shadow"
         style={{ maxWidth: "600px" }}
       >
         <Form
@@ -111,6 +111,7 @@ export default function EditComp() {
           <br></br>
         </Form>
       </div>
+    </div>
     </div>
   );
 }

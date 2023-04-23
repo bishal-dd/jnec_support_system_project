@@ -17,13 +17,12 @@ export default function EditWorkerComp() {
   }, []);
 
   return (
-    <div>
-      <AdminNav />
-      <div className="text-center justify-content-center">
-        <div id="container" className="">
+    <div className="container-fluid">
+      <div className="col flex-nowrap">
+        <div><AdminNav /></div> 
+      <div className="container text-center justify-content-center">
           <table
-            className="table-container text-center
-       bg-light shadow"
+            className="table-container text-center bg-light shadow"
           >
             <thead className="table-items p-2 text-center">
               <tr>

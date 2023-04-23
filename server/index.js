@@ -52,8 +52,8 @@ function authenticate(req, res, next) {
     }
 
     if (adminResults.length === 1) {
-      const { id, username } = adminResults[0];
-      req.user = { id, username, role: "admin" };
+      const { id, username, department } = adminResults[0];
+      req.user = { id, username, department, role: "admin" };
       return next();
     } else {
       db.query(workerQuery, [username, password], (err, workerResults) => {
@@ -61,8 +61,8 @@ function authenticate(req, res, next) {
           return res.status(500).json({ error: "Internal Server Error" });
         }
         if (workerResults.length === 1) {
-          const { id, username } = workerResults[0];
-          req.user = { id, username, role: "worker" };
+          const { id, username, department } = workerResults[0];
+          req.user = { id, username, department, role: "worker" };
           return next();
         } else {
           db.query(viewerQuery, [username, password], (err, viewerResults) => {
@@ -84,8 +84,8 @@ function authenticate(req, res, next) {
 }
 
 app.post("/api/login", authenticate, (req, res) => {
-  const { id, username, role } = req.user;
-  const token = jwt.sign({ id, username, role }, randomCode);
+  const { id, username, department, role } = req.user;
+  const token = jwt.sign({ id, username, department, role }, randomCode);
 
   res.json({ token });
 });
@@ -97,8 +97,8 @@ app.get("/api/user", (req, res) => {
   }
   try {
     const decoded = jwt.verify(token, randomCode);
-    const { id, username, role } = decoded;
-    res.json({ id, username, role });
+    const { id, username, department, role } = decoded;
+    res.json({ id, username, department, role });
   } catch (err) {
     res.status(401).json({ error: "Unauthorized" });
   }
@@ -112,17 +112,23 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
   let image = req.file ? req.file.buffer : null;
   const imageSize = image ? image.length : 0;
 
+  const currentDate = new Date();
+  let year = currentDate.getFullYear();
+  let month = currentDate.getMonth() + 1; // 0-11, where 0 is January
+  let day = currentDate.getDate();
+  const date = `${year}-${month}-${day}`;
+
   if (imageSize > MAX_IMAGE_SIZE) {
     console.log("Image size exceeds the limit of 10 MB");
     res.status(400).send("Image size exceeds the limit of 10 MB");
     return;
   }
   sqlInsert =
-    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary) VALUES (?,?,?,?,?,?);";
+    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary, issue_date) VALUES (?,?,?,?,?,?,?);";
 
   db.query(
     sqlInsert,
-    [name, email, phone, image, issue_type, issue_summary],
+    [name, email, phone, image, issue_type, issue_summary, date],
     (error, result) => {
       if (error) {
         console.log(error);
