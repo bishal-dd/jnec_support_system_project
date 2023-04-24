@@ -37,7 +37,7 @@ export default function DeleteWorkerComp() {
       <div id="editcontainer" className="col table-wrapper d-flex">
         <table
           className="fl-table edit-container text-center 
-        rounded-4 bg-light shadow"
+        rounded-4 bg-light"
         >
           <thead className="edit-items p-2 ">
             <tr>

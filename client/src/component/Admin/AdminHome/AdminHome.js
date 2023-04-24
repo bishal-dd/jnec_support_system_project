@@ -61,7 +61,7 @@ export default function AdminHome() {
       <div className="col flex-nowrap ">
        <div><AdminNav /> </div>
        <div className="col table-wrapper d-flex">
-        <table className="fl-table table-bordered mt-3 shadow mb-2">
+        <table className="fl-table table-bordered mt-3 mb-2">
           <thead>
             <tr className="text-center">
               <th scope="col">#</th>

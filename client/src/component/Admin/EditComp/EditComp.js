@@ -36,7 +36,7 @@ export default function EditComp() {
     <div className="container-fluid">
       <div className="col flex-nowrap">
       <div><AdminNav /></div>
-      <div className="container mt-5 bg-light rounded-4 shadow"
+      <div className="container mt-5 bg-light rounded-4"
         style={{ maxWidth: "600px" }}
       >
         <Form
