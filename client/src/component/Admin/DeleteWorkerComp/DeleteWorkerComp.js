@@ -4,11 +4,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 
-export default function DeleteWorkerComp() {
+export default function DeleteWorkerComp({ serverUrl }) {
   const [worker, setWorker] = useState([]);
 
   const loadWorker = async () => {
-    const response = await axios.get("http://localhost:3001/api/get_worker");
+    const response = await axios.get(`${serverUrl}/get_worker`);
     console.log(response.data);
     setWorker(response.data);
   };
@@ -19,7 +19,7 @@ export default function DeleteWorkerComp() {
 
   const handleDelete = async (id) => {
     console.log(id);
-    await axios.get(`http://localhost:3001/api/delete/${id}`).then((result) => {
+    await axios.get(`${serverUrl}/delete/${id}`).then((result) => {
       console.log(result.data);
       if (result.data === "Worker Deleted") {
         toast.success("Worker Deleted");

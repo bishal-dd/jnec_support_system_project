@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function HomeComp() {
+export default function HomeComp({ serverUrl }) {
   const initialState = {
     name: "",
     email: "",
@@ -26,13 +26,11 @@ export default function HomeComp() {
     formData.append("issue_image", state.issue_image);
 
     try {
-      await axios
-        .post("http://localhost:3001/api/issue", formData)
-        .then((result) => {
-          if (result.data === "issue submited") {
-            toast.success("Issue Submited");
-          }
-        });
+      await axios.post(`${serverUrl}/issue`, formData).then((result) => {
+        if (result.data === "issue submited") {
+          toast.success("Issue Submited");
+        }
+      });
       setState(initialState);
     } catch (err) {
       console.log(err.response.data);

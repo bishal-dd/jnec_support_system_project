@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Legend, Tooltip, Cell } from "recharts";
 import axios from "axios";
 
-export default function ViewerHome() {
+export default function ViewerHome({ serverUrl }) {
   const [solved_and_assigned_issues, setSolved_and_assigned_issues] = useState(
     []
   );
@@ -16,7 +16,7 @@ export default function ViewerHome() {
     let count_plumbing = 0;
     let i = 0;
     try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
+      const response = await axios.get(`${serverUrl}/get_issue`);
       const response_data = response.data;
 
       for (i; i <= response_data.length - 1; i++) {

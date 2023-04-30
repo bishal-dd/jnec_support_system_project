@@ -11,7 +11,7 @@ const initialState = {
   email: "",
 };
 
-export default function AddWorker() {
+export default function AddWorker({ serverUrl }) {
   const [state, setState] = useState(initialState);
 
   const { name, department, phone, email } = state;
@@ -23,7 +23,7 @@ export default function AddWorker() {
     } else {
       console.log(name);
       axios
-        .post("http://localhost:3001/api/worker", {
+        .post(`${serverUrl}/api/worker`, {
           name,
           department,
           phone,

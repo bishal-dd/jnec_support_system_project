@@ -6,7 +6,7 @@ import AdminNav from "../AdminNavigationComp/AdminNav";
 import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "../AdminHome/ImageModule/ImageModal";
 
-export default function AssignComp() {
+export default function AssignComp({ serverUrl }) {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
@@ -15,10 +15,10 @@ export default function AssignComp() {
   const assignWorker = async (workerId, issueId) => {
     console.log(workerId);
     try {
-      const response = await axios.put(
-        `http://localhost:3001/api/assign_issue/${issueId}`,
-        { id: issueId, worker_id: workerId }
-      );
+      const response = await axios.put(`${serverUrl}assign_issue/${issueId}`, {
+        id: issueId,
+        worker_id: workerId,
+      });
       if (response.data === "Assigned") {
         toast.success("Assigned", {
           className: "custom-toast",
@@ -34,7 +34,7 @@ export default function AssignComp() {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
+      const response = await axios.get(`${serverUrl}/get_issue`);
 
       setevent(response.data);
     } catch (error) {
@@ -44,7 +44,7 @@ export default function AssignComp() {
 
   const loadWorker = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_worker");
+      const response = await axios.get(`${serverUrl}/get_worker`);
 
       setWorker(response.data);
     } catch (error) {

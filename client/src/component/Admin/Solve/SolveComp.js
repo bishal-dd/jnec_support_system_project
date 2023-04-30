@@ -5,14 +5,14 @@ import AdminNav from "../AdminNavigationComp/AdminNav";
 import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "../AdminHome/ImageModule/ImageModal";
 
-export default function SolveComp() {
+export default function SolveComp({ serverUrl }) {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
+      const response = await axios.get(`${serverUrl}/get_issue`);
 
       setevent(response.data);
     } catch (error) {
@@ -22,7 +22,7 @@ export default function SolveComp() {
 
   const loadWorker = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_worker");
+      const response = await axios.get(`${serverUrl}/get_worker`);
       setWorker(response.data);
     } catch (error) {
       console.error(error);

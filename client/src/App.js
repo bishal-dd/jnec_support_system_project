@@ -33,11 +33,17 @@ function App() {
         <NavbarComp serverUrl={config.SERVER_URL} />
 
         <Routes>
-          <Route element={<ProtectedRoute user={currentUser} />}>
+          <Route
+            element={
+              <ProtectedRoute
+                user={currentUser}
+                serverUrl={config.SERVER_URL}
+              />
+            }
+          >
             <Route
               path="/admin"
-              element={<AdminHome />}
-              serverUrl={config.SERVER_URL}
+              element={<AdminHome serverUrl={config.SERVER_URL} />}
             />
             <Route
               path="/admin/edit"

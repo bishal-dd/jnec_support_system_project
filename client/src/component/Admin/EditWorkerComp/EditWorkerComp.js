@@ -3,11 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 
-export default function EditWorkerComp() {
+export default function EditWorkerComp({ serverUrl }) {
   const [worker, setWorker] = useState([]);
 
   const loadWorker = async () => {
-    const response = await axios.get("http://localhost:3001/api/get_worker");
+    const response = await axios.get(`${serverUrl}/get_worker`);
     console.log(response.data);
     setWorker(response.data);
   };

@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
-export default function ProtectedRoute({ user }, props) {
+export default function ProtectedRoute({ user, serverUrl }) {
   const navigate = useNavigate();
-
-  console.log(user);
-  console.log(props.serverUrl);
 
   useEffect(() => {
     if (!user) {

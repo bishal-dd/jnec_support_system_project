@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ImageModal from "../Admin/AdminHome/ImageModule/ImageModal";
-export default function WorkerComp() {
+export default function WorkerComp({ serverUrl }) {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
 
@@ -14,7 +14,7 @@ export default function WorkerComp() {
     console.log(workerId);
     try {
       const response = await axios.put(
-        `http://localhost:3001/api/assign_solved/${issueId}`,
+        `${serverUrl}/assign_solved/${issueId}`,
         { id: issueId, worker_id: workerId }
       );
       loadEvent();
@@ -28,7 +28,7 @@ export default function WorkerComp() {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/get_issue");
+      const response = await axios.get(`${serverUrl}/get_issue`);
       console.log(response.data);
       setevent(response.data);
     } catch (error) {

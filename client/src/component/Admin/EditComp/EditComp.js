@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 
-export default function EditComp() {
+export default function EditComp({ serverUrl }) {
   const nameRef = useRef("");
   const departmentRef = useRef("");
   const phoneRef = useRef("");
@@ -19,7 +19,7 @@ export default function EditComp() {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3001/api/editworker/${id}`, {
+      .put(`${serverUrl}/editworker/${id}`, {
         name: nameRef.current.value,
         email: emailRef.current.value,
         phone: phoneRef.current.value,
