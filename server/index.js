@@ -136,8 +136,16 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
         transporter.sendMail({
           from: adminMail,
           to: adminMail,
+          adminMail,
           subject: "New Issue",
-          text: "New Issue was submited",
+          text: "New Issue was submitted",
+        });
+        transporter.sendMail({
+          from: adminMail,
+          to: email,
+          adminMail,
+          subject: "Your Issue",
+          text: "Your Issue was submitted",
         });
         res.send("issue submited");
       }

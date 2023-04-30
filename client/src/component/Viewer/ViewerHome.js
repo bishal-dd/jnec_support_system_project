@@ -67,7 +67,7 @@ export default function ViewerHome() {
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mt-5">
         <div className="col text-center">
           <p className="h3">Issues Solved</p>
           <PieChart width={400} height={400}>

@@ -23,7 +23,7 @@ export default function EditWorkerComp() {
           <AdminNav />
         </div>
 
-        <div className="col">
+        <div className="col mt-5">
           <div className="container-fluid">
             <div className="col flex-nowrap">
               <div className="container text-center justify-content-center">
