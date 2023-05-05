@@ -1,5 +1,5 @@
 const config = {
-  SERVER_URL: "http://test1.edu.bt/api",
+  SERVER_URL: "http://localhost:3001/api",
 };
 
 export default config;

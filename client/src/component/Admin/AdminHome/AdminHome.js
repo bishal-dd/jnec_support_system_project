@@ -12,6 +12,7 @@ export default function AdminHome({ serverUrl }) {
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
+  const [selectedDepartment, setselectedDepartment] = useState("");
 
   const assignWorker = async (workerId, issueId) => {
     console.log(workerId);
@@ -29,10 +30,26 @@ export default function AdminHome({ serverUrl }) {
       console.error(error);
     }
   };
+  const assignDepartment = async (Department, issueId) => {
+    console.log(Department);
+    try {
+      const response = await axios.put(`${serverUrl}/foward_issue/${issueId}`, {
+        id: issueId,
+        department: Department,
+      });
+
+      toast.success(response.data);
+
+      // Refresh the event list to show the updated worker assignment
+      loadEvent();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/api/get_issue`);
+      const response = await axios.get(`${serverUrl}/get_issue`);
 
       setevent(response.data);
     } catch (error) {
@@ -111,7 +128,9 @@ export default function AdminHome({ serverUrl }) {
                                 {worker
                                   .filter(
                                     (item) =>
-                                      item.department === currentUser.department
+                                      item.department ===
+                                        currentUser.department &&
+                                      item.status !== "leave"
                                   )
                                   .map((item, index) => {
                                     return (
@@ -129,6 +148,34 @@ export default function AdminHome({ serverUrl }) {
                                   }
                                 >
                                   Assign
+                                </button>
+                              </div>
+                            </th>
+                            <th>
+                              <select
+                                id="issue_type"
+                                name="issue_type"
+                                className="mb-2 p-2 rounded-2 bg-light"
+                                onChange={(e) =>
+                                  setselectedDepartment(e.target.value)
+                                }
+                              >
+                                <option value="">Select a type...</option>
+                                <option value="ICT">ICT</option>
+                                <option value="estate">Estate</option>
+                                <option value="academic">Academic</option>
+                              </select>
+                              <div>
+                                <button
+                                  className="btn btn-info rounded-5 shadow mt-2"
+                                  onClick={() =>
+                                    assignDepartment(
+                                      selectedDepartment,
+                                      item.id
+                                    )
+                                  }
+                                >
+                                  Forward issue
                                 </button>
                               </div>
                             </th>

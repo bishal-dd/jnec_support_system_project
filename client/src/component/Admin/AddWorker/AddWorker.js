@@ -23,7 +23,7 @@ export default function AddWorker({ serverUrl }) {
     } else {
       console.log(name);
       axios
-        .post(`${serverUrl}/api/worker`, {
+        .post(`${serverUrl}/worker`, {
           name,
           department,
           phone,

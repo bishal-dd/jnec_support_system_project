@@ -15,7 +15,7 @@ export default function AssignComp({ serverUrl }) {
   const assignWorker = async (workerId, issueId) => {
     console.log(workerId);
     try {
-      const response = await axios.put(`${serverUrl}assign_issue/${issueId}`, {
+      const response = await axios.put(`${serverUrl}/assign_issue/${issueId}`, {
         id: issueId,
         worker_id: workerId,
       });

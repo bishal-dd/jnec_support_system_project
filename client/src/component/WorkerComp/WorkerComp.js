@@ -26,6 +26,37 @@ export default function WorkerComp({ serverUrl }) {
     }
   };
 
+  const assignWorking = async (workerId, issueId) => {
+    console.log(workerId);
+    try {
+      const response = await axios.put(
+        `${serverUrl}/assign_working/${issueId}`,
+        { id: issueId, worker_id: workerId }
+      );
+      loadEvent();
+      toast.success(response.data);
+
+      // Refresh the event list to show the updated worker assignment
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const assignLeave = async () => {
+    console.log(id);
+    try {
+      const response = await axios.put(`${serverUrl}/assign_leave/${id}`, {
+        id: id,
+      });
+      loadEvent();
+      toast.success(response.data);
+
+      // Refresh the event list to show the updated worker assignment
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const loadEvent = async () => {
     try {
       const response = await axios.get(`${serverUrl}/get_issue`);
@@ -42,6 +73,9 @@ export default function WorkerComp({ serverUrl }) {
 
   return (
     <div id="container" className="">
+      <button className="btn btn-primary mb-2 mt-2" onClick={assignLeave}>
+        Leave
+      </button>
       <table
         className="table-container text-center
        bg-light"
@@ -57,7 +91,9 @@ export default function WorkerComp({ serverUrl }) {
         <tbody>
           {event
             .filter(
-              (item) => item.worker_id === id && item.status === "assigned"
+              (item) =>
+                item.worker_id === id &&
+                (item.status === "assigned" || item.status === "working")
             )
             .map((item, index) => {
               return (
@@ -74,6 +110,22 @@ export default function WorkerComp({ serverUrl }) {
                   >
                     Solved
                   </button>
+                  {item.status !== "working" ? (
+                    <button
+                      className="btn btn-primary mb-2 mt-2"
+                      onClick={() => assignWorking(item.workerId, item.id)}
+                    >
+                      Working
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-primary mb-2 mt-2"
+                      onClick={() => assignWorking(item.workerId, item.id)}
+                      disabled={true}
+                    >
+                      Working
+                    </button>
+                  )}
                 </tr>
               );
             })}

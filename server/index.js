@@ -61,8 +61,8 @@ function authenticate(req, res, next) {
           return res.status(500).json({ error: "Internal Server Error" });
         }
         if (workerResults.length === 1) {
-          const { id, username, department } = workerResults[0];
-          req.user = { id, username, department, role: "worker" };
+          const { id, username, department, status } = workerResults[0];
+          req.user = { id, username, department, status, role: "worker" };
           return next();
         } else {
           db.query(viewerQuery, [username, password], (err, viewerResults) => {
@@ -84,8 +84,11 @@ function authenticate(req, res, next) {
 }
 
 app.post("/api/login", authenticate, (req, res) => {
-  const { id, username, department, role } = req.user;
-  const token = jwt.sign({ id, username, department, role }, randomCode);
+  const { id, username, department, status, role } = req.user;
+  const token = jwt.sign(
+    { id, username, department, status, role },
+    randomCode
+  );
 
   res.json({ token });
 });
@@ -97,8 +100,8 @@ app.get("/api/user", (req, res) => {
   }
   try {
     const decoded = jwt.verify(token, randomCode);
-    const { id, username, department, role } = decoded;
-    res.json({ id, username, department, role });
+    const { id, username, department, status, role } = decoded;
+    res.json({ id, username, department, status, role });
   } catch (err) {
     res.status(401).json({ error: "Unauthorized" });
   }
@@ -243,6 +246,59 @@ app.put("/api/assign_solved/:id", (req, res) => {
   });
 });
 
+app.put("/api/assign_working/:id", (req, res) => {
+  const { id, worker_id } = req.body;
+
+  const sqlUpdate = "UPDATE issue SET status = 'working' WHERE id = ?";
+  db.query(sqlUpdate, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating issue");
+    } else {
+      const get_issue = "SELECT * FROM issue WHERE id = ?;";
+      db.query(get_issue, [id], (err, issue_res) => {
+        transporter.sendMail({
+          from: "05210218.jnec@rub.edu.bt",
+          to: `${issue_res[0].email}, ${adminMail}`,
+          subject: "Issue Status",
+          text: `The issue is being worked on`,
+        });
+      });
+
+      res.send("Working");
+    }
+  });
+});
+
+app.put("/api/foward_issue/:id", (req, res) => {
+  const { id, department } = req.body;
+
+  const sqlUpdate = `UPDATE issue SET issue_type = '${department}' WHERE id = ?`;
+  db.query(sqlUpdate, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating issue");
+    } else {
+      res.send("Fowarded");
+    }
+  });
+});
+
+app.put("/api/assign_leave/:id", (req, res) => {
+  const { id } = req.body;
+  console.log(id);
+
+  const sqlUpdate = `UPDATE worker SET status= 'leave' WHERE id = ?`;
+  db.query(sqlUpdate, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating issue");
+    } else {
+      res.send("Status changed");
+    }
+  });
+});
+
 app.post("/api/worker", (req, res) => {
   const { name, department, phone, email } = req.body;
 
@@ -323,10 +379,6 @@ app.post("/api/check-status", (req, res) => {
 
   res.send({ status });
 });
-app.get("/api/get", (req, res) => {
-  res.send("hello");
-});
-
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });

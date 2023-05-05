@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ToastContainer position="top-right" />
+        <ToastContainer position="top-center" />
         <NavbarComp serverUrl={config.SERVER_URL} />
 
         <Routes>
