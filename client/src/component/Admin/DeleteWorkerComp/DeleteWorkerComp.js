@@ -30,44 +30,47 @@ export default function DeleteWorkerComp() {
   };
 
   return (
-   <div> <AdminNav />
-    <div className="container">
-      {" "}
-      
-      <div id="editcontainer" className="col table-wrapper d-flex">
-        <table
-          className="fl-table edit-container text-center 
-        rounded-4 bg-light"
-        >
-          <thead className="edit-items p-2 ">
-            <tr>
-              <th>SL No:</th>
-              <th>Name</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {worker.map((item, index) => {
-              return (
-                <>
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.username}</td>
-
-                    <button
-                      className="btn btn-success mb-2 mt-2 "
-                      onClick={() => handleDelete(item.id)} 
-                    >
-                      Remove
-                    </button>
+    <div id="admin_container">
+      <div className="col">
+        <div>
+          <AdminNav />
+        </div>
+          <div className="container-fuild">
+            <div className="">
+              <table
+                className="fl-table text-center 
+                  rounded-4 bg-light shadow"
+              >
+                <thead className="edit-items p-2 ">
+                  <tr>
+                    <th>SL No:</th>
+                    <th>Name</th>
+                    <th></th>
                   </tr>
-                </>
-              );
-            })}
-          </tbody>
-        </table>
+                </thead>
+                <tbody>
+                  {worker.map((item, index) => {
+                    return (
+                      <>
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{item.username}</td>
+
+                          <button
+                            className="btn btn-success mb-2 mt-2 "
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            Remove
+                          </button>
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
   );
 }

@@ -6,7 +6,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "./ImageModule/ImageModal";
 import "./adminhome.css";
 
-export default function AdminHome() {
+export default function AdminHome() { 
   const { currentUser } = useContext(AuthContext);
 
   const [event, setevent] = useState([]);
@@ -56,75 +56,87 @@ export default function AdminHome() {
   }, []);
 
   return (
-    
-    <div className="container-fluid ">
-      <div className="col flex-nowrap ">
-       <div><AdminNav /> </div>
-       <div className="col table-wrapper d-flex">
-        <table className="fl-table table-bordered mt-3 mb-2">
-          <thead>
-            <tr className="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Issue Image</th>
-              <th scope="col">Issue Summary</th>
-              <th scope="col">Issue Provider</th>
-              <th scope="col">Date</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {event
-              .filter(
-                (item) =>
-                  item.status !== "solved" &&
-                  item.status !== "assigned" &&
-                  item.issue_type === currentUser.department
-              )
-              .map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td className="col-md-3 p-3 text-center">
-                      <ImageModal image={item.issue_image} />
-                    </td>
-
-                    <td>{item.issue_summary}</td>
-                    <td>
-                      <p>Name:{item.name}</p>
-                      <p>Email:{item.email}</p>
-                      <p>Phone No:{item.phone}</p>
-                    </td>
-                    <td>{item.issue_date}</td>
-                    <th>
-                      <select className="mb-2 p-2 rounded-2 bg-light"
-                        onChange={(e) => setSelectedWorkerId(e.target.value)}
-                      >
-                        <option>Select Worker</option>
-                        {worker
-                          .filter(
-                            (item) => item.department === currentUser.department
-                          )
-                          .map((item, index) => {
-                            return (
-                              <option key={index} value={item.id}>
-                                {item.username}
-                              </option>
-                            );
-                          })}
-                      </select>
-                      <button
-                        className="btn btn-info rounded-5 shadow mt-2"
-                        onClick={() => assignWorker(selectedWorkerId, item.id)}>
-                        Assign
-                      </button>
-                    </th>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+    <div id="admin_container">
+      <div className="col">
+        <div>
+          <AdminNav />
         </div>
-      </div>
-      </div>
+          <div className="container-fluid">
+          <div className="table-responsive">
+                <table className="fl-table shadow mb-2 ">
+                  <thead>
+                    <tr className="text-center">
+                      <th scope="col">#</th>
+                      <th scope="col">Issue Image</th>
+                      <th scope="col">Issue Summary</th>
+                      <th scope="col">Issue Provider</th>
+                      <th scope="col">Date</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {event
+                      .filter(
+                        (item) =>
+                          item.status !== "solved" &&
+                          item.status !== "assigned" &&
+                          item.issue_type === currentUser.department
+                      )
+                      .map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td className="col-md-3 p-3 text-center">
+                              <ImageModal image={item.issue_image} />
+                            </td>
+
+                            <td>{item.issue_summary}</td>
+                            <td>
+                              <p>Name:{item.name}</p>
+                              <p>Email:{item.email}</p>
+                              <p>Phone No:{item.phone}</p>
+                            </td>
+                            <td>{item.issue_date}</td>
+                            <th>
+                              <select
+                                className="mb-2 p-2 rounded-2 bg-light"
+                                onChange={(e) =>
+                                  setSelectedWorkerId(e.target.value)
+                                }
+                              >
+                                <option>Select Worker</option>
+                                {worker
+                                  .filter(
+                                    (item) =>
+                                      item.department === currentUser.department
+                                  )
+                                  .map((item, index) => {
+                                    return (
+                                      <option key={index} value={item.id}>
+                                        {item.username}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
+                              <div>
+                                <button
+                                  className="btn btn-info rounded-5 shadow mt-2"
+                                  onClick={() =>
+                                    assignWorker(selectedWorkerId, item.id)
+                                  }
+                                >
+                                  Assign
+                                </button>
+                              </div>
+                            </th>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          </div>
   );
 }

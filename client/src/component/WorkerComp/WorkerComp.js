@@ -43,7 +43,7 @@ export default function WorkerComp() {
   return (
     <div id="container" className="">
       <table
-        className="table-container text-center
+        className="fl-table table-container text-center
        bg-light"
       >
         <thead className="table-items p-2 text-center">

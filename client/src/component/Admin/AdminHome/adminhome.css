@@ -14,7 +14,6 @@
   border: none;
   border-collapse: collapse;
   width: 100%;
-  max-width: 100%;
   white-space: nowrap;
   background-color: white;
 }
@@ -108,4 +107,9 @@
       display: block;
       text-align: center;
   }
+}
+#admin_container {
+  display: flex;
+  flex-direction: row;
+  padding-left: 15%;
 }

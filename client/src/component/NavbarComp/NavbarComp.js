@@ -28,15 +28,16 @@ export default function NavbarComp() {
         <span class="navbar-toggler-icon "></span>
       </button>
       <img
-        src="https://res.cloudinary.com/dnmtsuwhc/image/upload/v1678645849/u5ffbzghsirppkrzughq.png"
-        width="60"
+        src="https://res.cloudinary.com/dauoerqib/image/upload/v1683794502/5_qoqs8o.png"
+        width="160"
         class="rounded-2"
         height="50"
         alt="logo"
         id="logo_image"
       /> 
       <div className="mb-6">
-        <div className="collapse navbar-collapse " id="navbarSupportedContent" >
+        <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+        <i className="ri-menu-line"></i>
           <ul className="navbar-nav p-2 max-auto mb-2">
             <li className="nav-item px-2 ">
             

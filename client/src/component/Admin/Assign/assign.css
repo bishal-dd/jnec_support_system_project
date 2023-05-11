@@ -9,10 +9,11 @@
     font-weight: normal;
     border: none;
     border-collapse: collapse;
-    width: 100%;
-    max-width: 100%;
+    width: 90%;
+    max-width: 90%;
     white-space: nowrap;
     background-color: white;
+    margin-left: 4%;
   }
   
   .fl-table td, .fl-table th {

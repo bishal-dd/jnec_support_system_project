@@ -48,7 +48,7 @@ export default function LoginComp() {
   return (
     <Container
       className="d-grid w-80 bg-light rounded-4 p-4
-       border shadow mt-5"
+       border shadow mt-4"
       style={{ maxWidth: "540px" }}
     >
       <Form

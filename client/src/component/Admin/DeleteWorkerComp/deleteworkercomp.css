@@ -10,9 +10,10 @@
     border: none;
     border-collapse: collapse;
     width: 100%;
-    max-width: 100%;
     white-space: nowrap;
     background-color: white;
+   margin-right: 5%;
+   
 }
 
 .fl-table td, .fl-table th {
@@ -104,4 +105,10 @@
         display: block;
         text-align: center;
     }
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  max-width: auto;
+  max-height: auto;
 }

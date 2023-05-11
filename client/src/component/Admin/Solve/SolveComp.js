@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "../AdminHome/ImageModule/ImageModal";
+import './solve.css';
 
 export default function SolveComp() {
   const { currentUser } = useContext(AuthContext);
@@ -36,11 +37,11 @@ export default function SolveComp() {
 
   return (
    
-    <div className="container-fluid">
+    <div id="admin_container">
       <div className="col">
       <div> <AdminNav /> </div>
-      <div className="col table-wrapper d-flex">
-        <table class="container fl-table table-bordered mt-3 shadow">
+      <div className="container-fuild">
+        <table class="fl-table">
           <thead>
             <tr>
               <th scope="col">#</th>

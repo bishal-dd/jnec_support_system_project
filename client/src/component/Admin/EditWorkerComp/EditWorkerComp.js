@@ -18,44 +18,48 @@ export default function EditWorkerComp() {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <div className="col flex-nowrap">
-        <div><AdminNav /></div> 
-      <div className="col table-wrapper d-flex">
-          <table
-            className="fl-table mt-3 mb-2"
-          >
-            <thead className="table-items p-2 text-center">
-              <tr>
-                <th>SL No:</th>
-                <th>Worker</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {worker.map((item, index) => {
-                return (
-                  <>
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.username}</td>
-                      <td>
-                        <Link
-                          to="/edit"
-                          state={item}
-                          className="btn btn-success mb-2 mt-2"
-                        >
-                          Edit
-                        </Link>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
+    <div id="admin_container">
+      <div className="col">
+        <div>
+          <AdminNav />
         </div>
-      </div>
-    </div>
+          <div className="container-fluid">
+              <div className="">
+                <table className="fl-table text-center bg-light shadow">
+                  <thead className="table-items p-2 text-center">
+                    <tr>
+                      <th>SL No:</th>
+                      <th>Staffs</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {worker.map((item, index) => {
+                      return (
+                        <>
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{item.username}</td>
+                            <td>
+                              <Link
+                                to="/edit"
+                                state={item}
+                                className="btn btn-success mb-2 mt-2"
+                              >
+                                Edit
+                              </Link>
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
   );
 }

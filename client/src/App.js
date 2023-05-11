@@ -14,13 +14,12 @@ import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProtectedWorkerRoute from "./routes/ProtectedWorkerRoute";
 import ProtectedViewerRoute from "./routes/ProtectedViewerRoute";
 import EditWorkerComp from "./component/Admin/EditWorkerComp/EditWorkerComp";
-import SolveComp from "./component/Admin/Solve/SolveComp";
 import AssignComp from "./component/Admin/Assign/AssignComp";
+import SolveComp from "./component/Admin/Solve/SolveComp";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -30,7 +29,6 @@ function App() {
       <BrowserRouter>
         <ToastContainer position="top-right" />
         <NavbarComp />
-
         <Routes>
           <Route element={<ProtectedRoute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
@@ -39,7 +37,7 @@ function App() {
             <Route path="/delete" element={<DeleteWorkerComp />} />
             <Route path="/editworker" element={<EditWorkerComp />} />
             <Route path="/solve" element={<SolveComp />} />
-            <Route path="/assign" element={<AssignComp />} />
+            <Route path="/assign" element={<AssignComp />} /> 
           </Route>
           <Route element={<ProtectedWorkerRoute user={currentUser} />}>
             <Route path="/worker" element={<WorkerComp />} />

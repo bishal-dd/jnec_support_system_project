@@ -61,11 +61,12 @@ export default function AssignComp() {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <div id="admin_container">
       <div className="col">
         <div><AdminNav /></div>
-        <div className="col table-wrapper d-flex">
-        <table class="fl-table table-bordered mt-3 shadow">
+        <div className="">
+        <div className="container-fuild">
+        <table class="fl-table shadow">
           <thead>
             <tr className="text-center">
               <th scope="col">#</th>
@@ -137,6 +138,7 @@ export default function AssignComp() {
           </tbody>
         </table>
         </div>
+      </div>
    </div>
    </div>
   );
