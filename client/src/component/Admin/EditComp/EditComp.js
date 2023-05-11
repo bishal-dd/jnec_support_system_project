@@ -33,13 +33,14 @@ export default function EditComp({ serverUrl }) {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="col flex-nowrap">
+    <div className="admin_container">
+      <div className="col">
         <div>
           <AdminNav />
         </div>
+        <div className="container-fluid">
         <div
-          className="container mt-5 bg-light rounded-4 shadow"
+          className="container bg-light rounded-4 shadow"
           style={{ maxWidth: "600px" }}
         >
           <Form
@@ -116,5 +117,6 @@ export default function EditComp({ serverUrl }) {
         </div>
       </div>
     </div>
+  </div>
   );
 }

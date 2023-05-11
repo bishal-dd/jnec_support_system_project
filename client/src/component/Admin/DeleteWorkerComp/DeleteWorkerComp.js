@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import './deleteworkercomp.css';
 
 export default function DeleteWorkerComp({ serverUrl }) {
   const [worker, setWorker] = useState([]);
@@ -30,18 +31,15 @@ export default function DeleteWorkerComp({ serverUrl }) {
 
   return (
     <div id="admin_container">
-      <div className="row">
-        <div className="col-md-2 border border-dark">
+      <div className="col">
+        <div>
           <AdminNav />
         </div>
-
-        <div className="col">
-          <div className="container">
-            {" "}
-            <div id="editcontainer" className="">
+          <div className="container-fuild">
+            <div className="">
               <table
-                className="edit-container text-center 
-        rounded-4 bg-light shadow"
+                className="fl-table text-center 
+                  rounded-4 bg-light shadow"
               >
                 <thead className="edit-items p-2 ">
                   <tr>
@@ -74,6 +72,5 @@ export default function DeleteWorkerComp({ serverUrl }) {
           </div>
         </div>
       </div>
-    </div>
   );
 }

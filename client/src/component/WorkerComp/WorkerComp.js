@@ -77,7 +77,7 @@ export default function WorkerComp({ serverUrl }) {
         Leave
       </button>
       <table
-        className="table-container text-center
+        className="fl-table table-container text-center
        bg-light"
       >
         <thead className="table-items p-2 text-center">

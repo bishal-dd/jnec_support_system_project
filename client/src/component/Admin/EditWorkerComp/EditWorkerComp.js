@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import "./editworkercomp.css";
 
 export default function EditWorkerComp({ serverUrl }) {
   const [worker, setWorker] = useState([]);
@@ -18,47 +19,42 @@ export default function EditWorkerComp({ serverUrl }) {
 
   return (
     <div id="admin_container">
-      <div className="row">
-        <div className="col-md-2 border border-dark">
+      <div className="col">
+        <div>
           <AdminNav />
         </div>
-
-        <div className="col mt-5">
-          <div className="container-fluid">
-            <div className="col flex-nowrap">
-              <div className="container text-center justify-content-center">
-                <table className="table-container text-center bg-light shadow">
-                  <thead className="table-items p-2 text-center">
-                    <tr>
-                      <th>SL No:</th>
-                      <th>Worker</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {worker.map((item, index) => {
-                      return (
-                        <>
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{item.username}</td>
-                            <td>
-                              <Link
-                                to="/admin/edit"
-                                state={item}
-                                className="btn btn-success mb-2 mt-2"
-                              >
-                                Edit
-                              </Link>
-                            </td>
-                          </tr>
-                        </>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        <div className="container-fluid">
+          <div className="">
+            <table className="fl-table text-center bg-light shadow">
+              <thead className="table-items p-2 text-center">
+                <tr>
+                  <th>SL No:</th>
+                  <th>Staffs</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {worker.map((item, index) => {
+                  return (
+                    <>
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.username}</td>
+                        <td>
+                          <Link
+                            to="/edit"
+                            state={item}
+                            className="btn btn-success mb-2 mt-2"
+                          >
+                            Edit
+                          </Link>
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

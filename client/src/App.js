@@ -19,8 +19,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import ProtectedWorkerRoute from "./routes/ProtectedWorkerRoute";
 import ProtectedViewerRoute from "./routes/ProtectedViewerRoute";
 import EditWorkerComp from "./component/Admin/EditWorkerComp/EditWorkerComp";
-import SolveComp from "./component/Admin/Solve/SolveComp";
 import AssignComp from "./component/Admin/Assign/AssignComp";
+import SolveComp from "./component/Admin/Solve/SolveComp";
 import AdminNav from "./component/Admin/AdminNavigationComp/AdminNav";
 
 function App() {
@@ -31,7 +31,6 @@ function App() {
       <BrowserRouter>
         <ToastContainer position="top-center" />
         <NavbarComp serverUrl={config.SERVER_URL} />
-
         <Routes>
           <Route
             element={

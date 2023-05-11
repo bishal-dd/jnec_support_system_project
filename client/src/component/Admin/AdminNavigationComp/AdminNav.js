@@ -8,51 +8,67 @@ import {
 } from "react-icons/fa";
 import { MdAssignmentAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import "./adminav.css";
+import { BsArrowLeftShort } from "react-icons/bs";
+
 export default function AdminNav() {
+  const [open, setOpen] = useState(true);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
+
   return (
-    <div className="row">
-      <div class="col bg-dark ">
-        <div class="align-items-center align-items-sm-start  text-white min-vh-100">
-          <ul
-            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-            id="menu"
-          >
-            <li class="nav-item">
-              <Link to="/admin" class="nav-link align-middle px-0">
-                <FaHome />{" "}
-                <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link to="/admin/add" class="nav-link align-middle px-0">
-                <FaUserPlus />{" "}
-                <span class="ms-1 d-none d-sm-inline">Add Worker</span>
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link to="/admin/editworker" class="nav-link px-0 align-middle">
-                <FaUserEdit />{" "}
-                <span class="ms-1 d-none d-sm-inline">Edit Worker</span>
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link to="/admin/delete" class="nav-link px-0 align-middle">
-                <FaTrashAlt />{" "}
-                <span class="ms-1 d-none d-sm-inline">Delete Worker</span>
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link to="/admin/assign" class="nav-link px-0 align-middle">
-                <MdAssignmentAdd />{" "}
-                <span class="ms-1 d-none d-sm-inline">Assigned</span>
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link to="/admin/solve" class="nav-link px-0 align-middle">
-                <FaCheck /> <span class="ms-1 d-none d-sm-inline">Solved</span>{" "}
-              </Link>
-            </li>
-          </ul>
+    <div className="flex">
+      <div className={`sidebar h-100 ${!true ? "w-40" : "w-20"} relative`}>
+        <button
+          className={`icon bg-white text-dark rounded-4 border border-dark ${
+            !open ? "rotate-180" : ""
+          }`}
+          onClick={() => {
+            console.log("Current value of open:", open);
+            toggleSidebar();
+          }}
+        >
+          <BsArrowLeftShort size="2rem" />
+        </button>{" "}
+        <h5 className="text-center"></h5>
+        <div className="mt-5 text-decoration-none">
+          <li>
+            <Link to="/admin" class="p-4 text-decoration-none text-white">
+              <FaHome />
+              <span class="p-2">Dashboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/add" class="p-4 text-decoration-none text-white">
+              <FaUserPlus />
+              <span class="p-2">Add staff</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/editworker" class="p-4 text-decoration-none text-white">
+              <FaUserEdit />
+              <span class="p-2">Edit staff</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/delete" class="p-4 text-decoration-none text-white">
+              <FaTrashAlt />
+              <span class="p-2">Delete staff</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/assign" class="p-4 text-decoration-none text-white">
+              <MdAssignmentAdd />
+              <span class="p-2">Assigned</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/solve" class="p-4 text-decoration-none text-white">
+              <FaCheck /> <span class="p-2">Solved</span>
+            </Link>
+          </li>
         </div>
       </div>
     </div>

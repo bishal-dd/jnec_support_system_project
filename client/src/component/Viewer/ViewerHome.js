@@ -66,8 +66,8 @@ export default function ViewerHome({ serverUrl }) {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   return (
-    <div className="container">
-      <div className="row justify-content-center mt-5">
+    <div className="container mt-5">
+      <div className="row justify-content-center">
         <div className="col text-center">
           <p className="h3">Issues Solved</p>
           <PieChart width={400} height={400}>
@@ -92,7 +92,7 @@ export default function ViewerHome({ serverUrl }) {
             <Legend />
           </PieChart>
         </div>
-        <div className="col">
+        <div className="col ">
           <p className="h3">Types of Issues Solved</p>
           <PieChart width={400} height={400}>
             <Pie
