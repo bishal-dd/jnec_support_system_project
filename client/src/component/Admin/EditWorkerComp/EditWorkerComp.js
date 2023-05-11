@@ -42,7 +42,7 @@ export default function EditWorkerComp({ serverUrl }) {
                         <td>{item.username}</td>
                         <td>
                           <Link
-                            to="/edit"
+                            to="/admin/edit"
                             state={item}
                             className="btn btn-success mb-2 mt-2"
                           >

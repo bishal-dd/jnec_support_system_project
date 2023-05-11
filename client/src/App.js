@@ -22,6 +22,7 @@ import EditWorkerComp from "./component/Admin/EditWorkerComp/EditWorkerComp";
 import AssignComp from "./component/Admin/Assign/AssignComp";
 import SolveComp from "./component/Admin/Solve/SolveComp";
 import AdminNav from "./component/Admin/AdminNavigationComp/AdminNav";
+import WorkingComp from "./component/Admin/WorkingComp/WorkingComp";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -68,6 +69,7 @@ function App() {
               path="/admin/assign"
               element={<AssignComp serverUrl={config.SERVER_URL} />}
             />
+            <Route path="/admin/working" element={<WorkingComp />} />
           </Route>
           <Route
             element={

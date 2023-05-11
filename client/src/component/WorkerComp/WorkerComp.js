@@ -73,9 +73,6 @@ export default function WorkerComp({ serverUrl }) {
 
   return (
     <div id="container" className="">
-      <button className="btn btn-primary mb-2 mt-2" onClick={assignLeave}>
-        Leave
-      </button>
       <table
         className="fl-table table-container text-center
        bg-light"

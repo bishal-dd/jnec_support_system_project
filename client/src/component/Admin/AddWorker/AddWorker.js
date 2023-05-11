@@ -1,27 +1,28 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 import "./addworker.css";
+import { AuthContext } from "../../../context/AuthContext";
+
 const initialState = {
   name: "",
-  department: "",
   phone: "",
   email: "",
 };
 
 export default function AddWorker({ serverUrl }) {
+  const { currentUser } = useContext(AuthContext);
   const [state, setState] = useState(initialState);
-
-  const { name, department, phone, email } = state;
+  const department = currentUser.department;
+  const { name, phone, email } = state;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (setState(initialState)) {
       toast.error("please enter correct values");
     } else {
-      console.log(name);
       axios
         .post(`${serverUrl}/worker`, {
           name,
@@ -63,22 +64,6 @@ export default function AddWorker({ serverUrl }) {
                   value={name}
                   onChange={handleInputChange}
                 />
-              </Form.Group>
-
-              <Form.Group controlId="department">
-                <Form.Label>Department:</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="department"
-                  required
-                  value={department}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select a department...</option>
-                  <option value="ICT">ICT</option>
-                  <option value="estate">Estate</option>
-                  <option value="academic">Academic</option>
-                </Form.Control>
               </Form.Group>
 
               <Form.Group controlId="phone">

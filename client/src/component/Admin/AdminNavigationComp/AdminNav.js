@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaTrashAlt,
   FaUserPlus,
@@ -8,65 +8,89 @@ import {
 } from "react-icons/fa";
 import { MdAssignmentAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import "./adminav.css";
 import { BsArrowLeftShort } from "react-icons/bs";
 
 export default function AdminNav() {
   const [open, setOpen] = useState(true);
+
   const toggleSidebar = () => {
     setOpen(!open);
   };
 
+  const openSidebar = () => {
+    setOpen(true);
+  };
+
   return (
     <div className="flex">
-      <div className={`sidebar h-100 ${!true ? "w-40" : "w-20"} relative`}>
-        <button
-          className={`icon bg-white text-dark rounded-4 border border-dark ${
-            !open ? "rotate-180" : ""
-          }`}
-          onClick={() => {
-            console.log("Current value of open:", open);
-            toggleSidebar();
-          }}
-        >
+      {!open && (
+        <button className="open-btn" onClick={openSidebar}>
           <BsArrowLeftShort size="2rem" />
-        </button>{" "}
-        <h5 className="text-center"></h5>
+        </button>
+      )}
+      <div className={`sidebar h-100 relative ${open ? "" : "sidebar-closed"}`}>
+        <button className="toggle-btn" onClick={toggleSidebar}>
+          <BsArrowLeftShort size="2rem" />
+        </button>
         <div className="mt-5 text-decoration-none">
           <li>
-            <Link to="/admin" class="p-4 text-decoration-none text-white">
+            <Link to="/admin" className="p-4 text-decoration-none text-white">
               <FaHome />
-              <span class="p-2">Dashboard</span>
+              <span className="p-2">Dashboard</span>
             </Link>
           </li>
           <li>
-            <Link to="/add" class="p-4 text-decoration-none text-white">
+            <Link
+              to="/admin/add"
+              className="p-4 text-decoration-none text-white"
+            >
               <FaUserPlus />
-              <span class="p-2">Add staff</span>
+              <span className="p-2">Add staff</span>
             </Link>
           </li>
           <li>
-            <Link to="/editworker" class="p-4 text-decoration-none text-white">
+            <Link
+              to="/admin/editworker"
+              className="p-4 text-decoration-none text-white"
+            >
               <FaUserEdit />
-              <span class="p-2">Edit staff</span>
+              <span className="p-2">Edit staff</span>
             </Link>
           </li>
           <li>
-            <Link to="/delete" class="p-4 text-decoration-none text-white">
+            <Link
+              to="/admin/delete"
+              className="p-4 text-decoration-none text-white"
+            >
               <FaTrashAlt />
-              <span class="p-2">Delete staff</span>
+              <span className="p-2">Delete staff</span>
             </Link>
           </li>
           <li>
-            <Link to="/assign" class="p-4 text-decoration-none text-white">
+            <Link
+              to="/admin/assign"
+              className="p-4 text-decoration-none text-white"
+            >
               <MdAssignmentAdd />
-              <span class="p-2">Assigned</span>
+              <span className="p-2">Assigned</span>
             </Link>
           </li>
           <li>
-            <Link to="/solve" class="p-4 text-decoration-none text-white">
-              <FaCheck /> <span class="p-2">Solved</span>
+            <Link
+              to="/admin/working"
+              className="p-4 text-decoration-none text-white"
+            >
+              <MdAssignmentAdd />
+              <span className="p-2">Working</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/admin/solve"
+              className="p-4 text-decoration-none text-white"
+            >
+              <FaCheck /> <span className="p-2">Solved</span>
             </Link>
           </li>
         </div>
