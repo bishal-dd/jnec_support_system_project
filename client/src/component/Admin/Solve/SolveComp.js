@@ -41,7 +41,7 @@ export default function SolveComp() {
       <div className="col">
       <div> <AdminNav /> </div>
       <div className="container-fuild">
-        <table class="fl-table">
+        <table class="fl-table shadow">
           <thead>
             <tr>
               <th scope="col">#</th>
