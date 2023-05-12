@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Legend, Tooltip, Cell } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
+
 import axios from "axios";
 
 export default function ViewerHome({ serverUrl }) {
+  const [issues_by_month, set_issues_by_month] = useState([]);
   const [solved_and_assigned_issues, setSolved_and_assigned_issues] = useState(
     []
   );
@@ -15,9 +18,24 @@ export default function ViewerHome({ serverUrl }) {
     let count_estate = 0;
     let count_academic = 0;
     let i = 0;
+
     try {
       const response = await axios.get(`${serverUrl}/get_issue`);
       const response_data = response.data;
+
+      const issues_count_by_month = {};
+      response_data.forEach((issue) => {
+        const month = issue.issue_date.split("-")[1];
+        issues_count_by_month[month] = issues_count_by_month[month]
+          ? issues_count_by_month[month] + 1
+          : 1;
+      });
+
+      const issues_data = [];
+      for (let month in issues_count_by_month) {
+        issues_data.push({ month: month, count: issues_count_by_month[month] });
+      }
+      set_issues_by_month(issues_data);
 
       for (i; i <= response_data.length - 1; i++) {
         if (response_data[i].status === "assigned") {
@@ -36,7 +54,6 @@ export default function ViewerHome({ serverUrl }) {
           count_academic += 1;
         }
       }
-      console.log(count_ICT);
       setSolved_and_assigned_issues([
         {
           name: "Assigned",
@@ -115,6 +132,24 @@ export default function ViewerHome({ serverUrl }) {
             <Tooltip />
             <Legend />
           </PieChart>
+        </div>
+      </div>
+      <div className="row justify-content-center">
+        <div className="col-md-5 text-center justify-content-center">
+          <p className="h3">Issues by Month</p>
+          <LineChart width={600} height={300} data={issues_by_month}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="count"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
         </div>
       </div>
     </div>
