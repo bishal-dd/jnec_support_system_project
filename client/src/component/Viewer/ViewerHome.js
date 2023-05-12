@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 
 import axios from "axios";
 
-export default function ViewerHome({ serverUrl }) {
+export default function ViewerHome() {
   const [issues_by_month, set_issues_by_month] = useState([]);
   const [solved_and_assigned_issues, setSolved_and_assigned_issues] = useState(
     []
@@ -20,7 +20,9 @@ export default function ViewerHome({ serverUrl }) {
     let i = 0;
 
     try {
-      const response = await axios.get(`${serverUrl}/get_issue`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_issue`
+      );
       const response_data = response.data;
 
       const issues_count_by_month = {};
