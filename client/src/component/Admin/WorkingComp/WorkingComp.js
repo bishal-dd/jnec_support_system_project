@@ -13,7 +13,7 @@ export default function WorkingComp() {
   const loadEvent = async () => {
     try {
       const response = await axios.get(
-        `${process.env.React_App_URL}/get_issue`
+        `${process.env.REACT_APP_URL}/get_issue`
       );
 
       setevent(response.data);
@@ -25,7 +25,7 @@ export default function WorkingComp() {
   const loadWorker = async () => {
     try {
       const response = await axios.get(
-        `${process.env.React_App_URL}/get_worker`
+        `${process.env.REACT_APP_URL}/get_worker`
       );
       setWorker(response.data);
     } catch (error) {

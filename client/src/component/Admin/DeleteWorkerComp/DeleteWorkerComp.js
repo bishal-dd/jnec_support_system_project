@@ -1,12 +1,14 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
-import './deleteworkercomp.css';
+import { AuthContext } from "../../../context/AuthContext";
+import "./deleteworkercomp.css";
 
 export default function DeleteWorkerComp({ serverUrl }) {
   const [worker, setWorker] = useState([]);
+  const { currentUser } = useContext(AuthContext);
 
   const loadWorker = async () => {
     const response = await axios.get(`${serverUrl}/get_worker`);
@@ -35,21 +37,23 @@ export default function DeleteWorkerComp({ serverUrl }) {
         <div>
           <AdminNav />
         </div>
-          <div className="container-fuild">
-            <div className="">
-              <table
-                className="fl-table text-center 
+        <div className="container-fuild">
+          <div className="">
+            <table
+              className="fl-table text-center 
                   rounded-4 bg-light shadow"
-              >
-                <thead className="edit-items p-2 ">
-                  <tr>
-                    <th>SL No:</th>
-                    <th>Name</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {worker.map((item, index) => {
+            >
+              <thead className="edit-items p-2 ">
+                <tr>
+                  <th>SL No:</th>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {worker
+                  .filter((i) => i.department === currentUser.department)
+                  .map((item, index) => {
                     return (
                       <>
                         <tr key={index}>
@@ -66,11 +70,11 @@ export default function DeleteWorkerComp({ serverUrl }) {
                       </>
                     );
                   })}
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+    </div>
   );
 }

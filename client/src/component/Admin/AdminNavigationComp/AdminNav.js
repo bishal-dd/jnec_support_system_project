@@ -9,7 +9,7 @@ import {
 import { MdAssignmentAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./adminav.css";
-import { BsArrowLeftShort } from "react-icons/bs";
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 export default function AdminNav() {
   const [open, setOpen] = useState(true);
@@ -26,7 +26,7 @@ export default function AdminNav() {
     <div className="flex">
       {!open && (
         <button className="open-btn" onClick={openSidebar}>
-          <BsArrowLeftShort size="2rem" />
+          <BsArrowRightShort size="2rem" />
         </button>
       )}
       <div className={`sidebar h-100 relative ${open ? "" : "sidebar-closed"}`}>
