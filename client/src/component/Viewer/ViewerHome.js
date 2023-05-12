@@ -10,10 +10,10 @@ export default function ViewerHome({ serverUrl }) {
   const loadEvent = async () => {
     let count_assigned = 0;
     let count_solved = 0;
+    let count_working = 0;
     let count_ICT = 0;
     let count_estate = 0;
-    let count_electrical = 0;
-    let count_plumbing = 0;
+    let count_academic = 0;
     let i = 0;
     try {
       const response = await axios.get(`${serverUrl}/get_issue`);
@@ -22,6 +22,8 @@ export default function ViewerHome({ serverUrl }) {
       for (i; i <= response_data.length - 1; i++) {
         if (response_data[i].status === "assigned") {
           count_assigned += 1;
+        } else if (response_data[i].status === "working") {
+          count_working += 1;
         } else {
           count_solved += 1;
         }
@@ -30,10 +32,8 @@ export default function ViewerHome({ serverUrl }) {
           count_ICT += 1;
         } else if (response_data[i].issue_type === "estate") {
           count_estate += 1;
-        } else if (response_data[i].issue_type === "electrical") {
-          count_electrical += 1;
-        } else if (response_data[i].issue_type === "plumbing") {
-          count_plumbing += 1;
+        } else if (response_data[i].issue_type === "academic") {
+          count_academic += 1;
         }
       }
       console.log(count_ICT);
@@ -43,6 +43,7 @@ export default function ViewerHome({ serverUrl }) {
           value: count_assigned,
         },
         { name: "Solved", value: count_solved },
+        { name: "Working_On", value: count_working },
       ]);
 
       set_types_of_issues([
@@ -51,8 +52,7 @@ export default function ViewerHome({ serverUrl }) {
           value: count_ICT,
         },
         { name: "Estate", value: count_estate },
-        { name: "Electrical", value: count_electrical },
-        { name: "Plumbing", value: count_plumbing },
+        { name: "Academic", value: count_academic },
       ]);
     } catch (error) {
       console.error(error);
@@ -69,7 +69,7 @@ export default function ViewerHome({ serverUrl }) {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col text-center">
-          <p className="h3">Issues Solved</p>
+          <p className="h3">Issues Status</p>
           <PieChart width={400} height={400}>
             <Pie
               data={solved_and_assigned_issues}

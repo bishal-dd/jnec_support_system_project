@@ -21,8 +21,8 @@ import ProtectedViewerRoute from "./routes/ProtectedViewerRoute";
 import EditWorkerComp from "./component/Admin/EditWorkerComp/EditWorkerComp";
 import AssignComp from "./component/Admin/Assign/AssignComp";
 import SolveComp from "./component/Admin/Solve/SolveComp";
-import AdminNav from "./component/Admin/AdminNavigationComp/AdminNav";
 import WorkingComp from "./component/Admin/WorkingComp/WorkingComp";
+import WorkerHistory from "./component/WorkerComp/WorkerHistory";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -83,6 +83,7 @@ function App() {
               path="/worker"
               element={<WorkerComp serverUrl={config.SERVER_URL} />}
             />
+            <Route path="/worker_history" element={<WorkerHistory />} />
           </Route>
           <Route
             element={

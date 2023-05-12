@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ImageModal from "../Admin/AdminHome/ImageModule/ImageModal";
+import { Link } from "react-router-dom";
 export default function WorkerComp({ serverUrl }) {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
@@ -42,20 +43,20 @@ export default function WorkerComp({ serverUrl }) {
     }
   };
 
-  const assignLeave = async () => {
-    console.log(id);
-    try {
-      const response = await axios.put(`${serverUrl}/assign_leave/${id}`, {
-        id: id,
-      });
-      loadEvent();
-      toast.success(response.data);
+  // const assignLeave = async () => {
+  //   console.log(id);
+  //   try {
+  //     const response = await axios.put(`${serverUrl}/assign_leave/${id}`, {
+  //       id: id,
+  //     });
+  //     loadEvent();
+  //     toast.success(response.data);
 
-      // Refresh the event list to show the updated worker assignment
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     // Refresh the event list to show the updated worker assignment
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const loadEvent = async () => {
     try {
@@ -73,6 +74,9 @@ export default function WorkerComp({ serverUrl }) {
 
   return (
     <div id="container" className="">
+      <Link to="/worker_history" class="btn btn-primary">
+        My History
+      </Link>
       <table
         className="fl-table table-container text-center
        bg-light"

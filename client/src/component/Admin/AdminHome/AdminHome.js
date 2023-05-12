@@ -110,8 +110,20 @@ export default function AdminHome({ serverUrl }) {
                         <td>{item.issue_summary}</td>
                         <td>
                           <p>Name:{item.name}</p>
-                          <p>Email:{item.email}</p>
-                          <p>Phone No:{item.phone}</p>
+                          <p>
+                            Email:
+                            <a href={`mailto:${item.email}`}>{item.email}</a>
+                          </p>
+                          <p>
+                            Phone No:
+                            <a
+                              href={`https://api.whatsapp.com/send?phone=${item.phone}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {item.phone}
+                            </a>
+                          </p>
                         </td>
                         <td>{item.issue_date}</td>
                         <th>
