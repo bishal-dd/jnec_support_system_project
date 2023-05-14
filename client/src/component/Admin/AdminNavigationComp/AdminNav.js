@@ -9,7 +9,7 @@ import {
 import { MdAssignmentAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./adminav.css";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { VscThreeBars } from "react-icons/vsc";
 import {
   Sidebar,
   Menu,
@@ -23,40 +23,43 @@ export default function AdminNav() {
     useProSidebar();
 
   return (
-    <div className="flex">
-      <Sidebar>
-        <main>
-          <button onClick={() => collapseSidebar()}>Collapse</button>
-        </main>
-        <Menu>
-          <MenuItem component={<Link to="/admin" />}> Dashboard </MenuItem>
-          <SubMenu label="Staffs">
-            <MenuItem component={<Link to="/admin/add" />}>
-              {" "}
-              Add Staffs{" "}
-            </MenuItem>
-            <MenuItem component={<Link to="/admin/delete" />}>
-              {" "}
-              Delete Staffs{" "}
-            </MenuItem>
-            <MenuItem component={<Link to="/admin/editworker" />}>
-              {" "}
-              Edit Staffs{" "}
-            </MenuItem>
-          </SubMenu>
-          <SubMenu label="Issues Status">
-            <MenuItem component={<Link to="/admin/assign" />}>
-              {" "}
-              Assigned{" "}
-            </MenuItem>
-            <MenuItem component={<Link to="/admin/working" />}>
-              {" "}
-              Working{" "}
-            </MenuItem>
-            <MenuItem component={<Link to="/admin/solve" />}> Solved </MenuItem>
-          </SubMenu>
-        </Menu>
-      </Sidebar>
-    </div>
+    <Sidebar className="position-fixed vh-100 rounded-2" id="sidebar">
+      <Menu>
+        <MenuItem component={<Link to="/admin" />}>
+          {" "}
+          <FaHome />
+          <span className="p-2">Dashboard</span>
+        </MenuItem>
+        <SubMenu label="Staffs">
+          <MenuItem component={<Link to="/admin/add" />}>
+            {" "}
+            <FaUserPlus />
+            <span className="p-2">Add staff</span>{" "}
+          </MenuItem>
+          <MenuItem component={<Link to="/admin/delete" />}>
+            <FaTrashAlt />
+            <span className="p-2">Delete staff</span>
+          </MenuItem>
+          <MenuItem component={<Link to="/admin/editworker" />}>
+            <FaUserEdit />
+            <span className="p-2">Edit staff</span>
+          </MenuItem>
+        </SubMenu>
+        <SubMenu label="Issues Status">
+          <MenuItem component={<Link to="/admin/assign" />}>
+            <MdAssignmentAdd />
+            <span className="p-2">Assigned</span>
+          </MenuItem>
+          <MenuItem component={<Link to="/admin/working" />}>
+            <MdAssignmentAdd />
+            <span className="p-2">Working</span>
+          </MenuItem>
+          <MenuItem component={<Link to="/admin/solve" />}>
+            {" "}
+            <FaCheck /> <span className="p-2">Solved</span>{" "}
+          </MenuItem>
+        </SubMenu>
+      </Menu>
+    </Sidebar>
   );
 }
