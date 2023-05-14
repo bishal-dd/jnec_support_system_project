@@ -73,12 +73,14 @@ export default function AdminHome({ serverUrl }) {
   }, []);
 
   return (
-    <div id="admin_container">
-      <div className="col">
-        <div>
-          <AdminNav />
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-1">
+          <div class="sidebar">
+            <AdminNav />
+          </div>
         </div>
-        <div className="container-fluid">
+        <div className="col">
           <div className="table-responsive">
             <table className="fl-table shadow mb-2 ">
               <thead>

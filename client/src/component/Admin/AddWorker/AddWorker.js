@@ -44,67 +44,69 @@ export default function AddWorker({ serverUrl }) {
   };
 
   return (
-    <div className="row">
-      <div className="col-md-2">
-        <AdminNav />
-      </div>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
 
-      <div className="col mt-5">
-        <div className="row justify-content-center">
-          <div className="col-md-5 ">
-            {" "}
-            <Form className="justify-content-center" onSubmit={handleSubmit}>
-              <h3 className="text-center">Add Worker</h3>
-              <Form.Group controlId="name">
-                <Form.Label>Name:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="name"
-                  required
-                  value={name}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+        <div className="col mt-5">
+          <div className="row justify-content-center">
+            <div className="col-md-5 ">
+              {" "}
+              <Form className="justify-content-center" onSubmit={handleSubmit}>
+                <h3 className="text-center">Add Worker</h3>
+                <Form.Group controlId="name">
+                  <Form.Label>Name:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    required
+                    value={name}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
 
-              <Form.Group controlId="phone">
-                <Form.Label>Phone Number:</Form.Label>
-                <Form.Control
-                  type="tel"
-                  name="phone"
-                  pattern="[0-9]{8}"
-                  required
-                  value={phone}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group controlId="phone">
+                  <Form.Label>Phone Number:</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    name="phone"
+                    pattern="[0-9]{8}"
+                    required
+                    value={phone}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
 
-              <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email:</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  required
-                  value={email}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <div className="row justify-content-center text-center gap-5">
-                <Button
-                  className="btn btn-success col-4 
+                <Form.Group className="mb-3" controlId="email">
+                  <Form.Label>Email:</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    required
+                    value={email}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+                <div className="row justify-content-center text-center gap-5">
+                  <Button
+                    className="btn btn-success col-4 
          text-center  rounded-4 "
-                  type="submit"
-                >
-                  Add
-                </Button>
-                <a
-                  href="/admin"
-                  className="btn btn-success col-4 
+                    type="submit"
+                  >
+                    Add
+                  </Button>
+                  <a
+                    href="/admin"
+                    className="btn btn-success col-4 
          text-center  rounded-4"
-                >
-                  Cancel
-                </a>
-              </div>
-            </Form>
+                  >
+                    Cancel
+                  </a>
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
       </div>

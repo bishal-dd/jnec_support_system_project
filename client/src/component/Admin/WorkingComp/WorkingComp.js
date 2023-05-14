@@ -39,13 +39,13 @@ export default function WorkingComp() {
   }, []);
 
   return (
-    <div id="admin_container">
-      <div className="col">
-        <div>
-          {" "}
-          <AdminNav />{" "}
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-sm-1">
+          <AdminNav />
         </div>
-        <div className="container-fuild">
+
+        <div className="col">
           <table class="fl-table shadow">
             <thead>
               <tr>

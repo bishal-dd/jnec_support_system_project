@@ -59,104 +59,102 @@ export default function AssignComp({ serverUrl }) {
   }, []);
 
   return (
-    <div id="admin_container">
-      <div className="col">
-        <div>
-          <AdminNav />
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-sm-1">
+          <div>
+            <AdminNav />
+          </div>
         </div>
-        <div className="">
-          <div className="container-fuild">
-            <table class="fl-table shadow">
-              <thead>
-                <tr className="text-center">
-                  <th scope="col">#</th>
-                  <th scope="col">Issue Image</th>
-                  <th scope="col">Issue Summary</th>
-                  <th scope="col">Issue Provider</th>
-                  <th scope="col">Date</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {event
-                  .filter(
-                    (item) =>
-                      item.status === "assigned" &&
-                      item.issue_type === currentUser.department
-                  )
-                  .map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <th scope="row">{index + 1}</th>
-                        <td className="col-md-3 p-3 text-center">
-                          <ImageModal image={item.issue_image} />
-                        </td>
+        <div className="col">
+          <table class="fl-table shadow">
+            <thead>
+              <tr className="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Issue Image</th>
+                <th scope="col">Issue Summary</th>
+                <th scope="col">Issue Provider</th>
+                <th scope="col">Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {event
+                .filter(
+                  (item) =>
+                    item.status === "assigned" &&
+                    item.issue_type === currentUser.department
+                )
+                .map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <th scope="row">{index + 1}</th>
+                      <td className="col-md-3 p-3 text-center">
+                        <ImageModal image={item.issue_image} />
+                      </td>
 
-                        <td>{item.issue_summary}</td>
-                        <td class="text-left">
-                          <p>Name:{item.name}</p>
-                          <p>
-                            Email:
-                            <a href={`mailto:${item.email}`}>{item.email}</a>
-                          </p>
-                          <p>
-                            Phone No:
-                            <a
-                              href={`https://api.whatsapp.com/send?phone=${item.phone}`}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {item.phone}
-                            </a>
-                          </p>
-                        </td>
-                        <td>{item.issue_date}</td>
-                        <th>
-                          <select
-                            className="mb-2 p-2 rounded-2  bg-light"
-                            onChange={(e) =>
-                              setSelectedWorkerId(e.target.value)
+                      <td>{item.issue_summary}</td>
+                      <td class="text-left">
+                        <p>Name:{item.name}</p>
+                        <p>
+                          Email:
+                          <a href={`mailto:${item.email}`}>{item.email}</a>
+                        </p>
+                        <p>
+                          Phone No:
+                          <a
+                            href={`https://api.whatsapp.com/send?phone=${item.phone}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {item.phone}
+                          </a>
+                        </p>
+                      </td>
+                      <td>{item.issue_date}</td>
+                      <th>
+                        <select
+                          className="mb-2 p-2 rounded-2  bg-light"
+                          onChange={(e) => setSelectedWorkerId(e.target.value)}
+                        >
+                          {worker
+                            .filter((ite) => ite.id === item.worker_id)
+                            .map((item, index) => {
+                              return (
+                                <option key={index}>{item.username}</option>
+                              );
+                            })}
+
+                          {worker
+                            .filter(
+                              (ite) =>
+                                ite.department === currentUser.department &&
+                                ite.id !== item.worker_id
+                            )
+                            .map((item, index) => {
+                              return (
+                                <option key={index} value={item.id}>
+                                  {item.username}
+                                </option>
+                              );
+                            })}
+                        </select>
+                        <div>
+                          <button
+                            className="btn btn-info rounded-5 text-center"
+                            onClick={() =>
+                              assignWorker(selectedWorkerId, item.id)
                             }
                           >
-                            {worker
-                              .filter((ite) => ite.id === item.worker_id)
-                              .map((item, index) => {
-                                return (
-                                  <option key={index}>{item.username}</option>
-                                );
-                              })}
-
-                            {worker
-                              .filter(
-                                (ite) =>
-                                  ite.department === currentUser.department &&
-                                  ite.id !== item.worker_id
-                              )
-                              .map((item, index) => {
-                                return (
-                                  <option key={index} value={item.id}>
-                                    {item.username}
-                                  </option>
-                                );
-                              })}
-                          </select>
-                          <div>
-                            <button
-                              className="btn btn-info rounded-5 text-center"
-                              onClick={() =>
-                                assignWorker(selectedWorkerId, item.id)
-                              }
-                            >
-                              Assign
-                            </button>
-                          </div>
-                        </th>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
+                            Assign
+                          </button>
+                        </div>
+                      </th>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

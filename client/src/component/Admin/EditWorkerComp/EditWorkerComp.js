@@ -20,46 +20,47 @@ export default function EditWorkerComp({ serverUrl }) {
   }, []);
 
   return (
-    <div id="admin_container">
-      <div className="col">
-        <div>
-          <AdminNav />
-        </div>
-        <div className="container-fluid">
-          <div className="">
-            <table className="fl-table text-center bg-light shadow">
-              <thead className="table-items p-2 text-center">
-                <tr>
-                  <th>SL No:</th>
-                  <th>Staffs</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {worker
-                  .filter((i) => i.department === currentUser.department)
-                  .map((item, index) => {
-                    return (
-                      <>
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{item.username}</td>
-                          <td>
-                            <Link
-                              to="/admin/edit"
-                              state={item}
-                              className="btn btn-success mb-2 mt-2"
-                            >
-                              Edit
-                            </Link>
-                          </td>
-                        </tr>
-                      </>
-                    );
-                  })}
-              </tbody>
-            </table>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-sm-2">
+          <div className="sidebar">
+            <AdminNav />
           </div>
+        </div>
+
+        <div className="col">
+          <table className="fl-table text-center bg-light shadow">
+            <thead className="table-items p-2 text-center">
+              <tr>
+                <th>SL No:</th>
+                <th>Staffs</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {worker
+                .filter((i) => i.department === currentUser.department)
+                .map((item, index) => {
+                  return (
+                    <>
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.username}</td>
+                        <td>
+                          <Link
+                            to="/admin/edit"
+                            state={item}
+                            className="btn btn-success mb-2 mt-2"
+                          >
+                            Edit
+                          </Link>
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

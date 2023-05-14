@@ -33,90 +33,91 @@ export default function EditComp({ serverUrl }) {
   };
 
   return (
-    <div className="admin_container">
-      <div className="col">
-        <div>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col">
           <AdminNav />
         </div>
-        <div className="container-fluid">
-        <div
-          className="container bg-light rounded-4 shadow"
-          style={{ maxWidth: "600px" }}
-        >
-          <Form
-            onSubmit={(e) => {
-              handleSubmit(worker.id, e);
-            }}
+
+        <div className="col">
+          <div
+            className="container bg-light rounded-4 shadow"
+            style={{ maxWidth: "600px" }}
           >
-            <Form.Group controlId="name">
-              <Form.Label>Name:</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                defaultValue={worker.username}
-                required
-                ref={nameRef}
-              />
-            </Form.Group>
+            <Form
+              onSubmit={(e) => {
+                handleSubmit(worker.id, e);
+              }}
+            >
+              <Form.Group controlId="name">
+                <Form.Label>Name:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  defaultValue={worker.username}
+                  required
+                  ref={nameRef}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="department">
-              <Form.Label>Department:</Form.Label>
-              <Form.Control
-                as="select"
-                name="department"
-                required
-                defaultValue={worker.department}
-                ref={departmentRef}
-              >
-                <option value="">Select a department...</option>
-                <option value="ICT">ICT</option>
-                <option value="estate">Estate</option>
-                <option value="eletrical">Electrical</option>
-                <option value="plumbing">Plumbing</option>
-              </Form.Control>
-            </Form.Group>
+              <Form.Group controlId="department">
+                <Form.Label>Department:</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="department"
+                  required
+                  defaultValue={worker.department}
+                  ref={departmentRef}
+                >
+                  <option value="">Select a department...</option>
+                  <option value="ICT">ICT</option>
+                  <option value="estate">Estate</option>
+                  <option value="eletrical">Electrical</option>
+                  <option value="plumbing">Plumbing</option>
+                </Form.Control>
+              </Form.Group>
 
-            <Form.Group controlId="phone">
-              <Form.Label>Phone Number:</Form.Label>
-              <Form.Control
-                type="tel"
-                name="phone"
-                defaultValue={worker.phone}
-                pattern="[0-9]{8}"
-                required
-                ref={phoneRef}
-              />
-            </Form.Group>
+              <Form.Group controlId="phone">
+                <Form.Label>Phone Number:</Form.Label>
+                <Form.Control
+                  type="tel"
+                  name="phone"
+                  defaultValue={worker.phone}
+                  pattern="[0-9]{8}"
+                  required
+                  ref={phoneRef}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="email">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                defaultValue={worker.email}
-                required
-                ref={emailRef}
-              />
-            </Form.Group>
-            <div className="row justify-content-center text-center gap-5 mt-3">
-              <Button
-                className="btn btn-success col-4  text-center  rounded-4 "
-                type="submit"
-              >
-                Update
-              </Button>
-              <a
-                href="/editworker"
-                className="btn btn-success col-4  text-center  rounded-4"
-              >
-                Cancel
-              </a>
-            </div>
-            <br></br>
-          </Form>
+              <Form.Group controlId="email">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  defaultValue={worker.email}
+                  required
+                  ref={emailRef}
+                />
+              </Form.Group>
+              <div className="row justify-content-center text-center gap-5 mt-3">
+                <Button
+                  className="btn btn-success col-4  text-center  rounded-4 "
+                  type="submit"
+                >
+                  Update
+                </Button>
+                <a
+                  href="/editworker"
+                  className="btn btn-success col-4  text-center  rounded-4"
+                >
+                  Cancel
+                </a>
+              </div>
+              <br></br>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   );
 }
