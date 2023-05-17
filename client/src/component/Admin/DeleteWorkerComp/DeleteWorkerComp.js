@@ -12,7 +12,6 @@ export default function DeleteWorkerComp({ serverUrl }) {
 
   const loadWorker = async () => {
     const response = await axios.get(`${serverUrl}/get_worker`);
-    console.log(response.data);
     setWorker(response.data);
   };
 
@@ -23,7 +22,6 @@ export default function DeleteWorkerComp({ serverUrl }) {
   const handleDelete = async (id) => {
     console.log(id);
     await axios.get(`${serverUrl}/delete/${id}`).then((result) => {
-      console.log(result.data);
       if (result.data === "Worker Deleted") {
         toast.success("Worker Deleted");
       }

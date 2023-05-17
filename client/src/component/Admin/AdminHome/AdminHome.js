@@ -78,7 +78,7 @@ export default function AdminHome({ serverUrl }) {
         <div class="col-sm-2">
           <AdminNav />
         </div>
-        <div className="col">
+        <div className="col mt-5">
           <div className="table-responsive">
             <table className="fl-table shadow mb-2 ">
               <thead>
@@ -88,6 +88,7 @@ export default function AdminHome({ serverUrl }) {
                   <th scope="col">Issue Summary</th>
                   <th scope="col">Issue Provider</th>
                   <th scope="col">Date</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>
