@@ -61,7 +61,7 @@ export default function AssignComp({ serverUrl }) {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-1">
+        <div className="col-sm-2">
           <div>
             <AdminNav />
           </div>

@@ -41,7 +41,7 @@ export default function WorkingComp() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-1">
+        <div className="col-sm-2">
           <AdminNav />
         </div>
 
