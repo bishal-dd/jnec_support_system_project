@@ -49,7 +49,9 @@ export default function AdminHome({ serverUrl }) {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_issue`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_issue`
+      );
 
       setevent(response.data);
     } catch (error) {

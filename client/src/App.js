@@ -31,9 +31,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ToastContainer position="top-center" />
         <ProSidebarProvider>
           <NavbarComp serverUrl={config.SERVER_URL} />
+          <ToastContainer position="top-center" />
 
           <Routes>
             <Route

@@ -3,38 +3,42 @@ import "./checkcomp.css";
 import { Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 
-export default function CheckComp({ serverUrl }) {
-  const [ticketNumber, setTicketNumber] = useState("");
-  const [status, setStatus] = useState("");
+export default function CheckComp() {
+  const [Email, setEmail] = useState("");
+  const [event, setevent] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    axios
-      .get(`${serverUrl}/check-status/:id`)
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_issue`
+      );
 
-      .then((response) => toast.response(response.data))
-      .catch((error) => toast.error(error.response.data));
+      setevent(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  console.log(ticketNumber);
+
+  const matchingEvents = event.filter((event) => event.email === Email);
 
   return (
     <div
-      className="container mt-5 bg-light rounded-4 shadow"
+      className="container mt-5 bg-light rounded-4 shadow "
       style={{ maxWidth: "500px" }}
     >
-      <Form className="text-center" onSubmit={handleSubmit}>
+      <Form className="text-center mt-5" onSubmit={handleSubmit}>
         <h3 className="text-center">Check Status</h3>
         <Form.Group controlId="name">
-          <Form.Label className="text-center">Ticket Number</Form.Label>
+          <Form.Label className="text-center">Email</Form.Label>
           <Form.Control
-            type="tickect"
-            name="ticket"
+            type="email"
+            name="email"
             required
-            value={ticketNumber}
-            onChange={(event) => setTicketNumber(event.target.value)}
+            value={Email}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </Form.Group>
         <div className="row justify-content-center text-center gap-5 mt-3">
@@ -45,17 +49,41 @@ export default function CheckComp({ serverUrl }) {
           >
             Check
           </Button>
-          <a
-            href="/"
+          <Button
+            type="reset"
             className="btn btn-success col-4 
          text-center  rounded-4"
+            onClick={() => setEmail("")}
           >
-            Cancel
-          </a>
+            Reset
+          </Button>
         </div>
         <br></br>
-        {status && <p>Status: {status}</p>}
       </Form>
+      {matchingEvents.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Issue Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {matchingEvents.map((event, index) => (
+              <tr key={index}>
+                <th scope="row">{index + 1}</th>
+                <td>{event.Name}</td>
+                <td>{event.email}</td>
+                <td>{event.issue_summary}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <b>There are no issues that match your email</b>
+      )}
     </div>
   );
 }

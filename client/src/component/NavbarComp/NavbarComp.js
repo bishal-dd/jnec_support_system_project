@@ -35,17 +35,6 @@ export default function NavbarComp() {
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <img
-        src="https://res.cloudinary.com/dauoerqib/image/upload/v1683799942/6_zvbrwu.png"
-        width="160"
-        className={`rounded-2 `}
-        height="50"
-        alt="logo"
-        id="logo_image"
-        onClick={() => {
-          collapseSidebar();
-        }}
-      />
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <i className="ri-menu-line"></i>
