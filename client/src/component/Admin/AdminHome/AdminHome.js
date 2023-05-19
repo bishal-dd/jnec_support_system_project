@@ -141,8 +141,7 @@ export default function AdminHome({ serverUrl }) {
                             {worker
                               .filter(
                                 (item) =>
-                                  item.department === currentUser.department &&
-                                  item.status !== "leave"
+                                  item.department === currentUser.department
                               )
                               .map((item, index) => {
                                 return (

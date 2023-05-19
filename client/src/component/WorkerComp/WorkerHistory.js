@@ -24,26 +24,32 @@ export default function WorkerHistory() {
   }, []);
 
   return (
-    <div id="admin_container">
-      <div className="col">
-        <div></div>
-        <div className="container-fluid">
-          <table className="fl-table bg-light shadow">
-            <thead className="table-items p-2">
+    <div id="admin_container" className="container">
+      <div className="row ">
+        <div className="col mt-5">
+          <Link to="/worker" class="btn btn-primary  mb-3">
+            Home
+          </Link>
+          <table className="table table-striped table-hover table-bordered shadow mb-2 ">
+            <thead className="thead-dark p-2 ">
               <tr>
                 <th>SL No:</th>
-                <th>Issues</th>
+                <th scope="col">Issue Summary</th>
+                <th scope="col">Date</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-dark">
               {event
-                .filter((i) => i.worker_id === currentUser.id)
+                .filter(
+                  (i) => i.worker_id === currentUser.id && i.status === "solved"
+                )
                 .map((item, index) => {
                   return (
                     <>
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{item.issue_summary}</td>
+                        <td>{item.issue_date}</td>
                       </tr>
                     </>
                   );

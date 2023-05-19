@@ -73,23 +73,22 @@ export default function WorkerComp({ serverUrl }) {
   }, []);
 
   return (
-    <div id="container" className="">
-      <Link to="/worker_history" class="btn btn-primary">
+    <div id="container" className="container">
+      <Link to="/worker_history" class="btn btn-primary mt-3 mb-3">
         My History
       </Link>
-      <table
-        className="fl-table table-container text-center
-       bg-light"
-      >
-        <thead className="table-items p-2 text-center">
+
+      <table className="table table-striped table-hover table-bordered shadow mb-2 ">
+        <thead className="thead-dark p-2 ">
           <tr>
             <th>SL No:</th>
             <th scope="col">Issue Image</th>
             <th scope="col">Issue Summary</th>
             <th scope="col">Date</th>
+            <th scope="col">Actions </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-dark">
           {event
             .filter(
               (item) =>
@@ -105,28 +104,31 @@ export default function WorkerComp({ serverUrl }) {
                   </td>
                   <td>{item.issue_summary}</td>
                   <td>{item.issue_date}</td>
-                  <button
-                    className="btn btn-primary mb-2 mt-2"
-                    onClick={() => assignSolved(item.workerId, item.id)}
-                  >
-                    Solved
-                  </button>
-                  {item.status !== "working" ? (
+                  <td>
                     <button
-                      className="btn btn-primary mb-2 mt-2"
-                      onClick={() => assignWorking(item.workerId, item.id)}
+                      className="btn btn-primary mb-2 mt-2 "
+                      onClick={() => assignSolved(item.workerId, item.id)}
                     >
-                      Working
+                      Solved
                     </button>
-                  ) : (
-                    <button
-                      className="btn btn-primary mb-2 mt-2"
-                      onClick={() => assignWorking(item.workerId, item.id)}
-                      disabled={true}
-                    >
-                      Working
-                    </button>
-                  )}
+                    &nbsp;&nbsp;&nbsp;
+                    {item.status !== "working" ? (
+                      <button
+                        className="btn btn-primary mb-2 mt-2 mr-2"
+                        onClick={() => assignWorking(item.workerId, item.id)}
+                      >
+                        Working
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-primary mb-2 mt-2"
+                        onClick={() => assignWorking(item.workerId, item.id)}
+                        disabled={true}
+                      >
+                        Working
+                      </button>
+                    )}
+                  </td>
                 </tr>
               );
             })}
