@@ -48,7 +48,7 @@ export default function LoginComp({ serverUrl }) {
   return (
     <Container
       className="d-grid w-80 bg-light rounded-4 p-4
-       border shadow mt-4"
+       border shadow mt-3"
       style={{ maxWidth: "540px" }}
     >
       <Form
@@ -83,7 +83,7 @@ export default function LoginComp({ serverUrl }) {
         </Form.Group>
         <div className="d-grid">
           <Button variant="primary" onClick={handleSubmit}>
-            login
+            Login
           </Button>
         </div>
         <br />

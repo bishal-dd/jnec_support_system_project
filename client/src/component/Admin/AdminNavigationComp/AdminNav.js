@@ -9,21 +9,11 @@ import {
 import { MdAssignmentAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./adminav.css";
-import { VscThreeBars } from "react-icons/vsc";
-import {
-  Sidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  useProSidebar,
-} from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 export default function AdminNav() {
-  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
-    useProSidebar();
-
   return (
-    <Sidebar className="position-fixed vh-100  bg-dark">
+    <Sidebar className="position-fixed vh-100 " id="sidebar">
       <Menu>
         <MenuItem component={<Link to="/admin" />}>
           {" "}

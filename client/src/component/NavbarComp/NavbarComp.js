@@ -57,6 +57,11 @@ export default function NavbarComp() {
                 Home
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/check" className="nav-link active text-white">
+                Status
+              </Link>
+            </li>
 
             <li className="nav-item">
               {localStorage.getItem("token") ? (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "./homecomp.css";
 
 export default function HomeComp({ serverUrl }) {
   const initialState = {
@@ -48,9 +49,9 @@ export default function HomeComp({ serverUrl }) {
 
   const { name, email, phone, issue_type, issue_summary } = state;
   return (
-    <div className="container  p-4 mt-5" style={{ maxWidth: "600px" }}>
+    <div className="container   p-4 mt-5" style={{ maxWidth: "600px" }}>
       <div className="row mt-3">
-        <div className="col border border-dark">
+        <div className="col  rounded-4 p-3" id="home_form">
           <h1 className="mb-4">Submit an Issue</h1>
           <form
             method="post"
