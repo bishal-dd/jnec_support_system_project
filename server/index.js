@@ -355,7 +355,7 @@ app.put("/api/editworker/:id", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        res.send("edit sucess");
+        res.send("Edit sucess");
       }
     }
   );

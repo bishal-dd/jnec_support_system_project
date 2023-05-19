@@ -55,7 +55,7 @@ export default function CheckComp() {
                   className="btn btn-success rounded-4"
                   onClick={() => setEmail("")}
                 >
-                  Reset
+                  Clear
                 </Button>
               </div>
             </div>

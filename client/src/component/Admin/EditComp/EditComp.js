@@ -1,14 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import "./editcomp.css";
 import { Form, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function EditComp({ serverUrl }) {
+  const { currentUser } = useContext(AuthContext);
   const nameRef = useRef("");
-  const departmentRef = useRef("");
   const phoneRef = useRef("");
   const emailRef = useRef("");
 
@@ -23,12 +24,10 @@ export default function EditComp({ serverUrl }) {
         name: nameRef.current.value,
         email: emailRef.current.value,
         phone: phoneRef.current.value,
-        department: departmentRef.current.value,
+        department: currentUser.department,
       })
       .then((result) => {
-        if (result.data) {
-          toast.success("edit success");
-        }
+        toast.success(result.data);
       });
   };
 
@@ -39,13 +38,14 @@ export default function EditComp({ serverUrl }) {
           <AdminNav />
         </div>
 
-        <div className="col-md-5 mt-5 justify-content-center">
+        <div className="col-md-5 mt-5">
           <div className="row justify-content-center">
-            <div className="col">
+            <div className="col-md-9">
               <Form
                 onSubmit={(e) => {
                   handleSubmit(worker.id, e);
                 }}
+                className="justify-content-center"
               >
                 <Form.Group controlId="name">
                   <Form.Label>Name:</Form.Label>
@@ -56,23 +56,6 @@ export default function EditComp({ serverUrl }) {
                     required
                     ref={nameRef}
                   />
-                </Form.Group>
-
-                <Form.Group controlId="department">
-                  <Form.Label>Department:</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="department"
-                    required
-                    defaultValue={worker.department}
-                    ref={departmentRef}
-                  >
-                    <option value="">Select a department...</option>
-                    <option value="ICT">ICT</option>
-                    <option value="estate">Estate</option>
-                    <option value="eletrical">Electrical</option>
-                    <option value="plumbing">Plumbing</option>
-                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="phone">
