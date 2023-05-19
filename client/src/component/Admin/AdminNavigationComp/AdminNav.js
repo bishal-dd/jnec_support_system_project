@@ -23,7 +23,7 @@ export default function AdminNav() {
     useProSidebar();
 
   return (
-    <Sidebar className="position-fixed vh-100 rounded-2 bg-dark" id="sidebar">
+    <Sidebar className="position-fixed vh-100  bg-dark">
       <Menu>
         <MenuItem component={<Link to="/admin" />}>
           {" "}

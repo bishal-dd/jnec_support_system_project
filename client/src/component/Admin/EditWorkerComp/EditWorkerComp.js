@@ -28,9 +28,9 @@ export default function EditWorkerComp({ serverUrl }) {
           </div>
         </div>
 
-        <div className="col">
-          <table className="fl-table text-center bg-light shadow">
-            <thead className="table-items p-2 text-center">
+        <div className="col mt-5">
+          <table className="table table-striped table-hover table-bordered shadow mb-2 ">
+            <thead className=" p-2 text-center thead-dark">
               <tr>
                 <th>SL No:</th>
                 <th>Staffs</th>

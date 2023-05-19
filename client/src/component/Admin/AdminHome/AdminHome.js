@@ -75,15 +75,15 @@ export default function AdminHome({ serverUrl }) {
   }, []);
 
   return (
-    <div class="container-fluid">
+    <div class="container-fluid custom-container">
       <div class="row ">
-        <div class="col-sm-2">
+        <div class="col-sm-2 custom-padding">
           <AdminNav />
         </div>
         <div className="col mt-5">
           <div className="table-responsive">
-            <table className="fl-table shadow mb-2 ">
-              <thead>
+            <table className="table table-striped table-hover table-bordered shadow mb-2 ">
+              <thead className="thead-dark">
                 <tr className="text-center">
                   <th scope="col">#</th>
                   <th scope="col">Issue Image</th>
@@ -153,7 +153,7 @@ export default function AdminHome({ serverUrl }) {
                           </select>
                           <div>
                             <button
-                              className="btn btn-info rounded-5 shadow mt-2"
+                              className="btn btn-info rounded-2 shadow mt-2"
                               onClick={() =>
                                 assignWorker(selectedWorkerId, item.id)
                               }
@@ -178,7 +178,7 @@ export default function AdminHome({ serverUrl }) {
                           </select>
                           <div>
                             <button
-                              className="btn btn-info rounded-5 shadow mt-2"
+                              className="btn btn-info rounded-2 shadow mt-2"
                               onClick={() =>
                                 assignDepartment(selectedDepartment, item.id)
                               }

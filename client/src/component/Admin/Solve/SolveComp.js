@@ -42,9 +42,9 @@ export default function SolveComp({ serverUrl }) {
           <AdminNav />
         </div>
 
-        <div className="col">
-          <table class="fl-table shadow">
-            <thead>
+        <div className="col mt-5">
+          <table class="table table-striped table-hover table-bordered shadow mb-2 ">
+            <thead className="thead-dark">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Issue Image</th>

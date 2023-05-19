@@ -48,92 +48,97 @@ export default function HomeComp({ serverUrl }) {
 
   const { name, email, phone, issue_type, issue_summary } = state;
   return (
-    <div
-      className="container border border-2 rounded-4 p-4 mt-5"
-      style={{ maxWidth: "600px" }}
-    >
-      <h1 className="mb-4">Submit an Issue</h1>
-      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="form-control"
-            value={name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="form-control"
-            value={email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phone">Phone:</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            className="form-control"
-            pattern="[0-9]{8}"
-            value={phone}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="issue_type">Issue Type:</label>
-          <select
-            id="issue_type"
-            name="issue_type"
-            className="form-control"
-            value={issue_type}
-            onChange={handleChange}
-            required
+    <div className="container  p-4 mt-5" style={{ maxWidth: "600px" }}>
+      <div className="row mt-3">
+        <div className="col border border-dark">
+          <h1 className="mb-4">Submit an Issue</h1>
+          <form
+            method="post"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
           >
-            <option value="">Select a type...</option>
-            <option value="ICT">ICT</option>
-            <option value="estate">Estate</option>
-            <option value="academic">Academic</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="issue-summary">Issue Summary:</label>
-          <textarea
-            id="issue-summary"
-            name="issue_summary"
-            rows="4"
-            className="form-control"
-            onChange={handleChange}
-            value={issue_summary}
-            required
-          ></textarea>
-        </div>
-        <div className="form-group mt-3">
-          <label htmlFor="issue-image">Issue Image:</label>
-          <input
-            type="file"
-            id="issue_image"
-            name="issue_image"
-            className="form-control-file"
-            onChange={handleChange}
-          />
-        </div>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control"
+                value={name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="form-control"
+                value={email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="phone">Phone:</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                className="form-control"
+                pattern="[0-9]{8}"
+                value={phone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="issue_type">Issue Type:</label>
+              <select
+                id="issue_type"
+                name="issue_type"
+                className="form-control"
+                value={issue_type}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select a type...</option>
+                <option value="ICT">ICT</option>
+                <option value="estate">Estate</option>
+                <option value="academic">Academic</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="issue-summary">Issue Summary:</label>
+              <textarea
+                id="issue-summary"
+                name="issue_summary"
+                rows="4"
+                className="form-control"
+                onChange={handleChange}
+                value={issue_summary}
+                required
+              ></textarea>
+            </div>
+            <div className="form-group mt-3">
+              <label htmlFor="issue-image">Issue Image:</label>
+              <input
+                type="file"
+                id="issue_image"
+                name="issue_image"
+                className="form-control-file"
+                onChange={handleChange}
+              />
+            </div>
 
-        <button type="submit" className="btn btn-primary mt-3">
-          Submit Issue
-        </button>
-      </form>
+            <button type="submit" className="btn btn-primary mt-3">
+              Submit Issue
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

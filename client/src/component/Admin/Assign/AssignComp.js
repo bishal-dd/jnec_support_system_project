@@ -66,9 +66,9 @@ export default function AssignComp({ serverUrl }) {
             <AdminNav />
           </div>
         </div>
-        <div className="col">
-          <table class="fl-table shadow">
-            <thead>
+        <div className="col mt-5">
+          <table class="table table-striped table-hover table-bordered shadow mb-2 ">
+            <thead className="thead-dark">
               <tr className="text-center">
                 <th scope="col">#</th>
                 <th scope="col">Issue Image</th>
@@ -141,7 +141,7 @@ export default function AssignComp({ serverUrl }) {
                         </select>
                         <div>
                           <button
-                            className="btn btn-info rounded-5 text-center"
+                            className="btn btn-info rounded-2 text-center"
                             onClick={() =>
                               assignWorker(selectedWorkerId, item.id)
                             }

@@ -38,19 +38,16 @@ export default function DeleteWorkerComp({ serverUrl }) {
           </div>
         </div>
 
-        <div className="col">
-          <table
-            className="fl-table text-center 
-                  rounded-4 bg-light shadow"
-          >
-            <thead className="edit-items p-2 ">
+        <div className="col-md-8 mt-5 ml-5">
+          <table className="table table-striped table-hover table-bordered shadow mb-2 ">
+            <thead className="thead-dark p-2 ">
               <tr>
                 <th>SL No:</th>
                 <th>Name</th>
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-dark">
               {worker
                 .filter((i) => i.department === currentUser.department)
                 .map((item, index) => {
@@ -59,13 +56,14 @@ export default function DeleteWorkerComp({ serverUrl }) {
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{item.username}</td>
-
-                        <button
-                          className="btn btn-success mb-2 mt-2 "
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          Remove
-                        </button>
+                        <td>
+                          <button
+                            className="btn btn-success mb-2 mt-2 "
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            Remove
+                          </button>
+                        </td>
                       </tr>
                     </>
                   );
