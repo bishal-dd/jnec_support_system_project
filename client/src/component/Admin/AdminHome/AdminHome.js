@@ -30,6 +30,7 @@ export default function AdminHome({ serverUrl }) {
       console.error(error);
     }
   };
+
   const assignDepartment = async (Department, issueId) => {
     console.log(Department);
     try {
@@ -75,14 +76,14 @@ export default function AdminHome({ serverUrl }) {
   }, []);
 
   return (
-    <div class="container-fluid custom-container">
-      <div class="row ">
-        <div class="col-sm-2 custom-padding">
+    <div className="container-fluid custom-container">
+      <div className="row">
+        <div className="col-lg-2 col-md-3 custom-padding">
           <AdminNav />
         </div>
-        <div className="col mt-5">
+        <div className="col-lg-10 col-md-9 mt-5">
           <div className="table-responsive">
-            <table className="table table-striped table-hover table-bordered shadow mb-2 ">
+            <table className="table table-striped table-hover table-bordered shadow mb-2">
               <thead className="thead-dark">
                 <tr className="text-center">
                   <th scope="col">#</th>
@@ -112,13 +113,13 @@ export default function AdminHome({ serverUrl }) {
 
                         <td>{item.issue_summary}</td>
                         <td>
-                          <p>Name:{item.name}</p>
+                          <p>Name: {item.name}</p>
                           <p>
-                            Email:
+                            Email:{" "}
                             <a href={`mailto:${item.email}`}>{item.email}</a>
                           </p>
                           <p>
-                            Phone No:
+                            Phone No:{" "}
                             <a
                               href={`https://api.whatsapp.com/send?phone=${item.phone}`}
                               target="_blank"

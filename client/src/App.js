@@ -23,7 +23,6 @@ import AssignComp from "./component/Admin/Assign/AssignComp";
 import SolveComp from "./component/Admin/Solve/SolveComp";
 import WorkingComp from "./component/Admin/WorkingComp/WorkingComp";
 import WorkerHistory from "./component/WorkerComp/WorkerHistory";
-import { ProSidebarProvider } from "react-pro-sidebar";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -31,91 +30,89 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ProSidebarProvider>
-          <NavbarComp serverUrl={config.SERVER_URL} />
-          <ToastContainer position="top-center" />
+        <NavbarComp serverUrl={config.SERVER_URL} />
+        <ToastContainer position="top-center" />
 
-          <Routes>
+        <Routes>
+          <Route
+            element={
+              <ProtectedRoute
+                user={currentUser}
+                serverUrl={config.SERVER_URL}
+              />
+            }
+          >
             <Route
-              element={
-                <ProtectedRoute
-                  user={currentUser}
-                  serverUrl={config.SERVER_URL}
-                />
-              }
-            >
-              <Route
-                path="/admin"
-                element={<AdminHome serverUrl={config.SERVER_URL} />}
-              />
-              <Route
-                path="/admin/edit"
-                element={<EditComp serverUrl={config.SERVER_URL} />}
-              />
-              <Route
-                path="/admin/add"
-                element={<AddWorker serverUrl={config.SERVER_URL} />}
-              />
-              <Route
-                path="/admin/delete"
-                element={<DeleteWorkerComp serverUrl={config.SERVER_URL} />}
-              />
-              <Route
-                path="/admin/editworker"
-                element={<EditWorkerComp serverUrl={config.SERVER_URL} />}
-              />
-              <Route
-                path="/admin/solve"
-                element={<SolveComp serverUrl={config.SERVER_URL} />}
-              />
-              <Route
-                path="/admin/assign"
-                element={<AssignComp serverUrl={config.SERVER_URL} />}
-              />
-              <Route path="/admin/working" element={<WorkingComp />} />
-            </Route>
+              path="/admin"
+              element={<AdminHome serverUrl={config.SERVER_URL} />}
+            />
+            <Route
+              path="/admin/edit"
+              element={<EditComp serverUrl={config.SERVER_URL} />}
+            />
+            <Route
+              path="/admin/add"
+              element={<AddWorker serverUrl={config.SERVER_URL} />}
+            />
+            <Route
+              path="/admin/delete"
+              element={<DeleteWorkerComp serverUrl={config.SERVER_URL} />}
+            />
+            <Route
+              path="/admin/editworker"
+              element={<EditWorkerComp serverUrl={config.SERVER_URL} />}
+            />
+            <Route
+              path="/admin/solve"
+              element={<SolveComp serverUrl={config.SERVER_URL} />}
+            />
+            <Route
+              path="/admin/assign"
+              element={<AssignComp serverUrl={config.SERVER_URL} />}
+            />
+            <Route path="/admin/working" element={<WorkingComp />} />
+          </Route>
 
-            <Route
-              element={
-                <ProtectedWorkerRoute
-                  user={currentUser}
-                  serverUrl={config.SERVER_URL}
-                />
-              }
-            >
-              <Route
-                path="/worker"
-                element={<WorkerComp serverUrl={config.SERVER_URL} />}
+          <Route
+            element={
+              <ProtectedWorkerRoute
+                user={currentUser}
+                serverUrl={config.SERVER_URL}
               />
-              <Route path="/worker_history" element={<WorkerHistory />} />
-            </Route>
+            }
+          >
             <Route
-              element={
-                <ProtectedViewerRoute
-                  user={currentUser}
-                  serverUrl={config.SERVER_URL}
-                />
-              }
-            >
-              <Route
-                path="/view"
-                element={<ViewerHome serverUrl={config.SERVER_URL} />}
+              path="/worker"
+              element={<WorkerComp serverUrl={config.SERVER_URL} />}
+            />
+            <Route path="/worker_history" element={<WorkerHistory />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedViewerRoute
+                user={currentUser}
+                serverUrl={config.SERVER_URL}
               />
-            </Route>
+            }
+          >
             <Route
-              path="/"
-              element={<HomeComp serverUrl={config.SERVER_URL} />}
+              path="/view"
+              element={<ViewerHome serverUrl={config.SERVER_URL} />}
             />
-            <Route
-              path="/login"
-              element={<LoginComp serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/check"
-              element={<CheckComp serverUrl={config.SERVER_URL} />}
-            />
-          </Routes>
-        </ProSidebarProvider>
+          </Route>
+          <Route
+            path="/"
+            element={<HomeComp serverUrl={config.SERVER_URL} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginComp serverUrl={config.SERVER_URL} />}
+          />
+          <Route
+            path="/check"
+            element={<CheckComp serverUrl={config.SERVER_URL} />}
+          />
+        </Routes>
       </BrowserRouter>
     </>
   );

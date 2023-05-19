@@ -3,11 +3,9 @@ import "./navbarcomp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { useProSidebar } from "react-pro-sidebar";
 
 export default function NavbarComp() {
   const { currentUser } = useContext(AuthContext);
-  const { collapseSidebar } = useProSidebar();
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -29,7 +27,6 @@ export default function NavbarComp() {
           height="50"
           alt="logo"
           id="logo_image"
-          onClick={() => collapseSidebar()}
         />
 
         <button
