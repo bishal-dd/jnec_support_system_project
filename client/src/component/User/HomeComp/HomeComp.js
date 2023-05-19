@@ -51,8 +51,8 @@ export default function HomeComp({ serverUrl }) {
   return (
     <div className="container   p-4 mt-5" style={{ maxWidth: "600px" }}>
       <div className="row mt-3">
-        <div className="col  rounded-4 p-3" id="home_form">
-          <h1 className="mb-4">Submit an Issue</h1>
+        <div className="col shadow  rounded-2  p-3" id="home_form">
+          <h1 className="mb-4 text-center">Submit an Issue</h1>
           <form
             method="post"
             encType="multipart/form-data"
@@ -64,7 +64,7 @@ export default function HomeComp({ serverUrl }) {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control"
+                className="form-control border border-dark rounded-0"
                 value={name}
                 onChange={handleChange}
                 required
@@ -76,7 +76,7 @@ export default function HomeComp({ serverUrl }) {
                 type="email"
                 id="email"
                 name="email"
-                className="form-control"
+                className="form-control border border-dark rounded-0"
                 value={email}
                 onChange={handleChange}
                 required
@@ -88,7 +88,7 @@ export default function HomeComp({ serverUrl }) {
                 type="tel"
                 id="phone"
                 name="phone"
-                className="form-control"
+                className="form-control border border-dark rounded-0"
                 pattern="[0-9]{8}"
                 value={phone}
                 onChange={handleChange}
@@ -100,7 +100,7 @@ export default function HomeComp({ serverUrl }) {
               <select
                 id="issue_type"
                 name="issue_type"
-                className="form-control"
+                className="form-control border border-dark rounded-0"
                 value={issue_type}
                 onChange={handleChange}
                 required
@@ -117,7 +117,7 @@ export default function HomeComp({ serverUrl }) {
                 id="issue-summary"
                 name="issue_summary"
                 rows="4"
-                className="form-control"
+                className="form-control border border-dark rounded-0"
                 onChange={handleChange}
                 value={issue_summary}
                 required
@@ -129,7 +129,7 @@ export default function HomeComp({ serverUrl }) {
                 type="file"
                 id="issue_image"
                 name="issue_image"
-                className="form-control-file"
+                className="form-control-file p-2 border border-dark rounded-0"
                 onChange={handleChange}
               />
             </div>

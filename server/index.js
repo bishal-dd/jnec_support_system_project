@@ -343,8 +343,6 @@ app.put("/api/editworker/:id", (req, res) => {
 
   const id = req.params.id;
 
-  console.log(name);
-
   sqlInsert =
     "UPDATE worker SET username = ?, department = ? ,phone = ?, email= ? WHERE id = ?";
 
@@ -363,7 +361,6 @@ app.put("/api/editworker/:id", (req, res) => {
 
 app.get("/api/delete/:id", (req, res) => {
   const sqlDelete = "DELETE FROM worker WHERE id = ?;";
-  console.log(req.params.id);
 
   db.query(sqlDelete, [req.params.id], (err, result) => {
     console.log(result);
@@ -371,14 +368,6 @@ app.get("/api/delete/:id", (req, res) => {
   });
 });
 
-app.post("/api/check-status", (req, res) => {
-  const ticketNumber = req.body.ticketNumber;
-  const statuses = ["Pending", "Solved"];
-  const randomIndex = Math.floor(Math.random() * statuses.length);
-  const status = statuses[randomIndex];
-
-  res.send({ status });
-});
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });

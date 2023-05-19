@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./checkcomp.css";
 import { Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
+import "./checkcomp.css";
 
 export default function CheckComp() {
-  const [Email, setEmail] = useState("");
+  const [id, setId] = useState("");
   const [event, setevent] = useState([]);
 
   const handleSubmit = async (event) => {
@@ -22,38 +23,48 @@ export default function CheckComp() {
     }
   };
 
-  const matchingEvents = event.filter((event) => event.email === Email);
+  const matchingEvents = event.filter((event) => event.id === Number(id));
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_URL}/get_issue`
+        );
+        setevent(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
 
   return (
-    <div
-      className="container mt-5 bg-light rounded-4 shadow"
-      style={{ maxWidth: "500px" }}
-    >
-      <div className="row">
-        <div className="col">
+    <div className="container mt-5 bg-light " style={{ maxWidth: "500px" }}>
+      <div className="row mt-5">
+        <div className="col mt-5 shadow rounded-2" id="check-status">
           <Form className="text-center mt-5" onSubmit={handleSubmit}>
             <h3 className="text-center">Check Status</h3>
             <Form.Group controlId="name">
-              <Form.Label className="text-center">Email</Form.Label>
+              <Form.Label className="text-center">Issue_ID</Form.Label>
               <Form.Control
-                type="email"
-                name="email"
+                type="number"
+                name="id"
                 required
-                value={Email}
-                onChange={(event) => setEmail(event.target.value)}
+                value={id}
+                onChange={(event) => setId(event.target.value)}
               />
             </Form.Group>
             <div className="row justify-content-center text-center mt-3">
               <div className="col-5">
-                <Button className="btn btn-success rounded-4" type="submit">
+                <Button className="btn btn-success rounded-2" type="submit">
                   Check
                 </Button>
               </div>
               <div className="col-5">
                 <Button
                   type="reset"
-                  className="btn btn-success rounded-4"
-                  onClick={() => setEmail("")}
+                  className="btn btn-success rounded-2"
+                  onClick={() => setId("")}
                 >
                   Clear
                 </Button>
@@ -61,30 +72,35 @@ export default function CheckComp() {
             </div>
             <br />
           </Form>
-          {matchingEvents.length > 0 ? (
-            <table className="table">
+          {id !== "" && matchingEvents.length > 0 ? (
+            <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>#</th>
-
-                  <th>Email</th>
                   <th>Issue Summary</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {matchingEvents.map((event, index) => (
                   <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-
-                    <td>{event.email}</td>
                     <td>{event.issue_summary}</td>
+                    <td>
+                      {event.status === "solved"
+                        ? "This issue was solved"
+                        : event.status === "working"
+                        ? "This issue is being worked on"
+                        : event.status === "assigned"
+                        ? "This issue was assigned"
+                        : "This not yet assigned"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          ) : (
-            <b>There are no issues that match your email</b>
-          )}
+          ) : null}
+          {id !== "" && matchingEvents.length === 0 ? (
+            <b>There are no issues that match</b>
+          ) : null}
         </div>
       </div>
     </div>

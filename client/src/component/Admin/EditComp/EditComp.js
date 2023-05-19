@@ -38,14 +38,15 @@ export default function EditComp({ serverUrl }) {
           <AdminNav />
         </div>
 
-        <div className="col-md-5 mt-5">
-          <div className="row justify-content-center">
-            <div className="col-md-9">
+        <div className="col mt-5 justify-content-center">
+          <div className="row  justify-content-center">
+            <div className="col-md-5 shadow">
+              <h3 className="text-center">Edit Staff</h3>
+
               <Form
                 onSubmit={(e) => {
                   handleSubmit(worker.id, e);
                 }}
-                className="justify-content-center"
               >
                 <Form.Group controlId="name">
                   <Form.Label>Name:</Form.Label>
@@ -82,17 +83,11 @@ export default function EditComp({ serverUrl }) {
                 </Form.Group>
                 <div className="row justify-content-center text-center gap-5 mt-3">
                   <Button
-                    className="btn btn-success col-4  text-center  rounded-4 "
+                    className="btn btn-success col-6  text-center  rounded-3 "
                     type="submit"
                   >
                     Update
                   </Button>
-                  <a
-                    href="/editworker"
-                    className="btn btn-success col-4  text-center  rounded-4"
-                  >
-                    Cancel
-                  </a>
                 </div>
                 <br></br>
               </Form>

@@ -55,7 +55,7 @@ export default function AddWorker({ serverUrl }) {
             <div className="col-md-5 ">
               {" "}
               <Form className="justify-content-center" onSubmit={handleSubmit}>
-                <h3 className="text-center">Add Worker</h3>
+                <h3 className="text-center">Add Staff</h3>
                 <Form.Group controlId="name">
                   <Form.Label>Name:</Form.Label>
                   <Form.Control

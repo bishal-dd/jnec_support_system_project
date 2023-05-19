@@ -47,47 +47,51 @@ export default function LoginComp({ serverUrl }) {
 
   return (
     <Container
-      className="d-grid w-80 bg-light rounded-4 p-4
-       border shadow mt-3"
+      className="d-grid w-80 bg-light  p-4
+        mt-3"
       style={{ maxWidth: "540px" }}
     >
-      <Form
-        id="sign-in-form"
-        className="text-center w-100 align-item-center justify-content-center "
-      >
-        <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
-        <IoPersonCircleSharp size={100} />
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Control
-            className="position-relative"
-            class="form.control"
-            type="name"
-            placeholder="Email"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            autoComplete="username"
-          />
-        </Form.Group>
-        <br />
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            autoComplete="current-password"
-            className="position-relative"
-          />
-        </Form.Group>
-        <div className="d-grid">
-          <Button variant="primary" onClick={handleSubmit}>
-            Login
-          </Button>
+      <div className="row mt-5">
+        <div className="col mt-5 rounded-4 border shadow">
+          <Form
+            id="sign-in-form"
+            className="text-center w-100 align-item-center justify-content-center "
+          >
+            <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
+            <IoPersonCircleSharp size={100} />
+            <Form.Group className="mb-3" controlId="name">
+              <Form.Control
+                className="position-relative"
+                class="form.control"
+                type="name"
+                placeholder="Email"
+                required
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                autoComplete="username"
+              />
+            </Form.Group>
+            <br />
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete="current-password"
+                className="position-relative"
+              />
+            </Form.Group>
+            <div className="d-grid">
+              <Button variant="primary" onClick={handleSubmit}>
+                Login
+              </Button>
+            </div>
+            <br />
+          </Form>
         </div>
-        <br />
-      </Form>
+      </div>
     </Container>
   );
 }
