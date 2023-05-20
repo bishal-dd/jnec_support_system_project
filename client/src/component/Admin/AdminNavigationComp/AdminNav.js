@@ -5,16 +5,9 @@ import {
   Menu,
   MenuItem,
   SidebarHeader,
-  SidebarFooter,
   SidebarContent,
-  SubMenu,
 } from "react-pro-sidebar";
-import {
-  FiHome,
-  FiLogOut,
-  FiArrowLeftCircle,
-  FiArrowRightCircle,
-} from "react-icons/fi";
+import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { FaTrashAlt, FaUserPlus, FaUserEdit, FaCheck } from "react-icons/fa";
 import { MdAssignmentAdd } from "react-icons/md";
 import { GrUserWorker } from "react-icons/gr";
