@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
-export default function ProtectedRoute({ user, serverUrl }) {
+export default function ProtectedRoute({ user }) {
   const navigate = useNavigate();
 
   useEffect(() => {

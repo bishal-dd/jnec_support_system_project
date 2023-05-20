@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "../utilities/Loading";
-import config from "../config";
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -16,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     axios
-      .get(`${config.SERVER_URL}/user`, {
+      .get(`${process.env.REACT_APP_URL}/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

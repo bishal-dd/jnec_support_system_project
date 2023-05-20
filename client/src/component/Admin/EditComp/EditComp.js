@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import AdminNav from "../AdminNavigationComp/AdminNav";
 import { AuthContext } from "../../../context/AuthContext";
 
-export default function EditComp({ serverUrl }) {
+export default function EditComp() {
   const { currentUser } = useContext(AuthContext);
   const nameRef = useRef("");
   const phoneRef = useRef("");
@@ -20,7 +20,7 @@ export default function EditComp({ serverUrl }) {
     e.preventDefault();
 
     axios
-      .put(`${serverUrl}/editworker/${id}`, {
+      .put(`${process.env.REACT_APP_URL}/editworker/${id}`, {
         name: nameRef.current.value,
         email: emailRef.current.value,
         phone: phoneRef.current.value,

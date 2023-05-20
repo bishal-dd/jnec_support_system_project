@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ImageModal from "../Admin/AdminHome/ImageModule/ImageModal";
 import { Link } from "react-router-dom";
-export default function WorkerComp({ serverUrl }) {
+export default function WorkerComp() {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
 
@@ -15,7 +15,7 @@ export default function WorkerComp({ serverUrl }) {
     console.log(workerId);
     try {
       const response = await axios.put(
-        `${serverUrl}/assign_solved/${issueId}`,
+        `${process.env.REACT_APP_URL}/assign_solved/${issueId}`,
         { id: issueId, worker_id: workerId }
       );
       loadEvent();
@@ -31,7 +31,7 @@ export default function WorkerComp({ serverUrl }) {
     console.log(workerId);
     try {
       const response = await axios.put(
-        `${serverUrl}/assign_working/${issueId}`,
+        `${process.env.REACT_APP_URL}/assign_working/${issueId}`,
         { id: issueId, worker_id: workerId }
       );
       loadEvent();
@@ -46,7 +46,7 @@ export default function WorkerComp({ serverUrl }) {
   // const assignLeave = async () => {
   //   console.log(id);
   //   try {
-  //     const response = await axios.put(`${serverUrl}/assign_leave/${id}`, {
+  //     const response = await axios.put(`${process.env.REACT_APP_URL}/assign_leave/${id}`, {
   //       id: id,
   //     });
   //     loadEvent();
@@ -60,7 +60,9 @@ export default function WorkerComp({ serverUrl }) {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_issue`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_issue`
+      );
       console.log(response.data);
       setevent(response.data);
     } catch (error) {

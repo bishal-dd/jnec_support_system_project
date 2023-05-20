@@ -30,88 +30,31 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavbarComp serverUrl={config.SERVER_URL} />
+        <NavbarComp />
         <ToastContainer position="top-center" />
 
         <Routes>
-          <Route
-            element={
-              <ProtectedRoute
-                user={currentUser}
-                serverUrl={config.SERVER_URL}
-              />
-            }
-          >
-            <Route
-              path="/admin"
-              element={<AdminHome serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/admin/edit"
-              element={<EditComp serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/admin/add"
-              element={<AddWorker serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/admin/delete"
-              element={<DeleteWorkerComp serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/admin/editworker"
-              element={<EditWorkerComp serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/admin/solve"
-              element={<SolveComp serverUrl={config.SERVER_URL} />}
-            />
-            <Route
-              path="/admin/assign"
-              element={<AssignComp serverUrl={config.SERVER_URL} />}
-            />
+          <Route element={<ProtectedRoute user={currentUser} />}>
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/edit" element={<EditComp />} />
+            <Route path="/admin/add" element={<AddWorker />} />
+            <Route path="/admin/delete" element={<DeleteWorkerComp />} />
+            <Route path="/admin/editworker" element={<EditWorkerComp />} />
+            <Route path="/admin/solve" element={<SolveComp />} />
+            <Route path="/admin/assign" element={<AssignComp />} />
             <Route path="/admin/working" element={<WorkingComp />} />
           </Route>
 
-          <Route
-            element={
-              <ProtectedWorkerRoute
-                user={currentUser}
-                serverUrl={config.SERVER_URL}
-              />
-            }
-          >
-            <Route
-              path="/worker"
-              element={<WorkerComp serverUrl={config.SERVER_URL} />}
-            />
+          <Route element={<ProtectedWorkerRoute user={currentUser} />}>
+            <Route path="/worker" element={<WorkerComp />} />
             <Route path="/worker_history" element={<WorkerHistory />} />
           </Route>
-          <Route
-            element={
-              <ProtectedViewerRoute
-                user={currentUser}
-                serverUrl={config.SERVER_URL}
-              />
-            }
-          >
-            <Route
-              path="/view"
-              element={<ViewerHome serverUrl={config.SERVER_URL} />}
-            />
+          <Route element={<ProtectedViewerRoute user={currentUser} />}>
+            <Route path="/view" element={<ViewerHome />} />
           </Route>
-          <Route
-            path="/"
-            element={<HomeComp serverUrl={config.SERVER_URL} />}
-          />
-          <Route
-            path="/login"
-            element={<LoginComp serverUrl={config.SERVER_URL} />}
-          />
-          <Route
-            path="/check"
-            element={<CheckComp serverUrl={config.SERVER_URL} />}
-          />
+          <Route path="/" element={<HomeComp />} />
+          <Route path="/login" element={<LoginComp />} />
+          <Route path="/check" element={<CheckComp />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -12,7 +12,7 @@ const initialState = {
   email: "",
 };
 
-export default function AddWorker({ serverUrl }) {
+export default function AddWorker() {
   const { currentUser } = useContext(AuthContext);
   const [state, setState] = useState(initialState);
   const department = currentUser.department;
@@ -24,7 +24,7 @@ export default function AddWorker({ serverUrl }) {
       toast.error("please enter correct values");
     } else {
       axios
-        .post(`${serverUrl}/worker`, {
+        .post(`${process.env.REACT_APP_URL}/worker`, {
           name,
           department,
           phone,

@@ -6,7 +6,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "./ImageModule/ImageModal";
 import "./adminhome.css";
 
-export default function AdminHome({ serverUrl }) {
+export default function AdminHome() {
   const { currentUser } = useContext(AuthContext);
 
   const [event, setevent] = useState([]);
@@ -17,10 +17,13 @@ export default function AdminHome({ serverUrl }) {
   const assignWorker = async (workerId, issueId) => {
     console.log(workerId);
     try {
-      const response = await axios.put(`${serverUrl}/assign_issue/${issueId}`, {
-        id: issueId,
-        worker_id: workerId,
-      });
+      const response = await axios.put(
+        `${process.env.REACT_APP_URL}/assign_issue/${issueId}`,
+        {
+          id: issueId,
+          worker_id: workerId,
+        }
+      );
       if (response.data === "Assigned") {
         toast.success("Assigned");
       }
@@ -34,10 +37,13 @@ export default function AdminHome({ serverUrl }) {
   const assignDepartment = async (Department, issueId) => {
     console.log(Department);
     try {
-      const response = await axios.put(`${serverUrl}/foward_issue/${issueId}`, {
-        id: issueId,
-        department: Department,
-      });
+      const response = await axios.put(
+        `${process.env.REACT_APP_URL}/foward_issue/${issueId}`,
+        {
+          id: issueId,
+          department: Department,
+        }
+      );
 
       toast.success(response.data);
 
@@ -62,7 +68,9 @@ export default function AdminHome({ serverUrl }) {
 
   const loadWorker = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_worker`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_worker`
+      );
 
       setWorker(response.data);
     } catch (error) {

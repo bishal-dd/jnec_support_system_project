@@ -5,7 +5,6 @@ import "./viewhome.css";
 
 export default function ViewerHome() {
   const [issueData, setIssueData] = useState([]);
-  const [issueDate, setIssueDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedIssueType, setSelectedIssueType] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -18,7 +17,6 @@ export default function ViewerHome() {
         `${process.env.REACT_APP_URL}/get_issue`
       );
       const response_data = response.data;
-      setIssueDate(response.data[0].issue_date.substring(0, 7));
       setIssueData(response_data);
     } catch (error) {
       console.error(error);

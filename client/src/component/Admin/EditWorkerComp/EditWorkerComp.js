@@ -6,12 +6,12 @@ import { AuthContext } from "../../../context/AuthContext";
 
 import "./editworkercomp.css";
 
-export default function EditWorkerComp({ serverUrl }) {
+export default function EditWorkerComp() {
   const [worker, setWorker] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
   const loadWorker = async () => {
-    const response = await axios.get(`${serverUrl}/get_worker`);
+    const response = await axios.get(`${process.env.REACT_APP_URL}/get_worker`);
     setWorker(response.data);
   };
 

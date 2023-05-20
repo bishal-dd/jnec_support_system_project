@@ -6,12 +6,12 @@ import AdminNav from "../AdminNavigationComp/AdminNav";
 import { AuthContext } from "../../../context/AuthContext";
 import "./deleteworkercomp.css";
 
-export default function DeleteWorkerComp({ serverUrl }) {
+export default function DeleteWorkerComp() {
   const [worker, setWorker] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
   const loadWorker = async () => {
-    const response = await axios.get(`${serverUrl}/get_worker`);
+    const response = await axios.get(`${process.env.REACT_APP_URL}/get_worker`);
     setWorker(response.data);
   };
 
@@ -21,11 +21,13 @@ export default function DeleteWorkerComp({ serverUrl }) {
 
   const handleDelete = async (id) => {
     console.log(id);
-    await axios.get(`${serverUrl}/delete/${id}`).then((result) => {
-      if (result.data === "Worker Deleted") {
-        toast.success("Worker Deleted");
-      }
-    });
+    await axios
+      .get(`${process.env.REACT_APP_URL}/delete/${id}`)
+      .then((result) => {
+        if (result.data === "Worker Deleted") {
+          toast.success("Worker Deleted");
+        }
+      });
     window.location.reload();
   };
 

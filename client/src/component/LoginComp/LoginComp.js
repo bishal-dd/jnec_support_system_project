@@ -11,7 +11,7 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import "./logincomp.css";
 import { toast } from "react-toastify";
 
-export default function LoginComp({ serverUrl }) {
+export default function LoginComp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function LoginComp({ serverUrl }) {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${serverUrl}/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_URL}/login`, {
         username,
         password,
       });

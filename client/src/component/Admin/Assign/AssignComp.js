@@ -7,7 +7,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "../AdminHome/ImageModule/ImageModal";
 import "./assign.css";
 
-export default function AssignComp({ serverUrl }) {
+export default function AssignComp() {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
@@ -16,10 +16,13 @@ export default function AssignComp({ serverUrl }) {
   const assignWorker = async (workerId, issueId) => {
     console.log(workerId);
     try {
-      const response = await axios.put(`${serverUrl}/assign_issue/${issueId}`, {
-        id: issueId,
-        worker_id: workerId,
-      });
+      const response = await axios.put(
+        `${process.env.REACT_APP_URL}/assign_issue/${issueId}`,
+        {
+          id: issueId,
+          worker_id: workerId,
+        }
+      );
       if (response.data === "Assigned") {
         toast.success("Assigned", {
           className: "custom-toast",
@@ -35,7 +38,9 @@ export default function AssignComp({ serverUrl }) {
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_issue`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_issue`
+      );
 
       setevent(response.data);
     } catch (error) {
@@ -45,7 +50,9 @@ export default function AssignComp({ serverUrl }) {
 
   const loadWorker = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_worker`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_worker`
+      );
 
       setWorker(response.data);
     } catch (error) {
