@@ -7,9 +7,9 @@ export default function ViewerHome() {
   const [issueData, setIssueData] = useState([]);
   const [issueDate, setIssueDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
   const [selectedIssueType, setSelectedIssueType] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
+  const [worker, setWorker] = useState([]);
 
   const loadEvent = async (e) => {
     e.preventDefault();
@@ -18,11 +18,20 @@ export default function ViewerHome() {
         `${process.env.REACT_APP_URL}/get_issue`
       );
       const response_data = response.data;
-      console.log(response_data);
       setIssueDate(response.data[0].issue_date.substring(0, 7));
-      console.log(issueDate);
-      console.log(selectedMonth);
       setIssueData(response_data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadWorker = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_worker`
+      );
+      setWorker(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -72,7 +81,13 @@ export default function ViewerHome() {
             </div>
 
             <div className="col-4 mt-3">
-              <button className="btn btn-primary col-10" onClick={loadEvent}>
+              <button
+                className="btn btn-primary col-10"
+                onClick={(e) => {
+                  loadEvent(e);
+                  loadWorker(e);
+                }}
+              >
                 Search
               </button>
             </div>
@@ -118,7 +133,13 @@ export default function ViewerHome() {
                       <td>{item.issue_summary}</td>
                       <td>{item.issue_date}</td>
                       <td>{!item.status ? "Not Assigned" : item.status}</td>
-                      <td></td>
+                      <td>
+                        {worker
+                          .filter((ite) => ite.id === item.worker_id)
+                          .map((item, index) => {
+                            return <p key={index}>{item.username}</p>;
+                          })}
+                      </td>
                     </tr>
                   );
                 })}

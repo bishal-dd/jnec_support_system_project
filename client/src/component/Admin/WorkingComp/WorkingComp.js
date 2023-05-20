@@ -54,7 +54,7 @@ export default function WorkingComp() {
                 <th scope="col">Issue Summary</th>
                 <th scope="col">Issue Provider</th>
                 <th scope="col">Date</th>
-                <th scope="col">Worker</th>
+                <th scope="col">Staff</th>
               </tr>
             </thead>
             <tbody>

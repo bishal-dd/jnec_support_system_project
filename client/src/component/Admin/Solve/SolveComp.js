@@ -6,14 +6,16 @@ import { AuthContext } from "../../../context/AuthContext";
 import ImageModal from "../AdminHome/ImageModule/ImageModal";
 import "./solve.css";
 
-export default function SolveComp({ serverUrl }) {
+export default function SolveComp() {
   const { currentUser } = useContext(AuthContext);
   const [event, setevent] = useState([]);
   const [worker, setWorker] = useState([]);
 
   const loadEvent = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_issue`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_issue`
+      );
 
       setevent(response.data);
     } catch (error) {
@@ -23,7 +25,9 @@ export default function SolveComp({ serverUrl }) {
 
   const loadWorker = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/get_worker`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/get_worker`
+      );
       setWorker(response.data);
     } catch (error) {
       console.error(error);
@@ -51,7 +55,7 @@ export default function SolveComp({ serverUrl }) {
                 <th scope="col">Issue Summary</th>
                 <th scope="col">Issue Provider</th>
                 <th scope="col">Date</th>
-                <th scope="col">Worker</th>
+                <th scope="col">Staff</th>
               </tr>
             </thead>
             <tbody>

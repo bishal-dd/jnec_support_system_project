@@ -157,16 +157,16 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
             from: adminMail,
             to: subadminmail,
             subject: "New Issue was submitted",
-            html: `<strong>New Issue regarding '${issue_summary}' was submitted to the helpdesk</strong> <br>
-            You can login to check : <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
+            html: `<strong>New Issue regarding '${issue_summary}' was submitted to the helpdesk</strong><br>
+                   You can login to check : <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
           });
 
           transporter.sendMail({
             from: adminMail,
             to: email,
             subject: "Your Issue was submitted",
-            html: `<strong>Your Issue '${issue_summary}'  was submitted to the respective authority</strong><br>
-                   If you want to check the status, <a href="${config.SERVER_URL}check/">you can click this link</a> and enter your IssueID:${result.insertId}`,
+            html: `<strong>Your Issue '${issue_summary}'  was submitted.</strong><br>
+                   If you want to check the status, <a href="${config.SERVER_URL}check/">you can click this link</a> and enter your IssueID:<b>${result.insertId}</b>`,
           });
         } catch (error) {
           alert("Email cannot be send");
@@ -233,7 +233,7 @@ app.put("/api/assign_issue/:id", (req, res) => {
               from: adminMail,
               to: `${response[0].email}`,
               subject: "Work assignment",
-              html: `You have been assigned work which is ${issue_res[0].issue_summary}<br>
+              html: `You have been assigned work '${issue_res[0].issue_summary}'<br>
               You can login to check <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
             });
           });
@@ -298,7 +298,7 @@ app.put("/api/assign_working/:id", (req, res) => {
           from: adminMail,
           to: `${issue_res[0].email}, ${subadminmail}`,
           subject: "Issue Status",
-          text: `The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being worked on`,
+          html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being worked on</b>`,
         });
       });
 
@@ -329,7 +329,7 @@ app.put("/api/foward_issue/:id", (req, res) => {
           from: adminMail,
           to: subadminmail,
           subject: "Fowarded ",
-          text: `The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being fowarded to your department`,
+          html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being fowarded to your department</b>`,
         });
       });
 
@@ -355,13 +355,13 @@ app.post("/api/worker", (req, res) => {
           from: adminMail,
           to: email,
           subject: "Added to the helpdesk",
-          htlm: `You have been added to the helpdesk <br> 
-          You can use the following username and password to login and check if you have any issues assigned<br>
+          html: `You have been added to the helpdesk <br> 
+          You can use the following username and password to login and check if you have any issues assigned here:
           <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a><br>
-          Username: ${name}, Password: ${randomCode}`,
+          <b>Username: ${name}, Password: ${randomCode}</b>`,
         });
 
-        res.send("Worker Added");
+        res.send("Staff Added");
       }
     }
   );
