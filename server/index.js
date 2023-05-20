@@ -10,18 +10,26 @@ const sharp = require("sharp");
 const nodemailer = require("nodemailer");
 const storage = multer.memoryStorage();
 const randomCode = generateRandomCode();
+const config = require("./config");
 const upload = multer({
   storage: storage,
   limits: {
     fieldSize: 1024 * 1024 * 10, // 10MB
   },
 });
-const adminMail = "05210218.jnec@rub.edu.bt";
+
+// all the email addresses
+const adminMail = "helpdeskjnec@gmail.com";
+let subadminmail = "";
+let ICTmail = "dhakalbishal930@gmail.com";
+let estatemail = "dhakalbishal224@gmail.com";
+let academicmail = "05210218.jnec@rub.edu.bt";
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: adminMail,
-    pass: "wweisbest1234@",
+    pass: "vqeinearebwctyph",
   },
 });
 
@@ -137,20 +145,33 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        transporter.sendMail({
-          from: adminMail,
-          to: adminMail,
-          adminMail,
-          subject: "New Issue",
-          text: "New Issue was submitted",
-        });
-        transporter.sendMail({
-          from: adminMail,
-          to: email,
-          adminMail,
-          subject: "Your Issue",
-          text: "Your Issue was submitted",
-        });
+        if (issue_type === "ICT") {
+          subadminmail = ICTmail;
+        } else if (issue_type === "estate") {
+          subadminmail = estatemail;
+        } else {
+          subadminmail = academicmail;
+        }
+        try {
+          transporter.sendMail({
+            from: adminMail,
+            to: subadminmail,
+            subject: "New Issue was submitted",
+            html: `<strong>New Issue regarding '${issue_summary}' was submitted to the helpdesk</strong> <br>
+            You can login to check : <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
+          });
+
+          transporter.sendMail({
+            from: adminMail,
+            to: email,
+            subject: "Your Issue was submitted",
+            html: `<strong>Your Issue '${issue_summary}'  was submitted to the respective authority</strong><br>
+                   If you want to check the status, <a href="${config.SERVER_URL}check/">you can click this link</a> and enter your IssueID:${result.insertId}`,
+          });
+        } catch (error) {
+          alert("Email cannot be send");
+        }
+
         res.send("issue submited");
       }
     }
@@ -209,10 +230,11 @@ app.put("/api/assign_issue/:id", (req, res) => {
           const get_issue = "SELECT * FROM issue WHERE id = ?;";
           db.query(get_issue, [id], (err, issue_res) => {
             transporter.sendMail({
-              from: "05210218.jnec@rub.edu.bt",
+              from: adminMail,
               to: `${response[0].email}`,
               subject: "Work assignment",
-              text: `you have been assigned work new work which is ${issue_res[0].name}`,
+              html: `You have been assigned work which is ${issue_res[0].issue_summary}<br>
+              You can login to check <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
             });
           });
         }
@@ -234,11 +256,18 @@ app.put("/api/assign_solved/:id", (req, res) => {
     } else {
       const get_issue = "SELECT * FROM issue WHERE id = ?;";
       db.query(get_issue, [id], (err, issue_res) => {
+        if (issue_res[0].issue_type === "ICT") {
+          subadminmail = ICTmail;
+        } else if (issue_res[0].issue_type === "estate") {
+          subadminmail = estatemail;
+        } else {
+          subadminmail = academicmail;
+        }
         transporter.sendMail({
           from: "05210218.jnec@rub.edu.bt",
-          to: `${issue_res[0].email}, ${adminMail}`,
-          subject: "Work assignment",
-          text: `This issue has been solved`,
+          to: `${issue_res[0].email}, ${subadminmail}`,
+          subject: "Resolved Issue",
+          html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is solved.</b>`,
         });
       });
 
@@ -258,11 +287,18 @@ app.put("/api/assign_working/:id", (req, res) => {
     } else {
       const get_issue = "SELECT * FROM issue WHERE id = ?;";
       db.query(get_issue, [id], (err, issue_res) => {
+        if (issue_res[0].issue_type === "ICT") {
+          subadminmail = ICTmail;
+        } else if (issue_res[0].issue_type === "estate") {
+          subadminmail = estatemail;
+        } else {
+          subadminmail = academicmail;
+        }
         transporter.sendMail({
-          from: "05210218.jnec@rub.edu.bt",
-          to: `${issue_res[0].email}, ${adminMail}`,
+          from: adminMail,
+          to: `${issue_res[0].email}, ${subadminmail}`,
           subject: "Issue Status",
-          text: `The issue is being worked on`,
+          text: `The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being worked on`,
         });
       });
 
@@ -280,22 +316,24 @@ app.put("/api/foward_issue/:id", (req, res) => {
       console.log(err);
       res.status(500).send("Error updating issue");
     } else {
+      const get_issue = "SELECT * FROM issue WHERE id = ?;";
+      db.query(get_issue, [id], (err, issue_res) => {
+        if (issue_res[0].issue_type === "ICT") {
+          subadminmail = ICTmail;
+        } else if (issue_res[0].issue_type === "estate") {
+          subadminmail = estatemail;
+        } else {
+          subadminmail = academicmail;
+        }
+        transporter.sendMail({
+          from: adminMail,
+          to: subadminmail,
+          subject: "Fowarded ",
+          text: `The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being fowarded to your department`,
+        });
+      });
+
       res.send("Fowarded");
-    }
-  });
-});
-
-app.put("/api/assign_leave/:id", (req, res) => {
-  const { id } = req.body;
-  console.log(id);
-
-  const sqlUpdate = `UPDATE worker SET status= 'leave' WHERE id = ?`;
-  db.query(sqlUpdate, [id], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Error updating issue");
-    } else {
-      res.send("Status changed");
     }
   });
 });
@@ -316,9 +354,11 @@ app.post("/api/worker", (req, res) => {
         transporter.sendMail({
           from: adminMail,
           to: email,
-          subject: "You have been added",
-          text: " you have been added to the jnec support system",
-          text: `username: ${name}, password: ${randomCode}`,
+          subject: "Added to the helpdesk",
+          htlm: `You have been added to the helpdesk <br> 
+          You can use the following username and password to login and check if you have any issues assigned<br>
+          <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a><br>
+          Username: ${name}, Password: ${randomCode}`,
         });
 
         res.send("Worker Added");
