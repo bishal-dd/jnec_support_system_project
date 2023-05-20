@@ -118,6 +118,7 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
   const currentDate = new Date();
   let year = currentDate.getFullYear();
   let month = currentDate.getMonth() + 1; // 0-11, where 0 is January
+  month = month < 10 ? "0" + month : month; // Add leading zero if month is a single digit
   let day = currentDate.getDate();
   const date = `${year}-${month}-${day}`;
 

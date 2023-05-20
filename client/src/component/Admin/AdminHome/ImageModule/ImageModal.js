@@ -11,6 +11,7 @@ export default function ImageModal({ image }) {
         alt="issue_image"
         className="img-fluid"
         id="issue_image_in_table"
+        style={{ maxHeight: "500px" }}
         onClick={() => setShowModal(true)}
       />
 
