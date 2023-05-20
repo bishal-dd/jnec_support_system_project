@@ -14,7 +14,6 @@ import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "./config";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProtectedWorkerRoute from "./routes/ProtectedWorkerRoute";
 import ProtectedViewerRoute from "./routes/ProtectedViewerRoute";
