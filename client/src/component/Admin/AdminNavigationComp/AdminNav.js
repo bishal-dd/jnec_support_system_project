@@ -19,6 +19,7 @@ const AdminNav = () => {
   const location = useLocation();
 
   const [menuCollapse, setMenuCollapse] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
 
   useEffect(() => {
@@ -27,6 +28,18 @@ const AdminNav = () => {
 
     // Set the active menu based on the current path
     setActiveMenu(getActiveMenuFromPath(currentPath));
+
+    // Check if the screen is mobile
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [location]);
 
   const menuIconClick = () => {
@@ -59,85 +72,102 @@ const AdminNav = () => {
     }
   };
 
+  const headerStyle = {
+    zIndex: menuCollapse ? "0" : "999",
+  };
+
   return (
-    <div id="header">
-      <ProSidebar className={menuCollapse ? "collapsed" : ""}>
-        <SidebarHeader>
-          <div className="logotext">
-            <p>{menuCollapse ? "Help" : "HelpDesk"}</p>
-          </div>
-          <div className="closemenu" onClick={menuIconClick}>
-            {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <Menu iconShape="square">
-            <MenuItem
-              active={activeMenu === "dashboard"}
-              icon={<FiHome />}
-              onClick={() => handleMenuClick("dashboard")}
-            >
-              <Link to="/admin" className="text-dark">
-                Dashboard
-              </Link>
-            </MenuItem>
-            <MenuItem
-              active={activeMenu === "add"}
-              icon={<FaUserPlus />}
-              onClick={() => handleMenuClick("add")}
-            >
-              <Link to="/admin/add" className="text-dark">
-                Add Staff
-              </Link>
-            </MenuItem>
-            <MenuItem
-              active={activeMenu === "edit"}
-              icon={<FaUserEdit />}
-              onClick={() => handleMenuClick("edit")}
-            >
-              <Link to="/admin/editworker" className="text-dark">
-                Edit Staff
-              </Link>
-            </MenuItem>
-            <MenuItem
-              active={activeMenu === "delete"}
-              icon={<FaTrashAlt />}
-              onClick={() => handleMenuClick("delete")}
-            >
-              <Link to="/admin/delete" className="text-dark">
-                Delete Staff
-              </Link>
-            </MenuItem>
-            <MenuItem
-              active={activeMenu === "assign"}
-              icon={<MdAssignmentAdd />}
-              onClick={() => handleMenuClick("assign")}
-            >
-              <Link to="/admin/assign" className="text-dark">
-                Assigned
-              </Link>
-            </MenuItem>
-            <MenuItem
-              active={activeMenu === "working"}
-              icon={<GrUserWorker />}
-              onClick={() => handleMenuClick("working")}
-            >
-              <Link to="/admin/working" className="text-dark">
-                Working
-              </Link>
-            </MenuItem>
-            <MenuItem
-              active={activeMenu === "solve"}
-              icon={<FaCheck />}
-              onClick={() => handleMenuClick("solve")}
-            >
-              <Link to="/admin/solve" className="text-dark">
-                Solved
-              </Link>
-            </MenuItem>
-          </Menu>
-        </SidebarContent>
-      </ProSidebar>
+    <div id="header" style={headerStyle}>
+      {isMobile && (
+        <div className="collapse-button" onClick={menuIconClick}>
+          {menuCollapse ? (
+            <FiArrowRightCircle size={30} />
+          ) : (
+            <FiArrowLeftCircle size={30} />
+          )}
+        </div>
+      )}
+      {isMobile && menuCollapse ? null : (
+        <ProSidebar collapsed={menuCollapse}>
+          <SidebarHeader>
+            <div className="logotext">
+              <p>HelpDesk</p>
+            </div>
+            {!isMobile && (
+              <div className="closemenu" onClick={menuIconClick}>
+                {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
+              </div>
+            )}
+          </SidebarHeader>
+          <SidebarContent>
+            <Menu iconShape="square">
+              <MenuItem
+                active={activeMenu === "dashboard"}
+                icon={<FiHome />}
+                onClick={() => handleMenuClick("dashboard")}
+              >
+                <Link to="/admin" className="text-dark">
+                  Dashboard
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "add"}
+                icon={<FaUserPlus />}
+                onClick={() => handleMenuClick("add")}
+              >
+                <Link to="/admin/add" className="text-dark">
+                  Add Staff
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "edit"}
+                icon={<FaUserEdit />}
+                onClick={() => handleMenuClick("edit")}
+              >
+                <Link to="/admin/editworker" className="text-dark">
+                  Edit Staff
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "delete"}
+                icon={<FaTrashAlt />}
+                onClick={() => handleMenuClick("delete")}
+              >
+                <Link to="/admin/delete" className="text-dark">
+                  Delete Staff
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "assign"}
+                icon={<MdAssignmentAdd />}
+                onClick={() => handleMenuClick("assign")}
+              >
+                <Link to="/admin/assign" className="text-dark">
+                  Assigned
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "working"}
+                icon={<GrUserWorker />}
+                onClick={() => handleMenuClick("working")}
+              >
+                <Link to="/admin/working" className="text-dark">
+                  Working
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "solve"}
+                icon={<FaCheck />}
+                onClick={() => handleMenuClick("solve")}
+              >
+                <Link to="/admin/solve" className="text-dark">
+                  Solved
+                </Link>
+              </MenuItem>
+            </Menu>
+          </SidebarContent>
+        </ProSidebar>
+      )}
     </div>
   );
 };

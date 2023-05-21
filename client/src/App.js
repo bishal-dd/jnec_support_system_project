@@ -22,6 +22,7 @@ import AssignComp from "./component/Admin/Assign/AssignComp";
 import SolveComp from "./component/Admin/Solve/SolveComp";
 import WorkingComp from "./component/Admin/WorkingComp/WorkingComp";
 import WorkerHistory from "./component/WorkerComp/WorkerHistory";
+import AdminNav from "./component/Admin/AdminNavigationComp/AdminNav";
 
 function App() {
   const { currentUser } = useContext(AuthContext);

@@ -9,10 +9,10 @@ import "./adminhome.css";
 export default function AdminHome() {
   const { currentUser } = useContext(AuthContext);
 
-  const [event, setevent] = useState([]);
+  const [event, setEvent] = useState([]);
   const [worker, setWorker] = useState([]);
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
-  const [selectedDepartment, setselectedDepartment] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
 
   const assignWorker = async (workerId, issueId) => {
     console.log(workerId);
@@ -60,7 +60,7 @@ export default function AdminHome() {
         `${process.env.REACT_APP_URL}/get_issue`
       );
 
-      setevent(response.data);
+      setEvent(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -86,7 +86,7 @@ export default function AdminHome() {
   return (
     <div className="container-fluid custom-container">
       <div className="row">
-        <div className="col-lg-2 col-md-3 custom-padding">
+        <div className="col">
           <AdminNav />
         </div>
         <div className="col-lg-10 col-md-9 mt-5">
@@ -99,8 +99,8 @@ export default function AdminHome() {
                   <th scope="col">Issue Summary</th>
                   <th scope="col">Issue Provider</th>
                   <th scope="col">Date</th>
-                  <th></th>
-                  <th></th>
+                  <th scope="col">Assign Worker</th>
+                  <th scope="col">Forward Issue</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,11 +114,10 @@ export default function AdminHome() {
                   .map((item, index) => {
                     return (
                       <tr key={index}>
-                        <th scope="row">{index + 1}</th>
+                        <td>{index + 1}</td>
                         <td className="col-md-3 p-3 text-center">
                           <ImageModal image={item.issue_image} />
                         </td>
-
                         <td>{item.issue_summary}</td>
                         <td>
                           <p>Name: {item.name}</p>
@@ -138,14 +137,14 @@ export default function AdminHome() {
                           </p>
                         </td>
                         <td>{item.issue_date}</td>
-                        <th>
+                        <td>
                           <select
                             className="mb-2 p-2 rounded-2 bg-light"
                             onChange={(e) =>
                               setSelectedWorkerId(e.target.value)
                             }
                           >
-                            <option>Select Worker</option>
+                            <option>Select Staff</option>
                             {worker
                               .filter(
                                 (item) =>
@@ -169,14 +168,14 @@ export default function AdminHome() {
                               Assign
                             </button>
                           </div>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                           <select
                             id="issue_type"
                             name="issue_type"
                             className="mb-2 p-2 rounded-2 bg-light"
                             onChange={(e) =>
-                              setselectedDepartment(e.target.value)
+                              setSelectedDepartment(e.target.value)
                             }
                           >
                             <option value="">Select a type...</option>
@@ -194,7 +193,7 @@ export default function AdminHome() {
                               Forward issue
                             </button>
                           </div>
-                        </th>
+                        </td>
                       </tr>
                     );
                   })}

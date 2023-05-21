@@ -51,8 +51,8 @@ export default function HomeComp() {
 
   const { name, email, phone, issue_type, issue_summary } = state;
   return (
-    <div className="container   p-4 mt-5" style={{ maxWidth: "600px" }}>
-      <div className="row mt-3">
+    <div className="container" style={{ maxWidth: "600px" }}>
+      <div className="row">
         <div className="col shadow  rounded-2  p-3" id="home_form">
           <h1 className="mb-4 text-center">Submit an Issue</h1>
           <form

@@ -25,7 +25,7 @@ export default function DeleteWorkerComp() {
       .get(`${process.env.REACT_APP_URL}/delete/${id}`)
       .then((result) => {
         if (result.data === "Worker Deleted") {
-          toast.success("Worker Deleted");
+          toast.success("Staff Deleted");
         }
       });
     window.location.reload();
