@@ -35,14 +35,14 @@ export default function DeleteWorkerComp() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-sm-2">
-          <div>
+          <div className="sidebar">
             <AdminNav />
           </div>
         </div>
 
-        <div className="col-md-8 mt-5 ml-5">
+        <div className="col mt-5 ">
           <table className="table table-striped table-hover table-bordered shadow mb-2 ">
-            <thead className="thead-dark p-2 ">
+            <thead className="thead-dark p-2 text-center ">
               <tr>
                 <th>SL No:</th>
                 <th>Name</th>

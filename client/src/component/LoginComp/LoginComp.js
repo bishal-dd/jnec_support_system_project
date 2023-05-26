@@ -1,14 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
 import { IoPersonCircleSharp } from "react-icons/io5";
-
-import "./logincomp.css";
+import { Container, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 export default function LoginComp() {
@@ -47,22 +42,21 @@ export default function LoginComp() {
 
   return (
     <Container
-      className="d-grid w-80 bg-light  p-4
-        mt-3"
+      className="d-grid w-80 bg-light  p-4 mt-3"
       style={{ maxWidth: "540px" }}
     >
       <div className="row mt-5">
         <div className="col mt-5 rounded-4 border shadow">
           <Form
             id="sign-in-form"
-            className="text-center w-100 align-item-center justify-content-center "
+            className="text-center w-100 align-item-center justify-content-center"
+            onSubmit={handleSubmit}
           >
-            <i class="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
+            <i className="fa fa-user-circle fa-5x mb-3" aria-hidden="true"></i>
             <IoPersonCircleSharp size={100} />
             <Form.Group className="mb-3" controlId="name">
               <Form.Control
                 className="position-relative"
-                class="form.control"
                 type="name"
                 placeholder="Email"
                 required
@@ -84,7 +78,7 @@ export default function LoginComp() {
               />
             </Form.Group>
             <div className="d-grid">
-              <Button variant="primary" onClick={handleSubmit}>
+              <Button variant="primary" type="submit">
                 Login
               </Button>
             </div>

@@ -38,24 +38,22 @@ export default function ViewerHome() {
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-8  mt-5">
+        <div className="col-md-8 mt-5">
           <form className="row justify-content-center">
-            <div className="col-4">
+            <div className="col-md-4 mb-3">
               <input
                 type="month"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
                 className="form-control"
-                style={{ width: "200px" }}
               />
             </div>
 
-            <div className="col-4">
+            <div className="col-md-4 mb-3">
               <select
                 value={selectedIssueType}
                 onChange={(e) => setSelectedIssueType(e.target.value)}
                 className="form-control"
-                style={{ width: "200px" }}
               >
                 <option value="">All</option>
                 <option value="ICT">ICT</option>
@@ -64,12 +62,11 @@ export default function ViewerHome() {
               </select>
             </div>
 
-            <div className="col-4">
+            <div className="col-md-4 mb-3">
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="form-control"
-                style={{ width: "200px" }}
               >
                 <option value="">All</option>
                 <option value="assigned">Assigned</option>
@@ -80,7 +77,7 @@ export default function ViewerHome() {
 
             <div className="col-4 mt-3">
               <button
-                className="btn btn-primary col-10"
+                className="btn btn-primary col-12"
                 onClick={(e) => {
                   loadEvent(e);
                   loadWorker(e);
@@ -94,55 +91,57 @@ export default function ViewerHome() {
       </div>
       <div className="row mt-3">
         <div className="col">
-          <table className="table table-striped table-hover table-bordered shadow mb-2">
-            <thead className="thead-dark">
-              <tr>
-                <th>SL No:</th>
-                <th>Issue Image</th>
-                <th>Issue Type</th>
-                <th>Issue Summary</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Staff that solved</th>
-              </tr>
-            </thead>
-            <tbody className="text-dark">
-              {issueData
-                .filter((i) => {
-                  if (
-                    selectedMonth &&
-                    i.issue_date.substring(0, 7) !== selectedMonth
-                  )
-                    return false;
-                  if (selectedIssueType && i.issue_type !== selectedIssueType)
-                    return false;
-                  if (selectedStatus && i.status !== selectedStatus)
-                    return false;
-                  return true;
-                })
-                .map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <ImageModal image={item.issue_image} />
-                      </td>
-                      <td>{item.issue_type}</td>
-                      <td>{item.issue_summary}</td>
-                      <td>{item.issue_date}</td>
-                      <td>{!item.status ? "Not Assigned" : item.status}</td>
-                      <td>
-                        {worker
-                          .filter((ite) => ite.id === item.worker_id)
-                          .map((item, index) => {
-                            return <p key={index}>{item.username}</p>;
-                          })}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+          <div className="table-responsive">
+            <table className="table table-striped table-hover table-bordered shadow mb-2">
+              <thead className="thead-dark">
+                <tr>
+                  <th>SL No:</th>
+                  <th>Issue Image</th>
+                  <th>Issue Type</th>
+                  <th>Issue Summary</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Staff that solved</th>
+                </tr>
+              </thead>
+              <tbody className="text-dark">
+                {issueData
+                  .filter((i) => {
+                    if (
+                      selectedMonth &&
+                      i.issue_date.substring(0, 7) !== selectedMonth
+                    )
+                      return false;
+                    if (selectedIssueType && i.issue_type !== selectedIssueType)
+                      return false;
+                    if (selectedStatus && i.status !== selectedStatus)
+                      return false;
+                    return true;
+                  })
+                  .map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>
+                          <ImageModal image={item.issue_image} />
+                        </td>
+                        <td>{item.issue_type}</td>
+                        <td>{item.issue_summary}</td>
+                        <td>{item.issue_date}</td>
+                        <td>{!item.status ? "Not Assigned" : item.status}</td>
+                        <td>
+                          {worker
+                            .filter((ite) => ite.id === item.worker_id)
+                            .map((item, index) => {
+                              return <p key={index}>{item.username}</p>;
+                            })}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

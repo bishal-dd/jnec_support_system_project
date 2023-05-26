@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function NavbarComp() {
   const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -48,11 +49,15 @@ export default function NavbarComp() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              {!currentUser ? null : (
+              {!currentUser ? null : currentUser.role === "admin" ? (
                 <Link to="/admin" className="nav-link active text-white">
                   Dashboard
                 </Link>
-              )}
+              ) : currentUser.role === "viewer" ? (
+                <Link to="/view" className="nav-link active text-white">
+                  Dashboard
+                </Link>
+              ) : null}
             </li>
             <li className="nav-item">
               <Link to="/" className="nav-link active text-white">

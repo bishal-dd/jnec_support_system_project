@@ -11,12 +11,16 @@ const nodemailer = require("nodemailer");
 const storage = multer.memoryStorage();
 const randomCode = generateRandomCode();
 const config = require("./config");
+const fs = require('fs');
+const https= require('https');
 const upload = multer({
   storage: storage,
   limits: {
     fieldSize: 1024 * 1024 * 10, // 10MB
   },
 });
+
+const port = 8080;
 
 // all the email addresses
 const adminMail = "helpdeskjnec@gmail.com";
@@ -33,16 +37,26 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 const db = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
-  password: "wweisbest1234@",
-  database: "ProjectDB",
+  password: "Test1@2023",
+  database: "projectdb",
 });
+
+db.connect((err) => {
+  if (err) {
+    console.error("Error connecting to the database: ", err);
+    return;
+  }
+  console.log("Connected to the MySQL database!");
+});
+
 
 function authenticate(req, res, next) {
   const { username, password } = req.body;
@@ -409,6 +423,16 @@ app.get("/api/delete/:id", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+// Configure HTTPS options
+const httpsOptions = {
+  cert: fs.readFileSync('certificate/fullchain.pem'),
+  key: fs.readFileSync('certificate/privkey.pem')
+};
+
+// Create HTTPS server
+const server = https.createServer(httpsOptions, app);
+
+// Start the server
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on port ${port}`);
 });
