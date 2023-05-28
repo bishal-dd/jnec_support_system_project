@@ -156,7 +156,7 @@ export default function AssignComp() {
                                 assignWorker(selectedWorkerId, item.id)
                               }
                             >
-                              Assign
+                              Reassign
                             </button>
                           </div>
                         </th>

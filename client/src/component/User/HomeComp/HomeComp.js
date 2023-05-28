@@ -30,8 +30,8 @@ export default function HomeComp() {
       await axios
         .post(`${process.env.REACT_APP_URL}/issue`, formData)
         .then((result) => {
-          if (result.data === "issue submited") {
-            toast.success("Issue Submited");
+          if (result.data === "Issue submitted") {
+            toast.success("Issue Submitted");
           }
         });
       setState(initialState);
@@ -50,93 +50,96 @@ export default function HomeComp() {
   };
 
   const { name, email, phone, issue_type, issue_summary } = state;
+
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
       <div className="row">
-        <div className="col shadow  rounded-2  p-3" id="home_form">
+        <div className="col p-3" id="home_form">
           <h1 className="mb-4 text-center">Submit an Issue</h1>
           <form
             method="post"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
           >
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-control border border-dark rounded-0"
-                value={name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="form-control border border-dark rounded-0"
-                value={email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone:</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                className="form-control border border-dark rounded-0"
-                pattern="[0-9]{8}"
-                value={phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="issue_type">Issue Type:</label>
-              <select
-                id="issue_type"
-                name="issue_type"
-                className="form-control border border-dark rounded-0"
-                value={issue_type}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select a type...</option>
-                <option value="ICT">ICT</option>
-                <option value="estate">Estate</option>
-                <option value="academic">Academic</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="issue-summary">Issue Summary:</label>
-              <textarea
-                id="issue-summary"
-                name="issue_summary"
-                rows="4"
-                className="form-control border border-dark rounded-0"
-                onChange={handleChange}
-                value={issue_summary}
-                required
-              ></textarea>
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="issue-image">Issue Image:</label>
-              <input
-                type="file"
-                id="issue_image"
-                name="issue_image"
-                className="form-control-file p-2 border border-dark rounded-0"
-                onChange={handleChange}
-              />
+            <div className="form-border shadow p-4 rounded-3">
+              <div className="form-group">
+                <label htmlFor="name">Name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control rounded bg-light "
+                  value={name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-control rounded bg-light"
+                  value={email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone:</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  className="form-control rounded bg-light"
+                  pattern="[0-9]{8}"
+                  value={phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="issue_type">Issue Type:</label>
+                <select
+                  id="issue_type"
+                  name="issue_type"
+                  className="form-control rounded bg-light"
+                  value={issue_type}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select a type...</option>
+                  <option value="ICT">ICT</option>
+                  <option value="estate">Estate</option>
+                  <option value="academic">Academic</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="issue-summary">Issue Summary:</label>
+                <textarea
+                  id="issue-summary"
+                  name="issue_summary"
+                  rows="4"
+                  className="form-control rounded bg-light"
+                  onChange={handleChange}
+                  value={issue_summary}
+                  required
+                ></textarea>
+              </div>
+              <div className="form-group mt-3">
+                <label htmlFor="issue_image">Issue Image:</label>
+                <input
+                  type="file"
+                  id="issue_image"
+                  name="issue_image"
+                  className="form-control-file p-2 rounded"
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
-            <button type="submit" className="btn btn-primary mt-3">
+            <button type="submit" className="btn btn-primary mt-3 rounded-2">
               Submit Issue
             </button>
           </form>

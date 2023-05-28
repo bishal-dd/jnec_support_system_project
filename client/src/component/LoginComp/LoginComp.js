@@ -31,6 +31,9 @@ export default function LoginComp() {
       } else if (decodeToken(token).role === "worker") {
         navigate("/worker");
         window.location.reload();
+      } else if (decodeToken(token).role === "super_admin") {
+        navigate("/super_admin");
+        window.location.reload();
       } else {
         navigate("/view");
         window.location.reload();
@@ -41,10 +44,7 @@ export default function LoginComp() {
   };
 
   return (
-    <Container
-      className="d-grid w-80 bg-light  p-4 mt-3"
-      style={{ maxWidth: "540px" }}
-    >
+    <Container className="d-grid w-80   p-4 mt-3" style={{ maxWidth: "540px" }}>
       <div className="row mt-5">
         <div className="col mt-5 rounded-4 border shadow">
           <Form

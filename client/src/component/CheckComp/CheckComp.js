@@ -39,9 +39,9 @@ export default function CheckComp() {
   }, []);
 
   return (
-    <div className="container mt-5 bg-light " style={{ maxWidth: "500px" }}>
+    <div className="container mt-5" style={{ maxWidth: "500px" }}>
       <div className="row mt-5">
-        <div className="col mt-5 shadow rounded-2" id="check-status">
+        <div className="col mt-5 rounded-2" id="check-status">
           <Form className="text-center mt-5" onSubmit={handleSubmit}>
             <h3 className="text-center">Check Status</h3>
             <Form.Group controlId="name">

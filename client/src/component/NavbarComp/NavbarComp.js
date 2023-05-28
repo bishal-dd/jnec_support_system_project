@@ -22,7 +22,7 @@ export default function NavbarComp() {
     <nav className="navbar navbar-expand-lg fixed-top bg-dark bg-body-tertiary">
       <div className="container-fluid">
         <img
-          src="https://res.cloudinary.com/dauoerqib/image/upload/v1683799942/6_zvbrwu.png"
+          src="https://res.cloudinary.com/dnmtsuwhc/image/upload/v1685278570/logo_gcl1az.png"
           width="160"
           className="rounded-2"
           height="50"

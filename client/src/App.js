@@ -22,7 +22,8 @@ import AssignComp from "./component/Admin/Assign/AssignComp";
 import SolveComp from "./component/Admin/Solve/SolveComp";
 import WorkingComp from "./component/Admin/WorkingComp/WorkingComp";
 import WorkerHistory from "./component/WorkerComp/WorkerHistory";
-import AdminNav from "./component/Admin/AdminNavigationComp/AdminNav";
+import SuperAdmin from "./component/Super_Admin/SuperAdmin";
+import EditAdmin from "./component/Super_Admin/EditAdmin";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -34,6 +35,9 @@ function App() {
         <ToastContainer position="top-center" />
 
         <Routes>
+          <Route path="/super_admin" element={<SuperAdmin />} />
+          <Route path="/edit_admin" element={<EditAdmin />} />
+
           <Route element={<ProtectedRoute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/edit" element={<EditComp />} />

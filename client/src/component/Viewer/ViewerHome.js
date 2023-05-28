@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import ImageModal from "../Admin/AdminHome/ImageModule/ImageModal";
 import "./viewhome.css";
+import ExcelJS from "exceljs";
 
 export default function ViewerHome() {
   const [issueData, setIssueData] = useState([]);
@@ -33,6 +34,65 @@ export default function ViewerHome() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const exportToExcel = (e) => {
+    e.preventDefault();
+
+    // Filter the issueData based on the selected filters
+    const filteredData = issueData.filter((item) => {
+      if (selectedMonth && item.issue_date.substring(0, 7) !== selectedMonth)
+        return false;
+      if (selectedIssueType && item.issue_type !== selectedIssueType)
+        return false;
+      if (selectedStatus && item.status !== selectedStatus) return false;
+      return true;
+    });
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Issue Data");
+
+    worksheet.columns = [
+      { header: "SL No", key: "slNo", width: 10 },
+      { header: "Issue Type", key: "issueType", width: 20 },
+      { header: "Issue Summary", key: "issueSummary", width: 30 },
+      { header: "Date", key: "date", width: 15 },
+      { header: "Status", key: "status", width: 15 },
+      { header: "Staff that solved", key: "staff", width: 20 },
+    ];
+
+    filteredData.forEach((item, index) => {
+      worksheet.addRow({
+        slNo: index + 1,
+        issueType: item.issue_type,
+        issueSummary: item.issue_summary,
+        date: item.issue_date,
+        status: !item.status ? "Not Assigned" : item.status,
+        staff: worker
+          .filter((ite) => ite.id === item.worker_id)
+          .map((ite) => ite.username)
+          .join(", "),
+      });
+    });
+
+    const fileName = "issue_data.xlsx";
+    workbook.xlsx
+      .writeBuffer()
+      .then((buffer) => {
+        const blob = new Blob([buffer], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("Error exporting to Excel:", error);
+      });
   };
 
   return (
@@ -84,6 +144,13 @@ export default function ViewerHome() {
                 }}
               >
                 Search
+              </button>
+              <button
+                className="btn btn-success col-12 mt-2"
+                onClick={exportToExcel}
+                disabled={issueData.length === 0}
+              >
+                Export to Excel
               </button>
             </div>
           </form>

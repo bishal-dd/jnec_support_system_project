@@ -11,8 +11,8 @@ const nodemailer = require("nodemailer");
 const storage = multer.memoryStorage();
 const randomCode = generateRandomCode();
 const config = require("./config");
-const fs = require('fs');
-const https= require('https');
+// const fs = require("fs");
+// const https = require("https");
 const upload = multer({
   storage: storage,
   limits: {
@@ -24,10 +24,6 @@ const port = 8080;
 
 // all the email addresses
 const adminMail = "helpdeskjnec@gmail.com";
-let subadminmail = "";
-let ICTmail = "dhakalbishal930@gmail.com";
-let estatemail = "dhakalbishal224@gmail.com";
-let academicmail = "05210218.jnec@rub.edu.bt";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -41,11 +37,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 const db = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "Test1@2023",
+  password: "wweisbest1234@",
   database: "projectdb",
 });
 
@@ -56,7 +51,6 @@ db.connect((err) => {
   }
   console.log("Connected to the MySQL database!");
 });
-
 
 function authenticate(req, res, next) {
   const { username, password } = req.body;
@@ -75,7 +69,11 @@ function authenticate(req, res, next) {
 
     if (adminResults.length === 1) {
       const { id, username, department } = adminResults[0];
-      req.user = { id, username, department, role: "admin" };
+      if (department === "super_admin") {
+        req.user = { id, username, department, role: "super_admin" };
+      } else {
+        req.user = { id, username, department, role: "admin" };
+      }
       return next();
     } else {
       db.query(workerQuery, [username, password], (err, workerResults) => {
@@ -149,8 +147,12 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
     res.status(400).send("Image size exceeds the limit of 10 MB");
     return;
   }
-  sqlInsert =
-    "INSERT INTO issue (name,email,phone,issue_image,issue_type,issue_summary, issue_date) VALUES (?,?,?,?,?,?,?);";
+
+  const sqlInsert =
+    "INSERT INTO issue (name, email, phone, issue_image, issue_type, issue_summary, issue_date) VALUES (?, ?, ?, ?, ?, ?, ?);";
+  const sqlSelectAdminEmail = "SELECT email FROM admin WHERE department = ?;";
+  const sqlSelectSuperAdminEmail =
+    "SELECT email FROM admin WHERE department = 'super_admin';";
 
   db.query(
     sqlInsert,
@@ -159,34 +161,43 @@ app.post("/api/issue", upload.single("issue_image"), (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        if (issue_type === "ICT") {
-          subadminmail = ICTmail;
-        } else if (issue_type === "estate") {
-          subadminmail = estatemail;
-        } else {
-          subadminmail = academicmail;
-        }
-        try {
-          transporter.sendMail({
-            from: adminMail,
-            to: subadminmail,
-            subject: "New Issue was submitted",
-            html: `<strong>New Issue regarding '${issue_summary}' was submitted to the helpdesk</strong><br>
-                   You can login to check : <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
-          });
+        db.query(sqlSelectAdminEmail, [issue_type], (error, adminResult) => {
+          if (error) {
+            console.log(error);
+          } else {
+            const adminEmail = adminResult[0].email;
 
-          transporter.sendMail({
-            from: adminMail,
-            to: email,
-            subject: "Your Issue was submitted",
-            html: `<strong>Your Issue '${issue_summary}'  was submitted.</strong><br>
-                   If you want to check the status, <a href="${config.SERVER_URL}check/">you can click this link</a> and enter your IssueID:<b>${result.insertId}</b>`,
-          });
-        } catch (error) {
-          alert("Email cannot be send");
-        }
+            db.query(sqlSelectSuperAdminEmail, (error, superAdminResult) => {
+              if (error) {
+                console.log(error);
+              } else {
+                const superAdminEmail = superAdminResult[0].email;
 
-        res.send("issue submited");
+                try {
+                  transporter.sendMail({
+                    from: superAdminEmail,
+                    to: adminEmail,
+                    subject: "New Issue was submitted",
+                    html: `<strong>New Issue regarding '${issue_summary}' was submitted to the helpdesk</strong><br>
+                         You can login to check: <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
+                  });
+
+                  transporter.sendMail({
+                    from: superAdminEmail,
+                    to: email,
+                    subject: "Your Issue was submitted",
+                    html: `<strong>Your Issue '${issue_summary}' was submitted.</strong><br>
+                         If you want to check the status, <a href="${config.SERVER_URL}check/">you can click this link</a> and enter your IssueID: <b>${result.insertId}</b>`,
+                  });
+                } catch (error) {
+                  console.log("Email cannot be sent:", error);
+                }
+              }
+            });
+          }
+        });
+
+        res.send("Issue submitted");
       }
     }
   );
@@ -236,20 +247,30 @@ app.put("/api/assign_issue/:id", (req, res) => {
       console.log(err);
       res.status(500).send("Error updating issue");
     } else {
-      const sqlGet = "SELECT email FROM worker WHERE id = ?;";
-      db.query(sqlGet, [worker_id], (err, response) => {
+      const sqlGetAdminMail = "SELECT email FROM admin;";
+      db.query(sqlGetAdminMail, (err, adminResult) => {
         if (err) {
           console.log(err);
         } else {
-          const get_issue = "SELECT * FROM issue WHERE id = ?;";
-          db.query(get_issue, [id], (err, issue_res) => {
-            transporter.sendMail({
-              from: adminMail,
-              to: `${response[0].email}`,
-              subject: "Work assignment",
-              html: `You have been assigned work '${issue_res[0].issue_summary}'<br>
-              You can login to check <a href=${config.SERVER_URL}login/>${config.SERVER_URL}login/</a>`,
-            });
+          const adminMail = adminResult[0].email;
+
+          const sqlGetWorkerMail = "SELECT email FROM worker WHERE id = ?;";
+          db.query(sqlGetWorkerMail, [worker_id], (err, workerResult) => {
+            if (err) {
+              console.log(err);
+            } else {
+              const workerEmail = workerResult[0].email;
+              const get_issue = "SELECT * FROM issue WHERE id = ?;";
+              db.query(get_issue, [id], (err, issue_res) => {
+                transporter.sendMail({
+                  from: adminMail,
+                  to: workerEmail,
+                  subject: "Work assignment",
+                  html: `You have been assigned work '${issue_res[0].issue_summary}'<br>
+                  You can login to check <a href=${config.SERVER_URL}login/>here</a>`,
+                });
+              });
+            }
           });
         }
       });
@@ -270,18 +291,14 @@ app.put("/api/assign_solved/:id", (req, res) => {
     } else {
       const get_issue = "SELECT * FROM issue WHERE id = ?;";
       db.query(get_issue, [id], (err, issue_res) => {
-        if (issue_res[0].issue_type === "ICT") {
-          subadminmail = ICTmail;
-        } else if (issue_res[0].issue_type === "estate") {
-          subadminmail = estatemail;
-        } else {
-          subadminmail = academicmail;
-        }
-        transporter.sendMail({
-          from: "05210218.jnec@rub.edu.bt",
-          to: `${issue_res[0].email}, ${subadminmail}`,
-          subject: "Resolved Issue",
-          html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is solved.</b>`,
+        const get_email = "SELECT email FROM admin WHERE department = ?;";
+        db.query(get_email, [issue_res[0].issue_type], (err, admin_email) => {
+          transporter.sendMail({
+            from: adminMail,
+            to: `${issue_res[0].email}, ${admin_email[0].email}`,
+            subject: "Resolved Issue",
+            html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is solved.</b>`,
+          });
         });
       });
 
@@ -301,18 +318,14 @@ app.put("/api/assign_working/:id", (req, res) => {
     } else {
       const get_issue = "SELECT * FROM issue WHERE id = ?;";
       db.query(get_issue, [id], (err, issue_res) => {
-        if (issue_res[0].issue_type === "ICT") {
-          subadminmail = ICTmail;
-        } else if (issue_res[0].issue_type === "estate") {
-          subadminmail = estatemail;
-        } else {
-          subadminmail = academicmail;
-        }
-        transporter.sendMail({
-          from: adminMail,
-          to: `${issue_res[0].email}, ${subadminmail}`,
-          subject: "Issue Status",
-          html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being worked on</b>`,
+        const get_email = "SELECT email FROM admin WHERE department = ?;";
+        db.query(get_email, [issue_res[0].issue_type], (err, admin_email) => {
+          transporter.sendMail({
+            from: adminMail,
+            to: `${issue_res[0].email}, ${admin_email[0].email}`,
+            subject: "Issue Status",
+            html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being worked on</b>`,
+          });
         });
       });
 
@@ -332,18 +345,14 @@ app.put("/api/foward_issue/:id", (req, res) => {
     } else {
       const get_issue = "SELECT * FROM issue WHERE id = ?;";
       db.query(get_issue, [id], (err, issue_res) => {
-        if (issue_res[0].issue_type === "ICT") {
-          subadminmail = ICTmail;
-        } else if (issue_res[0].issue_type === "estate") {
-          subadminmail = estatemail;
-        } else {
-          subadminmail = academicmail;
-        }
-        transporter.sendMail({
-          from: adminMail,
-          to: subadminmail,
-          subject: "Fowarded ",
-          html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being fowarded to your department</b>`,
+        const get_email = "SELECT email FROM admin WHERE department = ?;";
+        db.query(get_email, [issue_res[0].issue_type], (err, admin_email) => {
+          transporter.sendMail({
+            from: adminMail,
+            to: admin_email[0].email,
+            subject: "Fowarded ",
+            html: `<b>The issue '${issue_res[0].issue_summary}' which was submitted on ${issue_res[0].issue_date} is being fowarded to your department</b>`,
+          });
         });
       });
 
@@ -357,7 +366,6 @@ app.post("/api/worker", (req, res) => {
 
   sqlInsert =
     "INSERT INTO worker ( username,password,department,phone,email) VALUES (?,SHA2(?, 256),?,?,?);";
-  console.log(randomCode);
   db.query(
     sqlInsert,
     [name, randomCode, department, phone, email],
@@ -393,6 +401,34 @@ app.get("/api/get_worker", (req, res) => {
   });
 });
 
+app.get("/api/get_admin", (req, res) => {
+  sqlGet = "SELECT * FROM admin;";
+
+  db.query(sqlGet, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.put("/api/editadmin/:id", (req, res) => {
+  const { name, email } = req.body;
+
+  const id = req.params.id;
+
+  sqlInsert = "UPDATE admin SET username = ?,  email= ? WHERE id = ?";
+
+  db.query(sqlInsert, [name, email, Number(id)], (error, result) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.send("Edit sucess");
+    }
+  });
+});
+
 app.put("/api/editworker/:id", (req, res) => {
   const { name, department, phone, email } = req.body;
 
@@ -418,21 +454,20 @@ app.get("/api/delete/:id", (req, res) => {
   const sqlDelete = "DELETE FROM worker WHERE id = ?;";
 
   db.query(sqlDelete, [req.params.id], (err, result) => {
-    console.log(result);
     res.send("Worker Deleted");
   });
 });
 
-// Configure HTTPS options
-const httpsOptions = {
-  cert: fs.readFileSync('certificate/fullchain.pem'),
-  key: fs.readFileSync('certificate/privkey.pem')
-};
+// // Configure HTTPS options
+// const httpsOptions = {
+//   cert: fs.readFileSync("certificate/fullchain.pem"),
+//   key: fs.readFileSync("certificate/privkey.pem"),
+// };
 
 // Create HTTPS server
-const server = https.createServer(httpsOptions, app);
+// const server = https.createServer(httpsOptions, app);
 
 // Start the server
-server.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
