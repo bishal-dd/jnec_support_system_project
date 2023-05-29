@@ -1,27 +1,34 @@
 import React, { useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function EditAdmin() {
   const nameRef = useRef("");
   const emailRef = useRef("");
+  const navigate = useNavigate();
 
   const locate = useLocation();
   const admin = locate.state;
 
-  const handleSubmit = (id, e) => {
+  const handleSubmit = async (id, e) => {
     e.preventDefault();
 
-    axios
-      .put(`${process.env.REACT_APP_URL}/editadmin/${id}`, {
-        name: nameRef.current.value,
-        email: emailRef.current.value,
-      })
-      .then((result) => {
-        toast.success(result.data);
-      });
+    try {
+      await axios
+        .put(`${process.env.REACT_APP_URL}/editadmin/${id}`, {
+          name: nameRef.current.value,
+          email: emailRef.current.value,
+        })
+        .then((result) => {
+          toast.success(result.data);
+        });
+
+      navigate(-1);
+    } catch (err) {
+      toast.error(err);
+    }
   };
   return (
     <div className="container-fluid">
@@ -29,7 +36,7 @@ export default function EditAdmin() {
         <div className="col mt-5 justify-content-center">
           <div className="row  justify-content-center">
             <div className="col-md-5 shadow">
-              <h3 className="text-center">Edit Staff</h3>
+              <h3 className="text-center">Edit Admin</h3>
 
               <Form
                 onSubmit={(e) => {

@@ -42,7 +42,7 @@ export default function SolveComp() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-2">
+        <div className="col-sm-2" style={{ zIndex: "999" }}>
           <AdminNav />
         </div>
 

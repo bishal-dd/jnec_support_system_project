@@ -69,6 +69,7 @@ export default function HomeComp() {
                   id="name"
                   name="name"
                   className="form-control rounded bg-light "
+                  placeholder="Enter your name"
                   value={name}
                   onChange={handleChange}
                   required
@@ -94,6 +95,7 @@ export default function HomeComp() {
                   name="phone"
                   className="form-control rounded bg-light"
                   pattern="[0-9]{8}"
+                  placeholder="00000000"
                   value={phone}
                   onChange={handleChange}
                   required
@@ -123,6 +125,7 @@ export default function HomeComp() {
                   rows="4"
                   className="form-control rounded bg-light"
                   onChange={handleChange}
+                  placeholder="please mention the location if required for your issue"
                   value={issue_summary}
                   required
                 ></textarea>
@@ -133,6 +136,7 @@ export default function HomeComp() {
                   type="file"
                   id="issue_image"
                   name="issue_image"
+                  accept="image/*"
                   className="form-control-file p-2 rounded"
                   onChange={handleChange}
                 />

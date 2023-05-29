@@ -95,7 +95,11 @@ const AdminNav = () => {
             </div>
             {!isMobile && (
               <div className="closemenu" onClick={menuIconClick}>
-                {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
+                {menuCollapse ? (
+                  <FiArrowRightCircle className="arrow-icon" />
+                ) : (
+                  <FiArrowLeftCircle className="arrow-icon" />
+                )}
               </div>
             )}
           </SidebarHeader>

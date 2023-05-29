@@ -35,7 +35,7 @@ export default function DeleteWorkerComp() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-sm-2">
-          <div className="sidebar">
+          <div className="sidebar" style={{ zIndex: "999" }}>
             <AdminNav />
           </div>
         </div>

@@ -45,7 +45,12 @@ export default function ViewerHome() {
         return false;
       if (selectedIssueType && item.issue_type !== selectedIssueType)
         return false;
-      if (selectedStatus && item.status !== selectedStatus) return false;
+      if (
+        selectedStatus &&
+        item.status !== selectedStatus &&
+        !(selectedStatus === "not_assigned" && !item.status)
+      )
+        return false;
       return true;
     });
 
@@ -132,6 +137,7 @@ export default function ViewerHome() {
                 <option value="assigned">Assigned</option>
                 <option value="working">Working</option>
                 <option value="solved">Solved</option>
+                <option value="not_assigned">Not Assigned</option>
               </select>
             </div>
 
@@ -181,7 +187,17 @@ export default function ViewerHome() {
                       return false;
                     if (selectedIssueType && i.issue_type !== selectedIssueType)
                       return false;
-                    if (selectedStatus && i.status !== selectedStatus)
+                    if (
+                      selectedStatus &&
+                      i.status !== selectedStatus &&
+                      !(selectedStatus === "not_assigned" && !i.status)
+                    )
+                      return false;
+                    if (
+                      selectedStatus &&
+                      i.status !== selectedStatus &&
+                      !(selectedStatus === "not_assigned" && !i.status)
+                    )
                       return false;
                     return true;
                   })

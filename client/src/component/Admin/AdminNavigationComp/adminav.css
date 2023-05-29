@@ -100,4 +100,7 @@
   #header .closemenu {
     top: 55px;
   }
+  .arrow-icon {
+    z-index: 999;
+  }
 }

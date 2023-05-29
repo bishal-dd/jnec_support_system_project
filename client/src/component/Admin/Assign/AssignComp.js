@@ -68,10 +68,8 @@ export default function AssignComp() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-2">
-          <div>
-            <AdminNav />
-          </div>
+        <div className="col-sm-2" style={{ zIndex: "999" }}>
+          <AdminNav />
         </div>
         <div className="col mt-5">
           <div className="table-wrapper">
@@ -156,7 +154,7 @@ export default function AssignComp() {
                                 assignWorker(selectedWorkerId, item.id)
                               }
                             >
-                              Reassign
+                              Re-assign
                             </button>
                           </div>
                         </th>
