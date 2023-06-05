@@ -24,6 +24,7 @@ import WorkingComp from "./component/Admin/WorkingComp/WorkingComp";
 import WorkerHistory from "./component/WorkerComp/WorkerHistory";
 import SuperAdmin from "./component/Super_Admin/SuperAdmin";
 import EditAdmin from "./component/Super_Admin/EditAdmin";
+import AdminIssues from "./component/Admin/AdminIssues/AdminIssues";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -47,6 +48,7 @@ function App() {
             <Route path="/admin/solve" element={<SolveComp />} />
             <Route path="/admin/assign" element={<AssignComp />} />
             <Route path="/admin/working" element={<WorkingComp />} />
+            <Route path="/admin/admin_issues" element={<AdminIssues />} />
           </Route>
 
           <Route element={<ProtectedWorkerRoute user={currentUser} />}>

@@ -8,7 +8,13 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import { FiHome, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { FaTrashAlt, FaUserPlus, FaUserEdit, FaCheck } from "react-icons/fa";
+import {
+  FaTrashAlt,
+  FaUserPlus,
+  FaUserEdit,
+  FaCheck,
+  FaPeopleArrows,
+} from "react-icons/fa";
 import { MdAssignmentAdd } from "react-icons/md";
 import { GrUserWorker } from "react-icons/gr";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -67,6 +73,8 @@ const AdminNav = () => {
         return "working";
       case "/admin/solve":
         return "solve";
+      case "/admin/admin_issues":
+        return "my_issues";
       default:
         return "";
     }
@@ -169,6 +177,15 @@ const AdminNav = () => {
               >
                 <Link to="/admin/solve" className="text-dark">
                   Solved
+                </Link>
+              </MenuItem>
+              <MenuItem
+                active={activeMenu === "my_issues"}
+                icon={<FaPeopleArrows />}
+                onClick={() => handleMenuClick("my_issues")}
+              >
+                <Link to="/admin/admin_issues" className="text-dark">
+                  My issues
                 </Link>
               </MenuItem>
             </Menu>

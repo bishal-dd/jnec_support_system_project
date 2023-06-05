@@ -91,6 +91,7 @@ export default function AssignComp() {
                       item.status === "assigned" &&
                       item.issue_type === currentUser.department
                   )
+                  .reverse()
                   .map((item, index) => {
                     return (
                       <tr key={index}>

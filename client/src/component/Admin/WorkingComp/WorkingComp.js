@@ -65,6 +65,7 @@ export default function WorkingComp() {
                       item.status === "working" &&
                       item.issue_type === currentUser.department
                   )
+                  .reverse()
                   .map((item, index) => {
                     return (
                       <tr key={index}>

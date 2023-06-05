@@ -63,7 +63,6 @@ export default function WorkerComp() {
       const response = await axios.get(
         `${process.env.REACT_APP_URL}/get_issue`
       );
-      console.log(response.data);
       setevent(response.data);
     } catch (error) {
       console.error(error);
