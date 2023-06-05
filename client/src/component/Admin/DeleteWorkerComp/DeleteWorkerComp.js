@@ -51,7 +51,11 @@ export default function DeleteWorkerComp() {
             </thead>
             <tbody className="text-dark">
               {worker
-                .filter((i) => i.department === currentUser.department)
+                .filter(
+                  (i) =>
+                    i.department === currentUser.department &&
+                    i.id !== currentUser.id
+                )
                 .map((item, index) => {
                   return (
                     <>
