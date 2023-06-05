@@ -146,6 +146,9 @@ export default function AdminHome() {
                               }
                             >
                               <option>Select Staff</option>
+                              <option value={currentUser.id}>
+                                <b>Self</b>
+                              </option>
                               {worker
                                 .filter(
                                   (item) =>

@@ -88,7 +88,10 @@ const AdminNav = () => {
         </div>
       )}
       {isMobile && menuCollapse ? null : (
-        <ProSidebar collapsed={menuCollapse}>
+        <ProSidebar
+          collapsed={menuCollapse}
+          className="border border-right border-top-0"
+        >
           <SidebarHeader>
             <div className="logotext">
               <p>HelpDesk</p>
