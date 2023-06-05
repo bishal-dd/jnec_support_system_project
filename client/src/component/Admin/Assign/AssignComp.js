@@ -23,14 +23,12 @@ export default function AssignComp() {
           worker_id: workerId,
         }
       );
-      if (response.data === "Assigned") {
-        toast.success("Assigned", {
-          className: "custom-toast",
-          position: toast.POSITION.TOP_CENTER,
-        });
-      }
+
       // Refresh the event list to show the updated worker assignment
       loadEvent();
+      if (response.data === "Assigned") {
+        toast.success("Assigned");
+      }
     } catch (error) {
       console.error(error);
     }

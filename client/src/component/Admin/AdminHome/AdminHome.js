@@ -24,10 +24,11 @@ export default function AdminHome() {
           worker_id: workerId,
         }
       );
+
+      loadEvent();
       if (response.data === "Assigned") {
         toast.success("Assigned");
       }
-      loadEvent();
     } catch (error) {
       console.error(error);
     }
@@ -44,10 +45,9 @@ export default function AdminHome() {
         }
       );
 
-      toast.success(response.data);
-
       // Refresh the event list to show the updated worker assignment
       loadEvent();
+      toast.success(response.data);
     } catch (error) {
       console.error(error);
     }
