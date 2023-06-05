@@ -84,8 +84,8 @@ export default function AdminHome() {
 
   return (
     <div className="container-fluid custom-container">
-      <div className="row">
-        <div className="col" style={{ zIndex: "999" }}>
+      <div className="row p-3">
+        <div className="col">
           <AdminNav />
         </div>
         <div className="col-lg-10 col-md-9 mt-5">

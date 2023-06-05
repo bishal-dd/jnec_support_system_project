@@ -40,8 +40,8 @@ export default function WorkingComp() {
 
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-2" style={{ zIndex: "999" }}>
+      <div className="row p-3">
+        <div className="col-sm-2">
           <AdminNav />
         </div>
 
