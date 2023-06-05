@@ -106,19 +106,23 @@ export default function ViewerHome() {
         <div className="col-md-8 mt-5">
           <form className="row justify-content-center">
             <div className="col-md-4 mb-3">
+              <label htmlFor="Month">Month:</label>
               <input
                 type="month"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
                 className="form-control"
+                id="Month"
               />
             </div>
 
             <div className="col-md-4 mb-3">
+              <label htmlFor="Issue Type">Issue Type:</label>
               <select
                 value={selectedIssueType}
                 onChange={(e) => setSelectedIssueType(e.target.value)}
                 className="form-control"
+                id="Issue Type"
               >
                 <option value="">All</option>
                 <option value="ICT">ICT</option>
@@ -128,10 +132,12 @@ export default function ViewerHome() {
             </div>
 
             <div className="col-md-4 mb-3">
+              <label htmlFor="Status">Status:</label>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="form-control"
+                id="Status"
               >
                 <option value="">All</option>
                 <option value="assigned">Assigned</option>

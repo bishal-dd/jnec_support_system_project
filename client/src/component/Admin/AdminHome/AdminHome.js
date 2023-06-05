@@ -28,7 +28,6 @@ export default function AdminHome() {
         toast.success("Assigned");
       }
       loadEvent();
-      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +48,6 @@ export default function AdminHome() {
 
       // Refresh the event list to show the updated worker assignment
       loadEvent();
-      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -113,6 +111,7 @@ export default function AdminHome() {
                         item.status !== "assigned" &&
                         item.issue_type === currentUser.department
                     )
+                    .reverse()
                     .map((item, index) => {
                       return (
                         <tr key={index}>

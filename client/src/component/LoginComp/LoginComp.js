@@ -58,7 +58,7 @@ export default function LoginComp() {
               <Form.Control
                 className="position-relative"
                 type="name"
-                placeholder="Email"
+                placeholder="Username"
                 required
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}

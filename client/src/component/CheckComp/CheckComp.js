@@ -91,7 +91,7 @@ export default function CheckComp() {
                         ? "This issue is being worked on"
                         : event.status === "assigned"
                         ? "This issue was assigned"
-                        : "This not yet assigned"}
+                        : "This issue is not yet assigned"}
                     </td>
                   </tr>
                 ))}
