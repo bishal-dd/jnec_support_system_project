@@ -15,7 +15,6 @@ export default function AdminHome() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
   const assignWorker = async (workerId, issueId) => {
-    console.log(workerId);
     try {
       const response = await axios.put(
         `${process.env.REACT_APP_URL}/assign_issue/${issueId}`,
@@ -35,7 +34,6 @@ export default function AdminHome() {
   };
 
   const assignDepartment = async (Department, issueId) => {
-    console.log(Department);
     try {
       const response = await axios.put(
         `${process.env.REACT_APP_URL}/foward_issue/${issueId}`,
