@@ -3,10 +3,10 @@ import "./navbarcomp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import logo from "../../assets/logo.png";
 
 export default function NavbarComp() {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -22,7 +22,7 @@ export default function NavbarComp() {
     <nav className="navbar navbar-expand-lg fixed-top bg-dark bg-body-tertiary">
       <div className="container-fluid">
         <img
-          src="https://res.cloudinary.com/dnmtsuwhc/image/upload/v1685278570/logo_gcl1az.png"
+          src={logo}
           width="160"
           className="rounded-2"
           height="50"

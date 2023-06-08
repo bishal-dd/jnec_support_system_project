@@ -14,6 +14,7 @@ export default function HomeComp() {
   };
 
   const [state, setState] = useState(initialState);
+  const [showInstruction, setShowInstruction] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +48,10 @@ export default function HomeComp() {
     } else {
       setState({ ...state, [name]: value });
     }
+  };
+
+  const toggleInstruction = () => {
+    setShowInstruction(!showInstruction);
   };
 
   const { name, email, phone, issue_type, issue_summary } = state;
@@ -151,22 +156,47 @@ export default function HomeComp() {
                   Submit Issue
                 </button>
               </div>
-              {/* <div className="col">
+              <div className="col">
                 {" "}
                 <p className="mt-4">
-                  <b>Instruction--</b>
+                  <span onClick={toggleInstruction} className="text-primary">
+                    Instruction--
+                  </span>
                 </p>
-              </div> */}
+              </div>
             </div>
           </form>
-          <div className="border border-dark p-3 mt-3 rounded-3">
-            Instruction
-            <br />
-            <ol>
-              <li>First</li>
-              <li>Second</li>
-            </ol>
-          </div>
+          {showInstruction ? (
+            <div className="border border-dark p-3 mt-3 rounded-3">
+              Instruction
+              <br />
+              <ul>
+                <li>
+                  You can enter the information like name,email and number so
+                  that we can keep you updated
+                </li>
+                <li>Then you choose the most appropriate issue type</li>
+                <ul>
+                  <li>
+                    ICT for anything related to computers,laptops and network
+                  </li>
+                  <li>
+                    Estate for anything relating to electrical, plumbing,masonry
+                    and carpentry
+                  </li>
+                  <li>Academic for anything related to your studies</li>
+                </ul>
+                <li>
+                  Then you can provide a detailed summary of the issue you are
+                  facing
+                </li>
+                <li>
+                  Finally you can provide a image, so that we can get a clear
+                  picture of your issue
+                </li>
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
