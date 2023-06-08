@@ -173,26 +173,26 @@ export default function HomeComp() {
               <ul>
                 <li>
                   You can enter the information like name,email and number so
-                  that we can keep you updated
+                  that we can keep you updated.
                 </li>
-                <li>Then you choose the most appropriate issue type</li>
+                <li>Then you choose the most appropriate issue type:</li>
                 <ul>
                   <li>
-                    ICT for anything related to computers,laptops and network
+                    <b>ICT</b> for anything related to computers, laptops and
+                    network.
                   </li>
                   <li>
-                    Estate for anything relating to electrical, plumbing,masonry
-                    and carpentry
+                    <b>Estate</b> for anything relating to electrical, plumbing,
+                    masonry, carpentry etc...
                   </li>
-                  <li>Academic for anything related to your studies</li>
+                  <li>
+                    <b>Academic</b> for anything related to your studies.
+                  </li>
                 </ul>
+                <li>Then you can provide a detailed summary of the issue.</li>
                 <li>
-                  Then you can provide a detailed summary of the issue you are
-                  facing
-                </li>
-                <li>
-                  Finally you can provide a image, so that we can get a clear
-                  picture of your issue
+                  Finally you can provide a image {"(if any)"} , so that we can
+                  get a clear picture of your issue.
                 </li>
               </ul>
             </div>
