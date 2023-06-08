@@ -142,11 +142,31 @@ export default function HomeComp() {
                 />
               </div>
             </div>
-
-            <button type="submit" className="btn btn-primary mt-3 rounded-2">
-              Submit Issue
-            </button>
+            <div className="row">
+              <div className="col">
+                <button
+                  type="submit"
+                  className="btn btn-primary mt-3 rounded-2"
+                >
+                  Submit Issue
+                </button>
+              </div>
+              {/* <div className="col">
+                {" "}
+                <p className="mt-4">
+                  <b>Instruction--</b>
+                </p>
+              </div> */}
+            </div>
           </form>
+          <div className="border border-dark p-3 mt-3 rounded-3">
+            Instruction
+            <br />
+            <ol>
+              <li>First</li>
+              <li>Second</li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
